@@ -25,7 +25,9 @@ and specific heat.
 Important core geometry parameters were calculated. The coolant flow area,
 average distance of conduction in the fuel, volume fraction of cladding in
 coolant, number of coolant channels, convection surface area, LD, and the cross
-sectional area for conduction in the fuel.
+sectional area for conduction in the fuel. The core radius is set by a critical
+radius constraint dependent on the fuel fraction. This will be discussed in a
+later section.
 
 Fuel area and volume is derived from the core radius and fuel fraction. Where
 $AR$ is the core aspect ratio.
@@ -79,7 +81,7 @@ The average distance to conduction is derived from fuel area and number of
 channels.
 
 \begin{equation}
-    \frac{\sqrt{\frac{A_{fuel}}{N_{channels}}}}{2}
+    R_{cond} = \frac{\sqrt{\frac{A_{fuel}}{N_{channels}}}}{2}
     \label{r_cond}
 \end{equation}
 
@@ -119,6 +121,12 @@ characteristic flow length (channel diameter, D).
 The Nusselt number is calculated using the same correlations as EES. Laminar,
 turbulent, and transitional flows are all treated differently.
 
+The average heat transfer coefficient is derived from the Nusselt number and
+thermal conductivity of the fluid.
+
+\begin{equation}
+    \bar{h} = \frac{Nu k_{cool}}{D}
+\end{equation}
 
 \subsection{1D Thermal Generation Modeling}
 
@@ -130,5 +138,49 @@ the clad to the coolant. Gap and interface resistances were ignored.
 
 Resistance to conduction in the fuel was approximated as plane wall conduction.
 \begin{equation}
-    R_{fuel} = 1 
+    R_{fuel} =  \frac{R_{cond}}{k_{fuel}A_{cond}}
 \end{equation}
+
+\begin{equation}
+    R_{clad} = log(1+\frac{t_{clad}}{r_{channel}})
+\end{equation}
+
+\begin{equation}
+    R_{conv} = \frac{1}{2\bar{h}r_{channel}L\pi N_{channels}}
+\end{equation}
+
+The maximum heat transfer rate at the fuel centerline was derived from the
+resistance network and the temperature drop. The temperature drop was determined
+by the maximum fuel temperature (estimated to be half the melting temperature of
+the fuel) and the bulk coolant temperature.
+
+\begin{equation}
+    Q^{'''}_{max} = \frac{dT}{R_{fuel} + R_{clad} + R_{conv}}
+\end{equation}
+
+Finally, the thermal generation at fuel centerline is scaled by the axial and
+radial flux profiles to account for the cosine and bessel function shapes of the
+flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport.
+
+\begin{equation}
+    Q_{gen} = Q^{'''}_{max} * 0.275
+\end{equation}
+
+\subsection{1D Thermal Hydraulic Calcuations}
+
+    The governing equations above describe a coolable
+reactor design. A Python code was written to solve the system of equations
+defining the geometry, flow conditions, and 1D heat transfer in the reactor. The
+code utilizes Scipy's optimization package. The 'optimize\_scalar' function is
+used to guess fuel fraction values. For each fuel fraction, the above equations
+are used to determine $Q_{gen}$, an error exists between $Q_{gen}$ and the
+required thermal reactor output dictated by the power cycle requirements. The
+optimization function minimizes the squared difference between $Q_{gen}$ and the
+thermal power requirements. When the solver converges on a fuel fraction, the
+code returns a coolable reactor design. Since the core radius was set by a
+critical radius constraint, this reactor is also neutronically valid for the
+duration of the 10 year mission.
+    The thermal hydrauilc code also calculates the mass of each reactor. This
+mass includes fuel, cladding, coolant, reflector material and the pressure
+vessel. The pressure vessel thickness was calculated as a function of pressure
+and outer core radius (including the reflector) for stainless steel at \~700K.
