@@ -1,0 +1,134 @@
+\section{Thermal Hydraulic Theory}
+
+    The second constraint of a valid reactor design is coolability. The reactor must
+not melt and the integrity of the fuel must be maintained for the duration of
+the mission. To ensure the thermal hydraulic validity of a chosen design, 
+
+    1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
+heat transfer and fluid equations were coupled with analytical flux shape
+factors from nuclear engineering literature to determine the maximum extractable
+thermal power for each reactor design. A 1D resistance network is used to
+determine the maximum thermal generation for a given core design and temperature
+drop between fuel meat and coolant.
+
+\subsection{Flow Properties}
+All flow properties were axially averaged between their inlet and outlet values.
+The inlet and outlet flow conditions, thermal power, and mass flow rate are
+dictated by the power cycle configuration and requirements. Property tables for
+both CO2 and H2O coolants as a function of perssure and temperature were 
+generated using EES and interpolated using SciPy's 2D interpolation functions.
+The interpolated properties included: thermal conductivity, density, viscosity,
+and specific heat.
+
+\subsection{Core Geometry}
+
+Important core geometry parameters were calculated. The coolant flow area,
+average distance of conduction in the fuel, volume fraction of cladding in
+coolant, number of coolant channels, convection surface area, LD, and the cross
+sectional area for conduction in the fuel.
+
+Fuel area and volume is derived from the core radius and fuel fraction. Where
+$AR$ is the core aspect ratio.
+
+\begin{equation}
+    A_{fuel} = frac_{fuel}*r_{core}^2*\pi
+\end{equation}
+\begin{equation}
+    V_{fuel} = A_{cool}*AR*r_{core}
+\end{equation}
+
+The fraction of cladding in the coolant is derived from the coolant channel
+radius and cladding thickness.
+
+\begin{equation}
+    frac_{clad} = \frac{(r_{channel} + t_{clad})^2 - r_{channel}^2}{r_{channel}^2} 
+\end{equation}
+
+In a similar vein, coolant flow area is derived from the core radius, cladding
+fraction, and fuel fraction
+
+\begin{equation}
+    A_{cool} = (1-frac_{fuel})*(1-frac_{clad})*r_{core}^2*\pi
+\end{equation}
+
+\begin{equation}
+    V_{cool} = A_{cool}*AR*r_{core}
+\end{equation}
+
+The number of coolant channels is derived from the area of each channel and the
+core flow area.
+
+\begin{equation}
+    N_{channels} = \frac{A_{cool}}{(r_{channel} + t_{clad})^2 * \pi}
+\end{equation}
+
+The convection surface area is dervied from the channel radius, core length, and
+number of channels.
+
+\begin{equation}
+    A_{conv} = 2*r_{channel}*\pi*r_{core}*AR*N_{channels}    
+\end{equation}
+
+The length over diameter is derived from the channel radius and core length.
+
+\begin{equation}
+    LD = \frac{r_{core}*AR}{2*r_{channel}}
+\end{equation}
+
+The average distance to conduction is derived from fuel area and number of
+channels.
+
+\begin{equation}
+    \frac{\sqrt{\frac{A_{fuel}}{N_{channels}}}}{2}
+    \label{r_cond}
+\end{equation}
+
+The cross sectional area for conduction in the fuel was conservatively estimated
+as the convection surface area. In reality, the cross-sectional area changes as
+heat transfers from the center of the fuel meat to the coolant channels.
+
+
+These are the important equations defining the 1D geometry for a coolable
+reactor. Once the geometry has been defined, the flow conditions are modeled.
+
+\subsection{Flow Equations}
+
+Once the core geometry has been defined, the flow is characterized using
+bulk-averaged flow conditions and the reactor geometry. The mass flux, coolant
+velocity, Reynold's number, Nusselt number and average heat transfer
+coefficients are calculated.
+
+Mass flux is derived from flow area and the mass flow rate dictated by the power
+cycle. Flow velocity can be calculate from mass flux and density.
+
+\begin{equation}
+    \dot{G} = \frac{\dot{m}}{A_{flow}}
+\end{equation}
+
+\begin{equation}
+    v = \frac{\dot{G}}{\rho}
+\end{equation}
+
+The Reynold's number is derived from flow velocity, density, viscosity, and the
+characteristic flow length (channel diameter, D).
+
+\begin{equation}
+    Re = \frac{\rho v D}{\mu}
+\end{equation}
+
+The Nusselt number is calculated using the same correlations as EES. Laminar,
+turbulent, and transitional flows are all treated differently.
+
+
+\subsection{1D Thermal Generation Modeling}
+
+With a fully defined geometry and fully characterized flow, the maximum thermal
+output of the core is calculated. The maximum generation (at the center of the
+core) is calculated using a 1D resistance network. The three resistances in the
+network are: conduction in the fuel, conduction in the clad, and convection from
+the clad to the coolant. Gap and interface resistances were ignored.
+
+Resistance to conduction in the fuel was approximated as plane wall conduction.
+\begin{equation}
+    R_{fuel} = 1 
+\end{equation}
