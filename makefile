@@ -7,7 +7,7 @@ clean:
 	rm mass_model/*aux
 	rm nd_sweeps/*aux
 thesis:
-	pdflatex thesis.tex
+	pdflatex --shell-escape thesis.tex
 
 outline:
 	pdflatex outline/outline.tex

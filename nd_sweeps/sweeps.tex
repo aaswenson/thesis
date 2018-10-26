@@ -39,4 +39,31 @@ shown in Table \ref{tab:lhs_sweep_vars}.
   \label{tab:lhs_sweep_vars}
 \end{table}
 
+\subsection{Neutronics Sampling Results}
+The target metric for the neutronics sampling was an EOL \keff equal to one. In
+order to determine the dependence of EOL \keff on each swept parameter in Table
+\ref{tab:lhs_sweep_vars}, EOL \keff was plotted against the parameters.
+
+\subsubsection{Thermal Power}
+Initially, the result of greatest interest was the mass dependence on thermal
+power because thermal power was the coupling parameter with the power cycle.
+Figure \ref{fig:eol_keff_vs_power} shows the relationship between thermal power
+and EOL \keff.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=3in]{nd_sweeps/keff_vs_power.png}
+\caption{EOL \keff Power Dependence}
+\label{fig:eol_keff_vs_power}
+\end{figure}
+
+As shown in Figure \ref{fig:eol_keff_vs_power}, EOL \keff is independent of core
+thermal power. This result is not surprising considering the depletion rates in
+the core. Assuming 1 MWd/gU is an achievable burnup, the reactor depletes
+approximately 1000 kg of uranium at 200 kW of thermal power. The depletion mass
+of uranium is negligigle compared to the mass of uranium required for the
+reactor to be critical at BOL. Thermal power is not a strong predictor of EOL
+criticality.
+
+\subsubsection{Uranium 235 Mass}
 
