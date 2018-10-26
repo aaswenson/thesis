@@ -1,0 +1,42 @@
+\section{Neutronic Constraints}
+
+A valid reactor design must meet certain neutronics constraints. The main
+neutronics constraint is reactivity. The reactor must be able to sustain a chain
+reaction from startup, to the final second of the 10 year lifetime. End of Life
+(EOL) reactivity was the target metric for the neutronic design of the core. It
+was important to determine which reactor parameters had the strongest impact on
+EOL \keff. An n-dimensional sampling was performed to explore EOL \keff
+dependence on various reactor parameters.
+
+\subsection{Neutronics Parameters}
+Homogeneous MCNP6.1 depletion models were used to analyze the EOL \keff response
+to neutronics parameters (predictors). The core region was homogenized and
+surrounded by a graphite reflector. A large set of 5-dimensional predictors and
+EOL \keff results was produced to investigate the neutronics parameter space.
+These predictors and their results helped develop an understanding of the
+reactor response to important design and operational parameters. High Throughput
+Computing capabilities at UW were used to perform 3901 depletion calculations
+with MCNP6.1. Each model represents a unique sampling in every dimension using
+the Latin Hypercube Sampling (LHS) technique. The LHS technique ensured even
+sampling for every dimension. The sampled and fixed dimensions/parameters are
+shown in Table \ref{tab:lhs_sweep_vars}.
+
+\begin{table}[h]
+  \centering
+  \caption{Homogeneous Geometry and Depletion Parameters}
+  \begin{tabular}{ll}
+    \toprule
+     Core Radius                		   & 10 - 50 [cm] \\
+     Reflector Thickness				   & 15 [cm]\\
+     Core Aspect Ratio					   & 1 [-] \\
+     Coolant Channel Radius                & 0.5 - 1 [cm] \\
+     Fuel Pitch to Coolant Channel D.      & 1.1-1.6 [-]\\
+     Fuel Enrichment 					   & 20\% - 90\% $^{235}$U\\
+     Thermal Power						   & 80-200 [kW]\\
+     Fuel Temp  						   & 300 [K]\\
+     Reactor Physics Code, Data			   & MCNP6.1, ENDF-7.2
+  \end{tabular}
+  \label{tab:lhs_sweep_vars}
+\end{table}
+
+

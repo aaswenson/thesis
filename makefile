@@ -4,6 +4,8 @@ clean:
 	rm background/background.aux
 	rm intro/intro.aux
 	rm outline/outline.aux
+	rm mass_model/*aux
+	rm nd_sweeps/*aux
 thesis:
 	pdflatex thesis.tex
 
