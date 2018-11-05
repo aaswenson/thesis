@@ -10,4 +10,4 @@ preview: pdf
 	evince thesis.pdf 
 
 clean:
-#	git clean -dfx .
+	git clean -dfx .
