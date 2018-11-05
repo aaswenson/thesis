@@ -24,7 +24,6 @@
 \input{includes/defs}
 \input{includes/thesisdefs}
 
-\svnidlong{$LastChangedBy$}{$LastChangedRevision$}{$LastChangedDate$}{$HeadURL: http://freevariable.com/dissertation/branches/diss-template/dissertation.tex $} 
 
 \clearpage\pagenumbering{roman}  % This makes the page numbers Roman (i, ii, etc)
 
@@ -50,16 +49,17 @@
 
 \maketitle
 
+
 %% Add \part declarations if you want, but it's not necessary
 %\part{Preliminaries}
 
 \include{frontmatter/frontmatter}
 
 %% Now include the tex files for each chapter, like so (I put these in separate dirs): 
-\include{intro/intro}
-\include{background/background}
-\include{nd_sweeps/sweeps}
-\include{mass_model/th}
+\include{chapters/intro}
+\include{chapters/background}
+\include{chapters/sweeps}
+\include{chapters/th}
 %% etc, etc.
 
 %% Do you have appendices?  If so, add them here, just like chapters.
@@ -72,9 +72,10 @@
 \input{backmatter/colophon}
 \end{colophon}
 
+
 %% McBride is a very nice style (some version is included in this distribution)
 \bibliographystyle{mcbride}
-\bibliography{your-bib-file}
+\bibliography{bibliography}
 
 %% Want an index?  Neither did I.
 %\printindex

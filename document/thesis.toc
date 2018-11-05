@@ -1,0 +1,24 @@
+\contentsline {chapter}{Contents}{iii}{section*.4}
+\contentsline {chapter}{List of Tables}{iv}{section*.6}
+\contentsline {chapter}{List of Figures}{v}{section*.8}
+\contentsline {chapter}{Abstract}{vi}{chapter*.9}
+\contentsline {section}{\numberline {0.1}Previous Space Reactor Work}{1}{section.0.1}
+\contentsline {subsection}{Radioisotope Thermoelectric Generators}{1}{section*.10}
+\contentsline {subsection}{SP-100}{1}{section*.11}
+\contentsline {subsection}{Kilopower}{1}{section*.12}
+\contentsline {subsection}{Fission Concepts}{1}{section*.13}
+\contentsline {subsection}{ Nuclear Thermal Propulsion }{1}{section*.14}
+\contentsline {section}{\numberline {0.2}Neutronic Constraints}{2}{section.0.2}
+\contentsline {subsection}{Neutronics Parameters}{2}{section*.15}
+\contentsline {subsection}{Neutronics Sampling Results}{2}{section*.16}
+\contentsline {subsubsection}{Thermal Power}{3}{section*.17}
+\contentsline {subsubsection}{Uranium 235 Mass}{4}{section*.18}
+\contentsline {section}{\numberline {0.3}Thermal Hydraulic Theory}{5}{section.0.3}
+\contentsline {subsection}{Flow Properties}{5}{section*.19}
+\contentsline {subsection}{Core Geometry}{5}{section*.20}
+\contentsline {subsection}{Flow Equations}{7}{section*.21}
+\contentsline {subsection}{1D Thermal Generation Modeling}{8}{section*.22}
+\contentsline {subsection}{1D Thermal Hydraulic Calcuations}{9}{section*.23}
+\contentsline {subsection}{Reactor Mass Modeling Results}{9}{section*.24}
+\contentsline {chapter}{Colophon}{10}{chapter*.25}
+\contentsline {chapter}{References}{11}{section*.27}
