@@ -1,11 +1,41 @@
 \section{Critical Core Radius}
 
-The conclusion of the neutronics parameter sweeps is that EOL \keff is only
-strongly dependent on \uran mass in a core. It follows that a critical core
-constraint can be imposed on the thermal hydraulic equations in section to
-determine the required radius of a reactor given a fuel fraction. For each
-reactor design, a critical radius curve was produced to support modeling of a
-critical, coolable reactor mass. The critical radius curves were produced using
-homogeneous MCNP6.1 models of the reactor \citep{MCNP_citation}.
+Neutronic viability is an important part of reactor design. The figure of merit
+for neutronics is EOL \keff. The reactor must be able to sustain a fission
+chain reaction from startup to shutdown on the final day of the 10 year mission.
+
+The criticality requirement is the second of two major criteria for a valid reactor design and an
+important constraint in the thermal hydraulic modeling process. As a result,
+modeling criticality of various reactor configurations demands its own chapter
+in this thesis. Criticality modeling started with depletion modeling, reported
+in section \ref{neutronics_sweeps}. The purpose and conclusion of the depletion
+modeling was that thermal power and small geometric features were of low
+importance when predicting EOL \keff. In addition, higher enrichment will always
+be prefferred to lower enriched uranium.
+
+The thermal-hydraulic modeling scheme
+reported in section \ref{reactor_mass_model} requires a constraint for the core
+radius. A relationship between core radius and fuel fraction for a target
+value of \keff was developed using traditional reactor physics tools. In lieu of
+full depletion modeling, BOL \keff was modeled and the \keff target adjusted to
+ensure sufficient excess reactivity for 10 years of full-power operation.
+
+There were three major components to developing the critical core radius
+constraints, determining a value for BOL excess reactivity that would satisfy
+EOL \keff > 1, optimizing the reflector radius for each fuel type to minimize
+overall mass, and generating the relationship between fuel fraction and the
+required core radius to meet the target \keff value. Critical core radius is a
+bit of a misnomer, since the target of this analysis was a BOL excess
+reactivity.
 
 \subsection{Optimized Reflector Thicknesses}
+Reflectors are used in nuclear reactor design to reduce neutron leakage from the
+reactor core. Reflectors can reduce required fuel mass by reflecting neutrons
+back into the core and preventing them from being lost to leakge. However,
+adding reflector thickness to the outside of the core adds mass to the overall
+reactor system. There exists a tradeoff between mass of fuel and mass of
+reflector and an optimal combination of the two. The purpose of this analysis
+was to optimize reflector thickness as a multiplier of the overall core radius.
+This analysis was done for each fuel-coolant combination.
+
+\subsubsection{Modeling Methods}

@@ -1,9 +1,31 @@
-\section{Thermal Hydraulic Theory}
+\section{Reactor Mass Model} \label{reactor_mass_model}
+The reactor mass model was created as a submodel of the power cycle mass
+model. The reactor mass model was designed to take flow property inputs (T, P,
+$\dot{m}$) and constrain a reactor concept that is both coolable, and critical
+after 10 years of full power operation. The attribute of interest is the mass of
+the valid concept, but other useful values such as geometry, fuel fraction,
+and fluid-flow paramters are available from the solver. Before the mass model
+could be built, some important design decisions needed to be made.
 
-    The second constraint of a valid reactor design is coolability. The reactor must
+\subsection{Initial Design Constraints}
+    In order to develop a reactor mass model, the concept was constrained with
+some general design decisions. The chosen design needed to be simple and robust. The simplest reactor fuel concept is block fuel with coolant channels. 
+Block fuel is a common design choice for space reactors that operate at relatively 
+low power and burnup compared to power reactors. Two fuel types were chosen; one for
+near-term and the other for long-term technological readiness options. Uranium
+oxide was chosen as the near-term fuel option for its high melting temperature.
+UMo and UN fuel were not considered because of tempearture limitations, despite
+their thermal conductivity and uranium density advantages. Inconel-718 was
+chosen as cladding for its high temperature strength and corrosion
+compatability with sCO$_2$. With these design choices, the reactor mass model
+could be developed from first principle heat transfer and fluid flow equations
+coupled with a critical core radius constraint.
+
+
+\subsection{Thermal Hydraulic Theory}
+    The first major constraint of a valid reactor design was coolability. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
 the mission. To ensure the thermal hydraulic validity of a chosen design, 
-
     1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
 heat transfer and fluid equations were coupled with analytical flux shape
 factors from nuclear engineering literature to determine the maximum extractable
@@ -11,7 +33,7 @@ thermal power for each reactor design. A 1D resistance network is used to
 determine the maximum thermal generation for a given core design and temperature
 drop between fuel meat and coolant.
 
-\subsection{Flow Properties}
+\subsubsection{Flow Properties}
 All flow properties were axially averaged between their inlet and outlet values.
 The inlet and outlet flow conditions, thermal power, and mass flow rate are
 dictated by the power cycle configuration and requirements. Property tables for
@@ -20,7 +42,7 @@ generated using EES and interpolated using SciPy's 2D interpolation functions.
 The interpolated properties included: thermal conductivity, density, viscosity,
 and specific heat.
 
-\subsection{Core Geometry}
+\subsubsection{Core Geometry}
 
 Important core geometry parameters were calculated. The coolant flow area,
 average distance of conduction in the fuel, volume fraction of cladding in
@@ -93,7 +115,7 @@ heat transfers from the center of the fuel meat to the coolant channels.
 These are the important equations defining the 1D geometry for a coolable
 reactor. Once the geometry has been defined, the flow conditions are modeled.
 
-\subsection{Flow Equations}
+\subsubsection{Flow Equations}
 
 Once the core geometry has been defined, the flow is characterized using
 bulk-averaged flow conditions and the reactor geometry. The mass flux, coolant
@@ -128,7 +150,7 @@ thermal conductivity of the fluid.
     \bar{h} = \frac{Nu k_{cool}}{D}
 \end{equation}
 
-\subsection{1D Thermal Generation Modeling}
+\subsubsection{1D Thermal Generation Modeling}
 
 With a fully defined geometry and fully characterized flow, the maximum thermal
 output of the core is calculated. The maximum generation (at the center of the
@@ -166,7 +188,7 @@ flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport.
     Q_{gen} = Q^{'''}_{max} * 0.275
 \end{equation}
 
-\subsection{1D Thermal Hydraulic Calcuations}
+\subsubsection{1D Thermal Hydraulic Calcuations}
 
     The governing equations above describe a coolable
 reactor design. A Python code was written to solve the system of equations
@@ -184,7 +206,4 @@ duration of the 10 year mission.
 mass includes fuel, cladding, coolant, reflector material and the pressure
 vessel. The pressure vessel thickness was calculated as a function of pressure
 and outer core radius (including the reflector) for stainless steel at \~700K.
-
-\subsection{Reactor Mass Modeling Results}
-
 
