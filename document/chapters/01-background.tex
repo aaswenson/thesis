@@ -1,3 +1,47 @@
+\section{Background}
+Electrical power is vital for NASA to achieve its deep space exploration goals.
+Electricity powers life support systems for astronaut habitats, communication
+with Earth, and allows astronauts to perform experiments to help us better
+understand the solar system. Long-life, high-output, compact electrical power
+systems are vital to achieving future space exploration goals. Launch costs 
+often restrict the design of systems launched
+into space, currently NASA is under contract with SpaceX to deliver supplies to
+the International Space Station (ISS) in low-earth orbit (LEO). SpaceX delivers
+supplies to the ISS for more that \$55,000 per kg. Launch costs to Mars or the
+Moon will be significantly higher given the required energy to escape Earth
+orbit. As a consequence, when designing a terrestrial electrical system for
+solar system exploration, it is crucial to minimize the mass of the system. This
+project explored the mass tradeoff between the critical components of the
+electrical power system in order to minimize the mass of the system as a whole.
+
+\subsection{Scope}
+The purpose of this work was not to develop a fully-fledged reactor concept.
+High-fidelity core modeling of neutronics and thermal hydraulics was not
+performed for this work.
+This project focused on exploring the tradeoffs between reactor mass and the
+mass of significant components of the power cycle. Traditional reactor physics
+tools could not be used for depletion calculations because they are to slow to
+integrate into an optmization routine. As a result, this project focused on
+developing a surrogate model for the reactor mass to be integrated into the
+power cycle model. This model needed to take inputs from the power cycle and
+rapidly exceute to return the minimum mass reactor that could meet the thermal
+power requirement of the power cycle. The overall cycle was constrained to the
+target lifetime and power outputs dictated by the project sponsors. The reactor
+was modeled sufficiently such that future work could feasibly develop the
+concept into a deployable reactor within a reasonable amount of time.
+
+\subsection{Constraints}
+The two main constraints for the system were provided by the project sponsors,
+and ultimately dictated by NASA. NASA has identified the following performance
+requirements: a 10 year lifetime and a 40 kWe power level, as sufficient to
+support future terrestrial exploration throughout the solar system. All fuel
+options were available for the reactor with a preferance for high near-term
+technical readiness. The reactor will be direct-cooled and coupled to a
+supercritical carbon dioxide brayton cycle to produce the desired electrical
+output. The reactor will be used only for terrestrial applications, not in
+transit. This helps shielding mass, because the reactor can be buried prior to
+startup.
+
 \section{Previous Space Reactor Work}
 Using nuclear technology to power space systems is not a new concept. Various
 space programs have been using nuclear technology for decades to power

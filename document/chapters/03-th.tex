@@ -21,6 +21,56 @@ compatability with sCO$_2$. With these design choices, the reactor mass model
 could be developed from first principle heat transfer and fluid flow equations
 coupled with a critical core radius constraint.
 
+\subsubsection{Fuel Composition}
+Two reactor fuels were considered for modeling. The near term technical
+readiness choice was 93\% enriched \uox. The advanced fuel option investigated
+was uranium-tungsten cermet (UW). UW-cermet fuel is UN fuel suspended in a
+tungsten matrix. UW-cermet fuel has been considered for nuclear thermal
+propulsion due to its high thermal conductivity and resistance to fuel swelling.
+The tradeoff with UW-cermet fuel is a reduced uranium density, 60\% of the fuel
+volume is UN, 40\% is tungsten. As shown below in Table \ref{tab:uox_comp} and
+Table \ref{tab:uw_comp}, the \uox fuel has a significantly higher uranium
+density than the UW-CERMET fuel.
+
+\begin{table}[h]
+  \centering
+  \caption{\uox fuel composition}
+  \begin{tabular}{cc}
+    \toprule
+    Isotope   & Mass Fraction [-] \\
+    \midrule
+     8016     & 0.1520 \\
+    92235     & 0.7886 \\
+    92238     & 0.0594 \\
+  \end{tabular}
+  \label{tab:uox_comp}
+\end{table}
+    
+\begin{table}[h]
+  \centering
+  \caption{UW-CERMET fuel composition}
+  \begin{tabular}{cc}
+    \toprule
+    Isotope   & Mass Fraction [-] \\
+    \midrule
+     7015     &  0.0260 \\
+     74180    &  0.0006 \\ 
+     74182    &  0.1396 \\
+     74183    &  0.0758 \\
+     74184    &  0.1632 \\
+     74186    &  0.1531 \\
+     92235    &  0.4107 \\
+     92238    &  0.0309 \\
+  \end{tabular}
+  \label{tab:uw_comp}
+\end{table}
+
+\subsubsection{Fuel Design Modularity}
+A fuel design was chosen to constraint the reactor model. In order to support
+alternate designs, the reactor model was developed in a modular fashion.
+Different fuel configurations such as pin-type or TRISO particle fuel could be
+explored with a different set of heat transfer equations and criticality models.
+This will be discussed in more detail in following sections.
 
 \subsection{Thermal Hydraulic Theory}
     The first major constraint of a valid reactor design was coolability. The reactor must
