@@ -21,7 +21,7 @@ performed for this work.
 This project focused on exploring the tradeoffs between reactor mass and the
 mass of significant components of the power cycle. Traditional reactor physics
 tools could not be used for depletion calculations because they are to slow to
-integrate into an optmization routine. As a result, this project focused on
+integrate into an optmization routine. To support the optimizationo effort, this project focused on
 developing a surrogate model for the reactor mass to be integrated into the
 power cycle model. This model needed to take inputs from the power cycle and
 rapidly exceute to return the minimum mass reactor that could meet the thermal
@@ -36,7 +36,7 @@ and ultimately dictated by NASA. NASA has identified the following performance
 requirements: a 10 year lifetime and a 40 kWe power level, as sufficient to
 support future terrestrial exploration throughout the solar system. All fuel
 options were available for the reactor with a preferance for high near-term
-technical readiness. The reactor will be direct-cooled and coupled to a
+technical readiness. High enriched uranium is acceptable. The reactor will be direct-cooled and coupled to a
 supercritical carbon dioxide brayton cycle to produce the desired electrical
 output. The reactor will be used only for terrestrial applications, not in
 transit. This helps shielding mass, because the reactor can be buried prior to
@@ -91,6 +91,24 @@ fission designs was sought to help limit the design of the reactor. The choice
 for fuel was based off of past designs. Some designs that were explored include;
 SP-100, Kilopower, NTP concepts, and other solid-core design concepts.
     \subsubsection{SP-100}
+    SP-100 was a concept fission power system design part of the United State's
+    Strategic Defense Initiative (SDI). SDI was a defense program started by
+    Ronald Reagan to defend the United States against the Soviet Union's intercontinental
+    ballistic missiles. The cornerstone of the program was orbital systems to
+    intercept the missiles before they re-entered the atmosphere. These systems
+    had large electrical power requirements motivating the SP-100 project
+    \ref{sp100}.
+
+    SP-100 was a fission reactor coupled to thermoelectric converters that
+    generated 100 kWe. The reactor was cooled with liquid lithium. Uranium
+    nitride was chosen over \uox for its higher uranium density to allow a lower
+    overall fuel mass. Pin type fuel assemblies were chosen with Nb-1Zr/Re
+    cladding. Extensive material testing and irradiation was performed to
+    verify the performance of the chosen fuels. While SP-100 was never built, it
+    was a good example of a mature design concept developed for similar power
+    applications. The project was not only tailored to defense needs, peaceful
+    space exploration missions were also considered within the scope of the
+    project.
 
     \subsubsection{Kilopower}
     The Kilopower reactor is a near-term reactor prototype under development at Los
@@ -110,7 +128,28 @@ SP-100, Kilopower, NTP concepts, and other solid-core design concepts.
 
     \subsubsection { Nuclear Thermal Propulsion }
 
-    Nuclear thermal propulsion is a promising alternative to chemical rockets for
+    Nuclear thermal propulsion (NTP) is a promising alternative to chemical rockets for
     deep space missions. Nuclear thermal rockets improve the efficiency of
     traditional chemical rockets to drastically decrease the travel time to planets
-    in the solar system. 
+    in the solar system. NTP has been pursued by the United States Air Force
+    (USAF) and NASA in the past to shorten journeys to Mars. 
+
+    NTP works by heating a working fluid (hydrogen is most common) and
+    accelerating it through a de Laval nozzle creating thrust. Chemical rockets
+    heat the fluid through exothermic reactions. NTP engines rely on fission
+    energy to heat the fluid. Using fission power as the thermal energy source means the engine does not require and
+    oxidizing fuel to drive combustion.
+
+    In order for NTP to be viable, it must achieve thrust-to-weight performance
+    similar to chemical rockets. NTP achieves this with high temperatures, the
+    higher the operating temperature, the more energy the working fluid absorbs
+    and the greater specific impulse of the engine. Historically, the NERVA
+    program focused on graphite-moderated cores \ref{webb_combined_2011}, but
+    these reactors had poor material performance at high temperatures including
+    cladding cracking. More recent work has used CERMET fuel to reach higher
+    temperatures than previous designs. Uranium suspended in a tungsten matrix
+    can be pressed into blocks with coolant channels and can achieve remarkable
+    power densities (9.34 GW/m3) allowing for feasible NTP performance
+    \ref{webb_combined_2011}.
+
+
