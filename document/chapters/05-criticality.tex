@@ -1,4 +1,4 @@
-\section{Critical Core Radius}
+\section{Critical Core Radius}\label{crit_radius}
 
 Neutronic viability is an important part of reactor design. The figure of merit
 for neutronics is EOL \keff. The reactor must be able to sustain a fission
@@ -8,13 +8,13 @@ The criticality requirement is the second of two major criteria for a valid reac
 important constraint in the thermal hydraulic modeling process. As a result,
 modeling criticality of various reactor configurations demands its own chapter
 in this thesis. Criticality modeling started with depletion modeling, reported
-in section \ref{neutronics_sweeps}. The purpose and conclusion of the depletion
+in Section \ref{sec:sweeps}. The purpose and conclusion of the depletion
 modeling was that thermal power and small geometric features were of low
 importance when predicting EOL \keff. In addition, higher enrichment will always
 be prefferred to lower enriched uranium.
 
 The thermal-hydraulic modeling scheme
-reported in section \ref{reactor_mass_model} requires a constraint for the core
+reported in Section \ref{sec:mass_model} requires a constraint for the core
 radius. A relationship between core radius and fuel fraction for a target
 value of \keff was developed using traditional reactor physics tools. In lieu of
 full depletion modeling, BOL \keff was modeled and the \keff target adjusted to
@@ -28,6 +28,30 @@ optimized reflector thickness was also calculated to minimize total core mass.
 It is worth noting that critical core radius is a
 bit of a misnomer, since the target of this analysis was a BOL excess
 reactivity.
+
+\subsection{Excess Reactivity}
+As discussed in Section \ref{sec:sweeps}, EOL \keff is weakly dependent on
+thermal power. This means that EOL \keff can be modeled as BOL \keff with enough
+excess reactivity to account for depletion. With a target BOL reactivity,
+depletion neutronics can be modeled with simple criticality calculations. This
+is important because traditional depletion tools are too computationally
+expensive to explore the desired reactor parameter space. Excess reactivity was
+chosen based on the reactivity change in each of the 3901. Figure
+\ref{fig:delta_k_eol} shows the reactivity swing $(\delta k$) for every core
+with 100 kg < core mass < 500 kg. These bounds were chosen by initial analysis
+showing the reactor design would fall in this domain.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/dK_vs_mass.png}
+\caption{Reactivity swing over reactor lifetime}
+\label{fig:delta_k_eol}
+\end{figure}
+
+A BOL \keff of 1.01 was deemed sufficient to sustain the fission chain reaction
+through 10 years of full-power operation. This \keff target was used to define a
+critical core radius, and to optimize the reflector thickness multipliers
+(discussed in the following sections).
 
 \subsection{Critical Radius}
 In order to constrain the reactor mass model, a critical radius relationship to
@@ -66,12 +90,12 @@ resulting in the desired BOL excess reactivity. Figure
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=3in]{../images/crit_radius.png}
+    \includegraphics[width=4in]{../images/crit_radius.png}
 \caption{Critical core radius results}
 \label{fig:crit_core_radius}
 \end{figure}
 
-As shown in figure \ref{fig:crit_core_radius}, the \uox fuel outperforms the UW
+As shown in Figure \ref{fig:crit_core_radius}, the \uox fuel outperforms the UW
 cermet fuel in terms of critical mass. This is a result of the higher uranium
 density in the \uox. The coolants impact critical radius as well, albeit to a
 lesser extent. The \water
@@ -119,7 +143,7 @@ fuel-coolant combination was modeled with various reflector thickness
 multipliers. Homogeneous reactor core models with reflectors were modeled with
 MCNP6.1. A range of reflector multipliers was explored to determine the optimum
 multiplier that minimzed overall core mass. For each reflector multiplier, a critical radius search was performed
-to reach the target criticality found in section \ref{neutronics_sweeps}. Each
+to reach the target criticality found in Section \ref{sec:sweeps}. Each
 critical core with its reflector has a corresponding total mass. A 3rd degree
 polynomial curve was fit to the mass results with SciPy\citep{scipy}. The global
 minima of this curve was found unsing Scipy's optimization capabilities to
@@ -139,28 +163,28 @@ thicknesses.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=3in]{../images/opt_refl_CO2_UO2.png}
+    \includegraphics[width=4in]{../images/opt_refl_CO2_UO2.png}
 \caption{\codiox \uox optimal reflector thickness}
 \label{fig:uo2_co2_refl}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=3in]{../images/opt_refl_H2O_UO2.png}
+    \includegraphics[width=4in]{../images/opt_refl_H2O_UO2.png}
 \caption{\water \uox optimal reflector thickness}
 \label{fig:uo2_h2o_refl}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=3in]{../images/opt_refl_CO2_UN.png}
+    \includegraphics[width=4in]{../images/opt_refl_CO2_UN.png}
 \caption{\codiox UW optimal reflector thickness}
 \label{fig:uw_co2_refl}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=3in]{../images/opt_refl_H2O_UN.png}
+    \includegraphics[width=4in]{../images/opt_refl_H2O_UN.png}
 \caption{\water \uox optimal reflector thickness}
 \label{fig:uw_h2o_refl}
 \end{figure}
@@ -185,4 +209,3 @@ Each fuel fraction has a unique optimal reflector multiplier. This optimization
 was performed for each fuel fraction as part of the critical radius searches.
 Figures REF TEH FIGURES HERE show the result for
 each core of the reflector optimization as a function of fuel fraction.
-

@@ -1,4 +1,4 @@
-\section{Reactor Mass Model} \label{reactor_mass_model}
+\section{Reactor Mass Model} \label{sec:mass_model}
 The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
 $\dot{m}$) and constrain a reactor concept that is both coolable, and critical
@@ -24,7 +24,7 @@ coupled with a critical core radius constraint.
 \subsubsection{Fuel Composition}
 Two reactor fuels were considered for modeling. The near term technical
 readiness choice was 93\% enriched \uox. The advanced fuel option investigated
-was uranium-tungsten cermet (UW). UW-cermet fuel is UN fuel suspended in a
+was 93\% enriched uranium-tungsten cermet (UW). UW-cermet fuel is UN fuel suspended in a
 tungsten matrix. UW-cermet fuel has been considered for nuclear thermal
 propulsion due to its high thermal conductivity and resistance to fuel swelling.
 The tradeoff with UW-cermet fuel is a reduced uranium density, 60\% of the fuel
@@ -232,7 +232,8 @@ the fuel) and the bulk coolant temperature.
 
 Finally, the thermal generation at fuel centerline is scaled by the axial and
 radial flux profiles to account for the cosine and bessel function shapes of the
-flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport.
+flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport
+\citep{heat_trans_wakil}.
 
 \begin{equation}
     Q_{gen} = Q^{'''}_{max} * 0.275
