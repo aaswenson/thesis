@@ -253,7 +253,18 @@ thermal power requirements. When the solver converges on a fuel fraction, the
 code returns a coolable reactor design. Since the core radius was set by a
 critical radius constraint, this reactor is also neutronically valid for the
 duration of the 10 year mission.
+
     The thermal hydrauilc code also calculates the mass of each reactor. This
 mass includes fuel, cladding, coolant, reflector material and the pressure
 vessel. The pressure vessel thickness was calculated as a function of pressure
-and outer core radius (including the reflector) for stainless steel at \~700K.
+and outer core radius (including the reflector) for stainless steel at \~700K
+using an ASME vessel thickness standard. Equation \ref{eq:pv_thick} was used to
+define the pressure vessel thickness. This correlation is a conservative
+estimate for pressure vessels and is adequate to ensure the integrity of the
+vessel.
+
+\begin{equation}
+    T_{vessel} = \frac{RP}{S + 0.6P}
+    \label{eq:pv_thick}
+\end{equation}
+
