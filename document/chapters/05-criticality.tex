@@ -29,6 +29,12 @@ It is worth noting that critical core radius is a
 bit of a misnomer, since the target of this analysis was a BOL excess
 reactivity.
 
+This process will be described in full for a single reactor core. The process
+was performed for additional combinations of coolants and fuels and in theory,
+could be applied to future reactor concepts. For simplicity of explanation, the
+\uox-\codiox reactor will be used to demonstrate the neutronics optimization
+workflow.
+
 \subsection{Excess Reactivity}
 As discussed in Section \ref{sec:sweeps}, EOL \keff is weakly dependent on
 thermal power. This means that EOL \keff can be modeled as BOL \keff with enough
@@ -53,159 +59,176 @@ through 10 years of full-power operation. This \keff target was used to define a
 critical core radius, and to optimize the reflector thickness multipliers
 (discussed in the following sections).
 
-\subsection{Critical Radius}
+\subsection{Criticality Modeling}\label{sec:crit_model}
 In order to constrain the reactor mass model, a critical radius relationship to
 fuel fraction was developed. This section discusses the methods used to derive a
 relationship between critical core radius and fuel fraction that was used by the
-reactor mass model. 
+reactor mass model.
 
 \subsubsection{Modeling Methods}
-A critical core radius curve was generated as a function of fuel fraction for
-each reactor configuration. Homogeneous reactor models with optimized reflectors
-were modeled with MCNP6.1. For each fuel fraction, an optimized reflector
-thickness was calculated prior to the critical radius calculation. This
-optimization process will be discussed in the next section.
-
-The critical radius search process was a polynomial curve fit to MCNP-generated
-\keff data. For a fixed fuel fraction, an optimized reflector thickness was
-calculated. With a fuel fraction and reflector thickness fixed, \keff response
-to core radius was modeled. Five kcode calculations were perfomred to generate
-the \keff response to core radius. The range of core radii was determined by some
-bounding calculations to be 5 to 28.75 cm. This range is a rough estimate and
-could be narrowed to improve the effectiveness of the data fitting. Each radius
-search started with the midpoint value of the domain. The next four data points
-were spread over the first or second half of the domain depending on whether the
-mid point result was greater or less than the target \keff value. The five \keff
-values were reduced by the target \keff. This reduced array of values was fitted
-to a second degree polynomial. The roots of the polynomial were calculated using
-the NumPy function 'roots' \citep{numpy}. Roots returns all roots of any
-nth-degree polynomial. The critical radius was taken to be the minimum of the
-real, positive roots to the second-degree polynomial.
-
-The critical radius search was performed for fuel fractions ranging from 0.1 to
-0.9. Scipy was used to fit a power curve to the data. The resulting functions
-constrain the core radius as a function of fuel fraction to the appropriate size
-resulting in the desired BOL excess reactivity. Figure
-\ref{fig:crit_core_radius} shows the results of the critical radius searches.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=4in]{../images/crit_radius.png}
-\caption{Critical core radius results}
-\label{fig:crit_core_radius}
-\end{figure}
-
-As shown in Figure \ref{fig:crit_core_radius}, the \uox fuel outperforms the UW
-cermet fuel in terms of critical mass. This is a result of the higher uranium
-density in the \uox. The coolants impact critical radius as well, albeit to a
-lesser extent. The \water
-provides some moderation that helps improve the fission cross section in the
-fuel. As the fuel fraction approaches 1, the difference in coolant is
-negligible. These results were fit to a power function, shown in Equation
-\ref{eq:power_fit}.
+Section \ref{sec:sweeps} explored reactor parameter space to determine the
+important predictors for EOL \keff. It was concluded that BOL \keff with
+sufficient excess reactivity is an acceptable surrogate for EOL \keff. This was
+an important conclusion because it significantly reduced the required
+computation to model EOL \keff. Depletion calculations with traditional reactor
+physics software are computationally expensive and slow. In contrast,
+criticality calculations converge quickly and results can be returned much
+faster. Three predictor variables were explored to model BOL \keff: core radius,
+fuel fraction, and reflector mulitplier. The reflector multiplier being the
+reflector radius defined as a multiplier of core radius. Equation
+\ref{eq:ref_mult} shows the reflector radius as a function of core radius and
+reflector multiplier.
 
 \begin{equation}
-    R_{core} = A*exp(-B*frac_{fuel})
-    \label{eq:power_fit}
+    \label{eq:ref_mult}
+    R_{refl} = mR_{core}
 \end{equation}
 
-The resulting coefficients for each reactor configuration are shown below in
-Table \ref{tab:crit_radius_coeffs}.
+Core radius, fuel fraction, and reflector multiplier all impact \keff.
+Increasing the core radius adds more fuel mass and decreases neutron leakage 
+from the core. Increasing fuel fraction also increases fuel mass, increasing
+absorption cross sections in the fuel and decreasing leakage from the core.
+Finally, adding reflector thickness prevents neutrons from leaking from the
+core. All of these inputs are proportional to increasing BOL \keff. To model
+their impact, a 3-dimensional grid of sampling data was generated. For each
+point in 3d (radius, frac, multiplier) space, a criticality calculation was
+performed using MCNP6.1
+
+\subsubsection{Criticality Models}
+The \keff response to the three modeled parameters was generated on a grid using
+MCNP6.1 criticality models. The models were homogeneous geometries consisting of
+a core region (fuel, cladding, and coolant), a reflector region (graphite), a
+pressure vessel (SS-304), and finally the surronding Martian regolith. The top of the
+reflector was buried 1 m below the surface of the Martian regolith. Figure
+\ref{fig:homog_model} shows an example reactor geometry.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/crit_model_geom.png}
+\caption{Example reactor criticality model.}
+\label{fig:homog_model}
+\end{figure}
+
+The reactor model and surronding Martian soil was modeled in a sphere. Vaccuum
+boundary conditions were imposed on the edge of the sphere. Physically, neutrons
+that reach the edge of the sphere are extremely unlikely to return to the core
+and induce a fission, this is typical neutronics modeling practice.
+
+Every \keff calculation was performed at room temperature. Neutron absorption
+due to doppler broadening in 
+\urantwo was assumed negligible due to high enrichment. A higher energy
+spectrum due to no moderation also increass the resonance escape probability.
+This assumption was checked in later neutronics verification calculations. 
+In the end, BOL excess reactivity was chosen such that it overcame any 
+temperature-induced reactivity losses. 
+
+\subsubsection{Parameter Ranges}
+
+Initial scoping calculations were performed to determine appropriate ranges for
+each of the three parameters (radius, frac, and multiplier). 1000 kcode
+calculations were run on a 10x10x10 grid, evenly sampling in each dimension.
+Table \ref{tab:bol_criticality_1000} shows the sampled domain for the initial
+scoping calculation.
 
 \begin{table}[h]
   \centering
-  \caption{Critical Radius Fits}
-  \begin{tabular}{ccc}
+  \caption{Criticality Sampling Domain}
+  \begin{tabular}{ll}
     \toprule
-    Reactor Configuration   &   A [cm]  &  B [-]   \\
-    \midrule 
-     \uox-\codiox	        & 13.224     &  -0.596 \\
-     \uox-\water            & 13.674     &  -0.458 \\
-     UW-\codiox             & 16.871     &  -0.573 \\
-     UW-\water              & 16.817     &  -0.516 \\
+     Core Radius            		   & 10 - 50 [cm] \\
+     Fuel Fraction 					   & 0.1 - 0.95 [-]\\
+     Reflector Multiplier			   & 0.001- 1.5 [-]\\
   \end{tabular}
-  \label{tab:crit_radius_coeffs}
+  \label{tab:bol_criticality_1000}
 \end{table}
 
-\subsection{Optimized Reflector Thicknesses}
-Reflectors are used in nuclear reactor design to reduce neutron leakage from the
-reactor core. Reflectors can reduce required fuel mass by reflecting neutrons
-back into the core and preventing them from being lost to leakage. However,
-adding reflector thickness to the outside of the core adds mass to the overall
-reactor system. There is a tradeoff between mass of fuel and mass of
-reflector and an optimal combination of the two. The purpose of this analysis
-was to optimize reflector thickness as a multiplier of the overall core radius.
-This analysis was done for each fuel-coolant combination.
+Each of these 1000 data points were used to generate a 3D \keff response to
+core radius, fuel fraction, and reflector multiplier. This data set was used to
+generate a set of mass-optimized reactors constrained to a target BOL \keff of
+1.01. Section \ref{sec:crit_rad_search} discusses the algorithm used to generate
+the minimized, constrained reactor masses.
 
-\subsubsection{Modeling Methods}
-Reflector thickness was defined as a multiplier of core radius. Each reactor
-fuel-coolant combination was modeled with various reflector thickness
-multipliers. Homogeneous reactor core models with reflectors were modeled with
-MCNP6.1. A range of reflector multipliers was explored to determine the optimum
-multiplier that minimzed overall core mass. For each reflector multiplier, a critical radius search was performed
-to reach the target criticality found in Section \ref{sec:sweeps}. Each
-critical core with its reflector has a corresponding total mass. A 3rd degree
-polynomial curve was fit to the mass results with SciPy\citep{scipy}. The global
-minima of this curve was found unsing Scipy's optimization capabilities to
-minimize the mass response. The
-reflector multiplier that minimized the total core mass was chosen as the
-optimized reflector for each fuel fraction.
-This was done for each reactor fuel-coolant combination and a set of optimal
-reflector multiplier values was created.
+\subsection{Critical Mass Optimization}\label{sec:crit_rad_search}
+Section \ref{sec:crit_modeling} described the process for modeling the \keff
+response to three input variables. It was necessary to determine a response
+function to describe \keff for any combination of radius, fuel fraction, and
+reflector multiplier so that \keff could be constrained to a BOL excess
+reactivity target. The generalized function desired was:
 
-Figure REF THE FIGURES HERE, shows the reactor mass results as a function of
-reflector multiplier for a fixed fuel fraction. For small multipliers, increasing the reflector thickness
-lowers the required fuel mass and as a result, the overall reactor mass. As the
-reflector thickness continues to grow, there are diminishing returns. Adding
-more reflector mass does not reduce fuel mass and the total reactor mass starts
-to grow again. Table \ref{tab:ref_mult} shows the optimized reflector
-thicknesses.
+\begin{equation}
+    k_{eff} = f(r, f, m)
+\label{eq:gen_keff}
+\end{equation}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=4in]{../images/opt_refl_CO2_UO2.png}
-\caption{\codiox \uox optimal reflector thickness}
-\label{fig:uo2_co2_refl}
-\end{figure}
+Where r is core radius, f is fuel fraction, and m is reflector multiplier. This
+function would be used to constrain the models to the required \keff target. All
+mass-minimized reactors were forced to satisfy this constraint.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=4in]{../images/opt_refl_H2O_UO2.png}
-\caption{\water \uox optimal reflector thickness}
-\label{fig:uo2_h2o_refl}
-\end{figure}
+\subsubsection{Modeling Criticality Results}
+Linear interpolation was used to develop a function for \keff to be used to
+constrain the core geometry. SciPy's 'RegularGridInterpolator' package was used
+to generate a callable function in Python. This function used the grid data
+generated in Section \ref{sec:crit_rad_search} to return \keff as a function of
+r, f, and m. Trilinear interpolation was used to estimate the \keff response.
+Trilinear interpolation perfomrs a linear combination of the 8 nearest points in
+a cube surronding the desired point of interpolation. Linear interpolation is
+only continuous to the zeroth derivative, but for large data sets, provides a
+fast-executing function to model \keff.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=4in]{../images/opt_refl_CO2_UN.png}
-\caption{\codiox UW optimal reflector thickness}
-\label{fig:uw_co2_refl}
-\end{figure}
+Linear interpolation is a great tool for modeling data sets in between grid
+values. It can be easily implemented using packages like SciPy. Scipy's grid
+interpolator can be stored as a python object and rapidly executed like any
+python function, making it useful as the target function for a mass
+optimization. Despite numerous pratical advantages for using a trilinear
+interpolator, there is systemic error introduced into the optimization by
+representing nonlinear curves as piecewise-linear functions. The grid
+interpolator was tested in order to understand the magnitude of this induced
+error. A testing set of data was generated in the same domain space as the data
+used to train the interpolator. This data was generated using Latin Hypercube
+Sampling instead of being spaced evenly on the grid. LHS ensured that every
+point would a check for the interpolator that did not contain data directly from
+the grid. The testing set was 500 \keff results. For each \keff result in the
+testing data, an interpolated result was generated using an interpolation
+function (created from the training data). The absolute error was calculated
+between each test \keff and its corresponding interpolated \keff. Figure
+\ref{fig:interp_check} shows the distribution of error.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/opt_refl_H2O_UN.png}
-\caption{\water \uox optimal reflector thickness}
-\label{fig:uw_h2o_refl}
+    \includegraphics[width=4in]{../images/check_interp.png}
+\caption{Histogram results of the reactivity discrepancy between interpolated
+and real data.}
+\label{fig:interp_check}
 \end{figure}
 
-\begin{table}[h]
-  \centering
-  \caption{Optimized Reflector Thickness Multipliers}
-  \begin{tabular}{cc}
-    \toprule
-    Reactor Configuration   & Reflector Multiplier [-] \\
-    \midrule 
-     \uox-\codiox	        & 1.165 \\
-     \uox-\water            & 1.158 \\
-     UW-\codiox             & 1.344 \\
-     UW-\water              & 1.296 \\
-  \end{tabular}
-  \label{tab:ref_mult}
-\end{table}
+\subsubsection{Critical Core Radius}
+Core radius was used as a free variable to meet the \keff constraint target. For
+a given fuel fraction and reflector multiplier, a core radius exists that meets
+the target \keff. At the heart of this workflow is Equation \ref{eq:gen_keff}
+and its representation as a trilinear interpolation function. This function was
+used to interrogate the \keff response to varying core radii at fixed fuel
+fractions and reflector masses. SciPy's 'minimize_scalar' package was used to
+perform this search. The goal of the search is to minimize the absolute error
+between the interpolated \keff and the target \keff.
 
-These figures demonstrate the process to select an optimal reflector thickness.
-Each fuel fraction has a unique optimal reflector multiplier. This optimization
-was performed for each fuel fraction as part of the critical radius searches.
-Figures REF TEH FIGURES HERE show the result for
-each core of the reflector optimization as a function of fuel fraction.
+\begin{equation}
+    min( (k(r, f, m) - k_0)^2 )
+\end{equation}
+
+For a fixed fuel fraction and reflector multiplier, 'minimize_scalar' performs a
+bounded optimization to return a valid core radius to meet the target \keff
+constraint. This routine is executed in a Python function called 'crit_radius'.
+This function was used in multiple steps to optimize the reactor mass.
+
+\subsubsection{Critical Mass Optimization}
+With a routine in place to constrain core radius to a target \keff, an
+optimization to minimize mass was performed. Recall from Section
+\ref{sec:mass_model}, the goal of the neutronics modeling was to provide a
+critical constraint for core radius as a function of fuel fraction. For each
+fuel fraction, the thermal hydraulic mass model needs a core radius that
+minimizes the core mass. The reflector multiplier (m) was used as the free
+variable to optimize overall core mass. 
+
+Reflectors help neutronics by reflecting neutrons back into the core. This
+reflection reduces leakage and improves the neutron economy, as a result,
+reflected reactor cores require less fuel mass than bare cores. 
