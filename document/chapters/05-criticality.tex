@@ -207,7 +207,7 @@ a given fuel fraction and reflector multiplier, a core radius exists that meets
 the target \keff. At the heart of this workflow is Equation \ref{eq:gen_keff}
 and its representation as a trilinear interpolation function. This function was
 used to interrogate the \keff response to varying core radii at fixed fuel
-fractions and reflector masses. SciPy's 'minimize_scalar' package was used to
+fractions and reflector masses. SciPy's 'minimize scalar' package was used to
 perform this search. The goal of the search is to minimize the absolute error
 between the interpolated \keff and the target \keff.
 
@@ -215,9 +215,9 @@ between the interpolated \keff and the target \keff.
     min( (k(r, f, m) - k_0)^2 )
 \end{equation}
 
-For a fixed fuel fraction and reflector multiplier, 'minimize_scalar' performs a
+For a fixed fuel fraction and reflector multiplier, 'minimize scalar' performs a
 bounded optimization to return a valid core radius to meet the target \keff
-constraint. This routine is executed in a Python function called 'crit_radius'.
+constraint. This routine is executed in a Python function called 'crit radius'.
 This function was used in multiple steps to optimize the reactor mass.
 
 \subsubsection{Critical Mass Optimization}
@@ -229,6 +229,78 @@ fuel fraction, the thermal hydraulic mass model needs a core radius that
 minimizes the core mass. The reflector multiplier (m) was used as the free
 variable to optimize overall core mass. 
 
-Reflectors help neutronics by reflecting neutrons back into the core. This
+Reflectors impact neutronics by reflecting neutrons back into the core. This
 reflection reduces leakage and improves the neutron economy, as a result,
-reflected reactor cores require less fuel mass than bare cores. 
+reflected reactor cores require less fuel mass than bare cores. Increasing the
+thickness of the reflector helps to a point, eventually adding more reflector
+mass does not improve neutronic performance. Neutron leakage of course, is only
+one part of the neutron life cycle, there are diminishing neutronic returns to
+reflector thickness. In addition to improving the neutron economy, increasing
+the reflector size increases the mass of the overall reactor. The tradeoff
+between reflector mass and fuel mass was explored with the objective of
+minimizing total reactor mass. 
+
+Reflector thickness optimization was performed using the critical radius
+workflow discussed previously. The goal of the optimization was to produce a
+valid, critical core, with an optimized reflector thickness to minimize the
+overall reactor mass. For every fuel fraction, a set of 20 multipliers was
+checked from 0 to 0.16. For each multiplier, a critical radius search was
+performed. The total mass (fuel, reflector, pressure vessel) for each critical
+reactor was fitted against the reflector multipliers with a 2nd degree
+polynomial. This polynomial was used as a target function for SciPy's
+'minimize scalar' to minimize the core mass in reflector multiplier space.
+
+The goal of the reflector optimization was to minimize the overall reactor mass
+as a function of reflector multiplier for a fixed fuel fraction and a core
+radius constrained to a \keff target. The optimization is performed over a range
+of fuel fractions, for each fuel fraction, the optimized reflector is used to
+generate a critical core radius that optimizes total reactor mass.
+
+
+\subsubsection{Critical Mass Optimization Results}
+
+The critical mass optimization in reflector multiplier space was performed for
+each reactor configuration. The following is the results of the \uox fueled,
+\codiox cooled reactor.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/mass_mult_064.png}
+\caption{Total reactor mass optimization for fuel fraction of 0.64}
+\label{fig:mass_mult_one}
+\end{figure}
+
+Figure \ref{fig:mass_mult_one} shows the result of this optimization for one
+fuel fraction, 0.64 for a UO2-CO2 reactor configuration. An important takeaway here, is the lack of curvature in
+this plot. The reactor mass for this configuration is relatively insensitive to
+reflector thickness. This is likely due to the HEU fuel providing a much
+stronger absorption cross section, resulting in less leakage from the core. In
+addition to strong fuel absorption, the reactor is buried in the Martian
+regolith, some reflection can be expected from the soil around the reactor.
+The standard deviation of the critical masses across reflector multiplier space
+further indicates that reflector thickness is unimportant for the overall mass
+optimization.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/mass_std_uo2_co2.png}
+\caption{Standard deviation of reactor mass in reflector multiplier space}
+\label{fig:mass_std_co2_uo2}
+\end{figure}
+
+The standard deviation of the mass across the range of tested reflector
+multipliers is very small relative to the size of the overall power cycle. As a
+result, for the \uox-\codiox configuration, reflector multiplier was fixed to an
+average value of 0.08. This average value was used to generate a critical radius
+curve as a function of fuel fraction. This curve is used by the thermal
+hydraulic reactor mass model to constrain the radius of the core for a given
+fuel fraction. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/uo2_co2_core_r.png}
+\caption{Critical radius dependence on fuel fration.}
+\label{fig:core_r_co2_uo2}
+\end{figure}
+
+

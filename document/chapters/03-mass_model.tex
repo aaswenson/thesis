@@ -268,3 +268,45 @@ vessel.
     \label{eq:pv_thick}
 \end{equation}
 
+\section{Reactor Mass Modeling Results}
+The results of the reactor mass model are hard to analyze outside the context of
+the overall power cycle optimization. In the most general sense, the reactor
+mass model can be described as:
+
+\begin{equation}
+    m_{reactor} = f(\dot{m}, T_{in}, T_{out}, P_{in}, P_{out})
+\end{equation}
+
+The reactor is dependent on flow conditions, and configuration. Further
+complicating the analysis, the flow conditions are coupled by the power cycle
+efficiency.
+
+\subsection{Input Dependence}
+
+\subsubsection{Mass Flow Rate}
+The mass flow rate through the core is dictated by the power cycle model. It is
+the free variable used by the power cycle model to meet the required 40 kWe
+output of the system. Increasing the mass flow rate improves the heat transfer
+coefficient from the fuel to the coolant. Reactors with higher mass flow rates
+have less resistance to convection and better cooling. While the mass flow rate
+helps heat transfer in the reactor, it is also used to adjust power output. For
+a fixed coolant temperature rise, increasing the mass flow rate increases the
+required thermal output of the reactor. Increasing the output of the core always
+increases the mass. Mass flow rate is a tradeoff between heat transfer
+performance and required thermal power.
+
+\subsubsection{Coolant Temperature}
+Bulk coolant temperatures were used to calculate coolant properties and the
+temperature drop from the fuel to coolant. Increasing the coolant temperture
+decreases the temperture drop. This decrease in $\delta$T reduces the
+coolability of the core, requiring a larger core volume to deliver the same
+thermal power. While increasing coolant temperature reduces the thermal power
+density of the reactor, it also improves the efficiency of the power cycle. A
+more efficient cycle requires a smaller thermal input to generate a fixed amount
+of electrical power.
+
+\subsubsection{Coolant Pressure}
+Bulk coolant pressures were used to calculate coolant properties.
+
+
+
