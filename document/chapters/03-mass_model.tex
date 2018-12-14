@@ -2,7 +2,8 @@
 The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
 $\dot{m}$) and constrain a reactor concept that is both coolable, and critical
-after 10 years of full power operation. The attribute of interest is the mass of
+after 10 years of full power operation. The reactor model was developed in
+Python. The attribute of interest is the mass of
 the valid concept, but other useful values such as geometry, fuel fraction,
 and fluid-flow paramters are available from the solver. Before the mass model
 could be built, some important design decisions needed to be made.
@@ -65,15 +66,17 @@ density than the UW-CERMET fuel.
   \label{tab:uw_comp}
 \end{table}
 
+\newpage
+
 \subsubsection{Fuel Design Modularity}
-A fuel design was chosen to constraint the reactor model. In order to support
+A fuel design was chosen to constrain the reactor model. In order to support
 alternate designs, the reactor model was developed in a modular fashion.
 Different fuel configurations such as pin-type or TRISO particle fuel could be
 explored with a different set of heat transfer equations and criticality models.
 This will be discussed in more detail in following sections.
 
 \subsection{Thermal Hydraulic Theory}
-    The first major constraint of a valid reactor design was coolability. The reactor must
+    The first considered constraint of a valid reactor design was coolability. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
 the mission. To ensure the thermal hydraulic validity of a chosen design, 
     1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
@@ -81,16 +84,18 @@ heat transfer and fluid equations were coupled with analytical flux shape
 factors from nuclear engineering literature to determine the maximum extractable
 thermal power for each reactor design. A 1D resistance network is used to
 determine the maximum thermal generation for a given core design and temperature
-drop between fuel meat and coolant.
+drop between fuel meat and coolant. An iterative solving scheme was developed to
+converge the heat transfer and fluid flow equations.
 
 \subsubsection{Flow Properties}
 All flow properties were axially averaged between their inlet and outlet values.
 The inlet and outlet flow conditions, thermal power, and mass flow rate are
 dictated by the power cycle configuration and requirements. Property tables for
 both CO2 and H2O coolants as a function of pressure and temperature were 
-generated using EES and interpolated using SciPy's 2D interpolation functions.
-The interpolated properties included: thermal conductivity, density, viscosity,
-and specific heat.
+generated using EES and interpolated using SciPy's 2D interpolation functions
+\citep{scipy}, \citep{EES_citation}.
+The interpolated properties included: thermal conductivity [W/m-K], density
+[kg/m$^3$], viscosity [kg/m-s], and specific heat [J/kg-K].
 
 \subsubsection{Core Geometry}
 

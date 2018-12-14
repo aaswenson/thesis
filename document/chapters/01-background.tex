@@ -24,7 +24,7 @@ performed for this work.
 This project focused on exploring the tradeoffs between reactor mass and the
 mass of significant components of the power cycle. Traditional reactor physics
 tools could not be used for depletion calculations because they are to slow to
-integrate into an optmization routine. To support the optimizationo effort, this project focused on
+integrate into an optmization routine. To support the optimization effort, this project focused on
 developing a surrogate model for the reactor mass to be integrated into the
 power cycle model. This model needed to take inputs from the power cycle and
 rapidly exceute to return the minimum mass reactor that could meet the thermal
@@ -55,7 +55,7 @@ Generators (RTGs) and Fission Power Systems (FPS).
 \subsection{Radioisotope Thermoelectric Generators}
 Traditionally, NASA has relied on Radioisotope Thermoelectric Generators to
 produce electricity for deep-space and long term exploration missions. These
-device produced power for spacecraft traveling far from the sun, to parts of the
+devices produce power for spacecraft traveling far from the sun, to parts of the
 solar system where they could not rely on solar panels to meet their electrical
 needs. Since 1961, NASA has deployed 46 RTGs on 27 different space missions
 \citep{mmrtg_fact}.
@@ -72,12 +72,12 @@ The GPHS-RTG design has been used on
 numerous NASA deep space missions including; Galileo, Ulysses, New Horizons,
 Cassini. All of the aforementioned spacecraft have had or continue to have
 satisfactory power performance from their RTGs. \citep{bennett_mission_2006}.
-In addition to the GPHS-RTG, NASA has used similar RTG designs for otehr
+In addition to the GPHS-RTG, NASA has used similar RTG designs for other
 missions. The Apollo moon missions, Viking and Curiosity Mars missions, Voyager
 and Pioneer deep space probes have all used RTG technology to power their
 instruments and communication systems. The Voyager probes continue to function,
 sending back data to Earth as they push into interstellar space
-\citep{mmrtg_fact}  
+\citep{mmrtg_fact}.
 
 NASA has experienced great success using RTGs to power deep space missions. Many
 RTG systems deployed decades ago are still enabling deep space exploration
@@ -92,13 +92,13 @@ Since RTGs have limited mass performance at high power levels, this project focu
 fission power system to meet the mission requirements. Experience from past
 fission designs was sought to help limit the design of the reactor. The choice
 for fuel was based off of past designs. Some designs that were explored include;
-SP-100, Kilopower, NTP concepts, and other solid-core design concepts.
+SP-100, Kilopower, NTP and NEP concepts, and other solid-core design concepts.
     
 \subsubsection{SP-100}
-    SP-100 was a concept fission power system design part of the United State's
-    Strategic Defense Initiative (SDI). SDI was a defense program started by
-    Ronald Reagan to defend the United States against the Soviet Union's intercontinental
-    ballistic missiles. The cornerstone of the program was orbital systems to
+    SP-100 was a concept fission power system design part of the
+    Strategic Defense Initiative (SDI) of the United States. SDI was a defense program started by
+    President Ronald Reagan's administration to defend the United States against intercontinental
+    ballistic missiles from the Soviet Union. The cornerstone of the program was orbital systems to
     intercept the missiles before they re-entered the atmosphere. These systems
     had large electrical power requirements motivating the SP-100 project
     \citep{sp100}.
@@ -128,8 +128,6 @@ SP-100, Kilopower, NTP concepts, and other solid-core design concepts.
     Kilopower core design provided a good basis from which to design a direct-cooled
     fast reactor.
 
-    \subsubsection{Other Fission Concepts}
-
     \subsubsection { Nuclear Thermal Propulsion }
 
     Nuclear thermal propulsion (NTP) is a promising alternative to chemical rockets for
@@ -156,7 +154,7 @@ SP-100, Kilopower, NTP concepts, and other solid-core design concepts.
     power densities (9.34 GW/m3) allowing for feasible NTP performance
     \citep{webb_combined_2011}.
 
-    \subsection{DoD Microgrid Concept}
+    \subsubsection{DoD Microgrid Concept}
     The United States Department of Defense (DoD) is pursuing a small fission
     reactor to support remote military installations by providing electrical
     power. Forward Operating Bases (FOBs) often struggle to find a stable
@@ -179,3 +177,49 @@ SP-100, Kilopower, NTP concepts, and other solid-core design concepts.
     The monolithic designs are compact, durable and simple. Similar core designs
     can be found in numerous fission space concepts, including the recently
     tested Kilopower core.
+
+    \subsubsection{INL Megawatt Concept Reactor}
+    The Center for Space Nuclear Research at Idaho National Laboratory pursued a
+    mass optimization for a megawatt-scale fission power system coupled to a
+    high temperature brayton conversion cycle. The reactor was designed to
+    support nuclear electric propulsion (NEP). NEP uses electricity from a
+    reactor to ionize and accelerate a gas. Ion thrusters are extremely
+    efficient and can be used for long-duration space flight. The advantage of
+    NEP systems is the decoupling of the energy source and the propellant,
+    similar to nuclear thermal propulsion. This decoupling reduces the amount of
+    propellant required for a given mission.
+    
+    The proposed reactor design was fueled with a tungsten uranium-mononitride
+    CERMET fuel. Like the NTP designs, CERMET fuel was explored because of its
+    high thermal conductivity. The working fluid and coolant was helium. The
+    reactor mass model was a combination of thermal hydraulic equations and
+    critical mass requirements. MCNP5 was used to determine how much fuel mass
+    was required for a given coolant channel radius. The result of the thermal
+    and neutronic modeling was a analytic fit for the requried reactor mass as a
+    function of reactor thermal power. The model was a simple linear fit to
+    thermal power and did not account for mass effects driven by changing flow
+    conditions (temperature, pressure, etc.) \citep{webb_combined_2011}. 
+    
+    The goal of the INL concept was also to minimize the overall mass of the
+    power system. In addition to a linear reactor mass model, the project
+    developed simplified mass models for the power cycle components.
+    The total optimization was performed by coupling the power cycle
+    component mass models and exploring the tradeoffs between their performance
+    and masses.
+
+\section{Background Conclusion}
+Since humans have pursued space exploration, there has been a large amount of design, 
+testing, and deployment of nuclear technology for spaceflight. Traditionally
+RTGs have been used for deep space probes and terrestrial landers. Fission power
+systems are being pursued for larger power needs such as terrestrial bases and
+propulsion. Varying fuel and coolant concepts have been considered for fission
+systems. Promising designs are using monolithic fuels, citing their fission
+product retention and resistance to thermal expansion. Some projects, like
+Kilopower have focused on deploying a system as soon as possible, to this end,
+the Kilopower reactor design has been successfully tested at full fission power.
+Other designs, such as the concept at INL have focused on mass optimization with
+their power cycles. This project will expand on the efforts of the work at INL.
+The power cycle and the reactor mass model coupling will be enhanced to include
+flow conditions. In addition to coupling improvements, the entire optimization
+will be performed with super-critical carbon dioxide. Fuel choices for the
+reactor model will be informed from past design experience.
