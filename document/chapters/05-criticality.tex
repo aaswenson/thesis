@@ -1,51 +1,73 @@
-\section{Critical Core Radius}\label{crit_radius}
+\chapter{Critical Core Constraint}\label{ch:crit_radius}
 
-Neutronic viability is an important part of reactor design. The figure of merit
+Neutronic viability is naturally an important part of reactor design.The figure of merit
 for neutronics is EOL \keff. The reactor must be able to sustain a fission
-chain reaction from startup to shutdown on the final day of the 10 year mission.
+chain reaction from startup to shutdown on the final day of the 10 year
+mission. Nuclear reactor design processes traditionally start with an in-depth
+neutronic design stage, producing a fully-fledged neutronics design before
+moving on to in depth consideration of other fields such as materials corrosion
+and thermal hydraulics. This project differs from traditional reactor design by
+integrating the reactor design into the power cycle model in order to
+wholistically optimize the system mass. This chapter will discuss the methods
+used to develop a surrogate neutronics model to be used by the reactor mass
+model and ultimately, the total system mass model.
 
-The criticality requirement is the second of two major criteria for a valid reactor design and an
-important constraint in the thermal hydraulic modeling process. As a result,
-modeling criticality of various reactor configurations demands its own chapter
-in this thesis. Criticality modeling started with depletion modeling, reported
-in Section \ref{sec:sweeps}. The purpose and conclusion of the depletion
-modeling was that thermal power and small geometric features were of low
-importance when predicting EOL \keff. In addition, higher enrichment will always
-be prefferred to lower enriched uranium.
-
-The thermal-hydraulic modeling scheme
-reported in Section \ref{sec:mass_model} requires a constraint for the core
-radius. A relationship between core radius and fuel fraction for a target
-value of \keff was developed using traditional reactor physics tools. In lieu of
-full depletion modeling, BOL \keff was modeled and the \keff target adjusted to
-ensure sufficient excess reactivity for 10 years of full-power operation.
-
+\section{Modeling Techniques}
 There were three major components to developing the critical core radius
-constraints, determining a value for BOL excess reactivity that would satisfy
-EOL \keff > 1, generating the relationship between fuel fraction and the
-required core radius to meet the target \keff value. For each fuel fraction, an
+constraints. The first component was determining a value for BOL excess reactivity that would satisfy
+EOL \keff > 1. The second step was generating the relationship between fuel fraction and the
+required core radius to meet the target \keff value. Finally, for each fuel fraction, an
 optimized reflector thickness was also calculated to minimize total core mass.
-It is worth noting that critical core radius is a
-bit of a misnomer, since the target of this analysis was a BOL excess
+It is worth noting that througout this analysis, critical core radius is a
+bit of a misnomer since the target of this analysis was a BOL excess
 reactivity.
 
-This process will be described in full for a single reactor core. The process
+This process will be described in full for a single reactor core (\uox-\codiox). The process
 was performed for additional combinations of coolants and fuels and in theory,
-could be applied to future reactor concepts. For simplicity of explanation, the
-\uox-\codiox reactor will be used to demonstrate the neutronics optimization
-workflow.
+could be applied to future reactor concepts. Initially, the \uox-\codiox and the
+UW-\codiox reactors were used to develop the model. One of the goals of the
+model is to be design-agnostic. In the future, another fuel form or coolant could be used
+with this workflow to replicate a mass optimization on a new design.
 
-\subsection{Excess Reactivity}
-As discussed in Section \ref{sec:sweeps}, EOL \keff is weakly dependent on
+\subsection{Homogeneous Reactivity Models}
+The \keff response to the three modeled parameters was generated on a grid using
+MCNP6.1 models. The models were homogeneous geometries consisting of
+a core region (fuel, cladding, and coolant), a reflector region (graphite), a
+pressure vessel (SS-304), and finally the surronding Martian regolith. The top of the
+reflector was buried 1 m below the surface of the Martian regolith. Figure
+\ref{fig:homog_model} shows an example reactor geometry.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/crit_model_geom.png}
+\caption{Example reactor MCNP6.1 model.}
+\label{fig:homog_model}
+\end{figure}
+
+The reactor model and surronding Martian soil was modeled in a sphere. Vaccuum
+boundary conditions were imposed on the edge of the sphere. Physically, neutrons
+that reach the edge of the sphere are extremely unlikely to return to the core
+and induce a fission, this is typical neutronics modeling practice.
+
+Every \keff calculation was performed at room temperature. Neutron absorption
+due to doppler broadening in 
+\urantwo was assumed negligible due to high enrichment. A higher energy
+spectrum due to no moderation also increass the resonance escape probability.
+This assumption was checked in later neutronics verification calculations. 
+In the end, BOL excess reactivity was chosen such that it overcame any 
+temperature-induced reactivity losses. 
+
+\subsection{Excess Reactivity Margin}
+As discussed in Section \ref{ch:sweeps}, EOL \keff is weakly dependent on
 thermal power. This means that EOL \keff can be modeled as BOL \keff with enough
 excess reactivity to account for depletion. With a target BOL reactivity,
-depletion neutronics can be modeled with simple criticality calculations. This
+depletion neutronics can be modeled with simple \keff calculations. This
 is important because traditional depletion tools are too computationally
 expensive to explore the desired reactor parameter space. Excess reactivity was
 chosen based on the reactivity change in each of the 3901. Figure
 \ref{fig:delta_k_eol} shows the reactivity swing $(\delta k$) for every core
-with 100 kg < core mass < 500 kg. These bounds were chosen by initial analysis
-showing the reactor design would fall in this domain.
+with 100 kg < core mass < 500 kg. These bounds were chosen by initial thermal analysis
+showing the reactor design would fall in this mass domain.
 
 \begin{figure}[h]
     \centering
@@ -59,21 +81,18 @@ through 10 years of full-power operation. This \keff target was used to define a
 critical core radius, and to optimize the reflector thickness multipliers
 (discussed in the following sections).
 
-\subsection{Criticality Modeling}\label{sec:crit_model}
-In order to constrain the reactor mass model, a critical radius relationship to
-fuel fraction was developed. This section discusses the methods used to derive a
-relationship between critical core radius and fuel fraction that was used by the
-reactor mass model.
+\section{Modeling \keff in 3D Parameter Space}\label{sec:crit_model}
+In order to constrain the thermal hydaulics equations in the 
+reactor mass model, a critical radius relationship to fuel fraction was developed. 
+This section discusses the methods used to derive a relationship between \keff
+and core radius, fuel fraction and, reflector multiplier. The workflow to
+optimize the mass of the \keff relationship subject to a reactivity constraint
+will be discussed as well. The following method is discuss for the \uox-\codiox
+reactor configuration. The workflow was eventually applied to all four reactor
+designs.
 
-\subsubsection{Modeling Methods}
-Section \ref{sec:sweeps} explored reactor parameter space to determine the
-important predictors for EOL \keff. It was concluded that BOL \keff with
-sufficient excess reactivity is an acceptable surrogate for EOL \keff. This was
-an important conclusion because it significantly reduced the required
-computation to model EOL \keff. Depletion calculations with traditional reactor
-physics software are computationally expensive and slow. In contrast,
-criticality calculations converge quickly and results can be returned much
-faster. Three predictor variables were explored to model BOL \keff: core radius,
+\subsection{BOL Reactivity Modeling}
+Three predictor variables were explored to model BOL \keff: core radius,
 fuel fraction, and reflector mulitplier. The reflector multiplier being the
 reflector radius defined as a multiplier of core radius. Equation
 \ref{eq:ref_mult} shows the reflector radius as a function of core radius and
@@ -91,41 +110,14 @@ absorption cross sections in the fuel and decreasing leakage from the core.
 Finally, adding reflector thickness prevents neutrons from leaking from the
 core. All of these inputs are proportional to increasing BOL \keff. To model
 their impact, a 3-dimensional grid of sampling data was generated. For each
-point in 3d (radius, frac, multiplier) space, a criticality calculation was
+point in 3d (radius, frac, multiplier) space, a \keff calculation was
 performed using MCNP6.1
 
-\subsubsection{Criticality Models}
-The \keff response to the three modeled parameters was generated on a grid using
-MCNP6.1 criticality models. The models were homogeneous geometries consisting of
-a core region (fuel, cladding, and coolant), a reflector region (graphite), a
-pressure vessel (SS-304), and finally the surronding Martian regolith. The top of the
-reflector was buried 1 m below the surface of the Martian regolith. Figure
-\ref{fig:homog_model} shows an example reactor geometry.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=4in]{../images/crit_model_geom.png}
-\caption{Example reactor criticality model.}
-\label{fig:homog_model}
-\end{figure}
-
-The reactor model and surronding Martian soil was modeled in a sphere. Vaccuum
-boundary conditions were imposed on the edge of the sphere. Physically, neutrons
-that reach the edge of the sphere are extremely unlikely to return to the core
-and induce a fission, this is typical neutronics modeling practice.
-
-Every \keff calculation was performed at room temperature. Neutron absorption
-due to doppler broadening in 
-\urantwo was assumed negligible due to high enrichment. A higher energy
-spectrum due to no moderation also increass the resonance escape probability.
-This assumption was checked in later neutronics verification calculations. 
-In the end, BOL excess reactivity was chosen such that it overcame any 
-temperature-induced reactivity losses. 
-
-\subsubsection{Parameter Ranges}
-
+\subsection{Parameter Ranges}
 Initial scoping calculations were performed to determine appropriate ranges for
-each of the three parameters (radius, frac, and multiplier). 1000 kcode
+each of the three parameters (radius, frac, and multiplier). After the scoping,
+9900 kcode
 calculations were run on a 10x10x10 grid, evenly sampling in each dimension.
 Table \ref{tab:bol_criticality_1000} shows the sampled domain for the initial
 scoping calculation.
@@ -133,27 +125,26 @@ scoping calculation.
 \begin{table}[h]
   \centering
   \caption{Criticality Sampling Domain}
-  \begin{tabular}{ll}
+  \begin{tabular}{lll}
     \toprule
-     Core Radius            		   & 10 - 50 [cm] \\
-     Fuel Fraction 					   & 0.1 - 0.95 [-]\\
-     Reflector Multiplier			   & 0.001- 1.5 [-]\\
+     Parameter               & Range          & Samples\\ 
+    \midrule                                  
+     Core Radius             & 10 - 50 [cm]   & 30 \\
+     Fuel Fraction 		     & 0.1 - 0.95 [-] & 10 \\
+     Reflector Multiplier    & 0.001- 1.5 [-] & 33 \\
   \end{tabular}
   \label{tab:bol_criticality_1000}
 \end{table}
 
-Each of these 1000 data points were used to generate a 3D \keff response to
+Each of the 9900 data points were used to generate a 3D \keff response to
 core radius, fuel fraction, and reflector multiplier. This data set was used to
 generate a set of mass-optimized reactors constrained to a target BOL \keff of
 1.01. Section \ref{sec:crit_rad_search} discusses the algorithm used to generate
 the minimized, constrained reactor masses.
 
-\subsection{Critical Mass Optimization}\label{sec:crit_rad_search}
-Section \ref{sec:crit_modeling} described the process for modeling the \keff
-response to three input variables. It was necessary to determine a response
-function to describe \keff for any combination of radius, fuel fraction, and
-reflector multiplier so that \keff could be constrained to a BOL excess
-reactivity target. The generalized function desired was:
+\section{Critical Mass Optimization}\label{sec:crit_rad_search}
+It was desired to generate a relationship between \keff and the three input
+parameters (r, f, m). Such that:
 
 \begin{equation}
     k_{eff} = f(r, f, m)
@@ -164,7 +155,7 @@ Where r is core radius, f is fuel fraction, and m is reflector multiplier. This
 function would be used to constrain the models to the required \keff target. All
 mass-minimized reactors were forced to satisfy this constraint.
 
-\subsubsection{Modeling Criticality Results}
+\subsection{Reactivity Interpolation in 3D Space}
 Linear interpolation was used to develop a function for \keff to be used to
 constrain the core geometry. SciPy's 'RegularGridInterpolator' package was used
 to generate a callable function in Python. This function used the grid data
@@ -201,14 +192,14 @@ and real data.}
 \label{fig:interp_check}
 \end{figure}
 
-\subsubsection{Critical Core Radius}
+\subsection{Critical Core Radius}
 Core radius was used as a free variable to meet the \keff constraint target. For
 a given fuel fraction and reflector multiplier, a core radius exists that meets
 the target \keff. At the heart of this workflow is Equation \ref{eq:gen_keff}
 and its representation as a trilinear interpolation function. This function was
 used to interrogate the \keff response to varying core radii at fixed fuel
 fractions and reflector masses. SciPy's 'minimize scalar' package was used to
-perform this search. The goal of the search is to minimize the absolute error
+perform this search. The goal of the search was to minimize the absolute error
 between the interpolated \keff and the target \keff.
 
 \begin{equation}
@@ -273,8 +264,8 @@ each reactor configuration. The following is the results of the \uox fueled,
 Figure \ref{fig:mass_mult_one} shows the result of this optimization for one
 fuel fraction, 0.64 for a UO2-CO2 reactor configuration. An important takeaway here, is the lack of curvature in
 this plot. The reactor mass for this configuration is relatively insensitive to
-reflector thickness. This is likely due to the HEU fuel providing a much
-stronger absorption cross section, resulting in less leakage from the core. In
+reflector thickness. This is due to the HEU fuel providing a much
+stronger absorption cross section, resulting in less neutron leakage from the core. In
 addition to strong fuel absorption, the reactor is buried in the Martian
 regolith, some reflection can be expected from the soil around the reactor.
 The standard deviation of the critical masses across reflector multiplier space
@@ -289,8 +280,8 @@ optimization.
 \end{figure}
 
 The standard deviation of the mass across the range of tested reflector
-multipliers is very small relative to the size of the overall power cycle. As a
-result, for the \uox-\codiox configuration, reflector multiplier was fixed to an
+multipliers is very small relative to the mass of the overall power cycle,
+which is on the order of 1000 kg. The consequence of these results was that for the \uox-\codiox configuration, reflector multiplier was fixed to an
 average value of 0.08. This average value was used to generate a critical radius
 curve as a function of fuel fraction. This curve is used by the thermal
 hydraulic reactor mass model to constrain the radius of the core for a given
@@ -303,4 +294,4 @@ fuel fraction.
 \label{fig:core_r_co2_uo2}
 \end{figure}
 
-
+The mass optimization 

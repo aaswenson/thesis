@@ -1,4 +1,4 @@
-\section{Neutronic Constraints} \label{sec:sweeps}
+\chapter{Neutronic Constraints} \label{ch:sweeps}
 
 A valid reactor design must meet certain neutronics constraints. The main
 neutronics constraint is reactivity. The reactor must be able to sustain a chain
@@ -8,7 +8,7 @@ was important to determine which reactor parameters had the strongest impact on
 EOL \keff. An n-dimensional sampling was performed to explore EOL \keff
 dependence on various reactor parameters.
 
-\subsection{Neutronics Parameters}
+\section{Parametric Study of Neutronics Parameters}
 Homogeneous MCNP6.1 depletion models were used to analyze the EOL \keff response
 to neutronics parameters (predictors). The core region was homogenized and
 surrounded by a graphite reflector. A large set of 5-dimensional predictors and
@@ -39,12 +39,12 @@ shown in Table \ref{tab:lhs_sweep_vars}.
   \label{tab:lhs_sweep_vars}
 \end{table}
 
-\subsection{Neutronics Sampling Results}
+\section{Neutronics Sampling Results}
 The target metric for the neutronics sampling was an EOL \keff equal to one. In
 order to determine the dependence of EOL \keff on each swept parameter in Table
 \ref{tab:lhs_sweep_vars}, EOL \keff was plotted against the parameters.
 
-\subsubsection{Core Radius}
+\subsection{Core Radius}
 Fuel mass is the strongest predictor of EOL \keff. As a result, core radius has a strong impact on EOL \keff. Fuel mass is directly correlated
 to fuel fraction and core volume. For a fixed aspect ratio of 1, core volume is
 a cubic function of core radius. This makes EOL \keff strongly dependent on core
@@ -58,13 +58,13 @@ hence, neutron leakge is reduced in larger cores.
 \label{fig:eol_keff_vs_r_core}
 \end{figure}
 
-\subsubsection{Fuel Enrichment}
+\subsection{Fuel Enrichment}
 EOL \keff is directly dependent on fuel enrichment. Mass of \uran is the most
 important metric to predict EOL \keff. Figure
-\ref{fig:eol_keff_vs_enrich} shows the result of this sweep in the context of
+\ref{fig:eol_keff_vs_mass_enrich} shows the result of this sweep in the context of
 fuel mass dependence, reducing core radius and fuel pitch to channel diameter to
 one metric, total fuel mass. The colorbar shows the impact of enrichment. For a fixed core
-radius, increasing enrichment leads to increasing EOL \keff. 
+mass, increasing enrichment leads to increasing EOL \keff. 
 
 \begin{figure}[h]
     \centering
@@ -74,7 +74,7 @@ radius, increasing enrichment leads to increasing EOL \keff.
 \end{figure}
 
 
-\subsubsection{Coolant Channel Radius}
+\subsection{Coolant Channel Radius}
 EOL \keff is independent of coolant channel radius. Small geometric features
 have little importance for high energy reactors. Figure
 \ref{fig:eol_keff_vs_r_cool} shows the result of this sweep.
@@ -82,14 +82,14 @@ have little importance for high energy reactors. Figure
 \begin{figure}[h]
     \centering
     \includegraphics[width=4in]{../images/keff_vs_cool_r.png}
-\caption{EOL \keff dependence on coolant channel}
+\caption{EOL \keff dependence on coolant channel radius}
 \label{fig:eol_keff_vs_r_cool}
 \end{figure}
 
-\subsubsection{Fuel Pitch to Coolant Channel Diameter}
+\subsection{Fuel Pitch to Coolant Channel Diameter}
 Fuel pitch to coolant channel diametre was used inverse of the traditional pitch
 to diameter ratio in power reactors. The inverted fuel configuration with
-coolant flowing through the middle of a fuel block motivates this metric. Like
+coolant flowing through the middle of a fuel block motivated this metric. Like
 core radius, PD impacts EOL \keff by dictating fuel mass. The high-energy
 neutron spectrum means the geometric features have a small impact on the
 neutronics of the reactor. A large PD yields a large fuel fraction and as a
@@ -105,7 +105,7 @@ showing total fuel mass.
 \end{figure}
 
 
-\subsubsection{Thermal Power}
+\subsection{Thermal Power}
 Initially, the result of greatest interest was the mass dependence on thermal
 power because thermal power was the coupling parameter with the power cycle.
 Figure \ref{fig:eol_keff_vs_power} shows the relationship between thermal power
@@ -127,7 +127,7 @@ of uranium is negligigle compared to the mass of uranium required for the
 reactor to be critical at BOL. Thermal power is not a strong predictor of EOL
 criticality.
 
-\subsubsection{Uranium 235 Mass}
+\subsection{Uranium 235 Mass}
 The strongest predictor of EOL \keff is a combination of some of the above
 swept parameters. The most important metric for EOL \keff is the mass of \uran
 in the system. Figure \ref{fig:eol_keff_vs_235_mass} shows the dependence of EOL
@@ -144,8 +144,14 @@ This conclusion is useful for modeling a reactor's mass. Since EOL \keff is
 dependent on \uran mass, for a fixed enrichment, EOL \keff can be modeled 
 solely with reactor mass.
 
-\subsection{Neutronics Conclusion}
-The figure of merit for a neutronics constraint was EOL \keff. The reactor must
+\section{Parametric Study Conclusion}
+The purpose of this parametric study was to perform a rudimentry feature
+selection. Feature selection is a technique used in machine learning and
+statistics to select relevant variables (features) in a data set to simplify the
+modeling of the data set. The parametric study helped identify key predictors
+for the neutronic performance of a reactor design.
+
+The figure of merit for neutronics performance was EOL \keff. The reactor must
 sustain a fission chain reaction throughout the mission lifetime. In order to
 ensure the reactor mass model generates a neutronically viable core, it was
 necessary to determine on which input parameters EOL \keff is most strongly
@@ -153,13 +159,8 @@ dependent. To support this analysis, 3901 MCNP6.1 depletion calculations were
 performed over a 5-dimensional sample space with Latin Hypercube Sampling
 techniques to ensure even sampling. The conclusion of this work is that fissile
 material mass is the most important parameter to predict EOL \keff. Another
-important was that EOL \keff is relatively independent of thermal power. This
-means EOL \keff can be estimated as BOL \keff adjusted for minimal depletion.
+important conclusion was that EOL \keff is relatively independent of thermal power. This
+meant EOL \keff could be estimated as BOL \keff adjusted for minimal depletion.
 This conclusion was useful to constrain reactor parameters and will be utilized
-in Chapter \ref{critical_radius}
-
-These conclusions was used to simplify the modeling space for neutronics
-constraints. EOL \keff is directly related to BOl \keff which is strongly
-predicted by fuel mass. These assumptions were leveraged in Chapter
-\ref{critical_radius} to generate a relationship between core fuel fraction
+in Chapter \ref{ch:critical_radius} to generate a relationship between core fuel fraction
 and a required core radius to ensure EOL \keff > 1.

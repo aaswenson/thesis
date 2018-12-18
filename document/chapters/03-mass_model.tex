@@ -1,4 +1,4 @@
-\section{Reactor Mass Model} \label{sec:mass_model}
+\chapter{Reactor Mass Model} \label{ch:mass_model}
 The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
 $\dot{m}$) and constrain a reactor concept that is both coolable, and critical
@@ -8,7 +8,7 @@ the valid concept, but other useful values such as geometry, fuel fraction,
 and fluid-flow paramters are available from the solver. Before the mass model
 could be built, some important design decisions needed to be made.
 
-\subsection{Initial Design Constraints}
+\section{Initial Design Constraints}
     In order to develop a reactor mass model, the concept was constrained with
 some general design decisions. The chosen design needed to be simple and robust. The simplest reactor fuel concept is block fuel with coolant channels. 
 Block fuel is a common design choice for space reactors that operate at relatively 
@@ -22,7 +22,7 @@ compatability with sCO$_2$. With these design choices, the reactor mass model
 could be developed from first principle heat transfer and fluid flow equations
 coupled with a critical core radius constraint.
 
-\subsubsection{Fuel Composition}
+\subsection{Fuel Composition}
 Two reactor fuels were considered for modeling. The near term technical
 readiness choice was 93\% enriched \uox. The advanced fuel option investigated
 was 93\% enriched uranium-tungsten cermet (UW). UW-cermet fuel is UN fuel suspended in a
@@ -68,14 +68,14 @@ density than the UW-CERMET fuel.
 
 \newpage
 
-\subsubsection{Fuel Design Modularity}
+\subsection{Fuel Design Modularity}
 A fuel design was chosen to constrain the reactor model. In order to support
 alternate designs, the reactor model was developed in a modular fashion.
 Different fuel configurations such as pin-type or TRISO particle fuel could be
 explored with a different set of heat transfer equations and criticality models.
 This will be discussed in more detail in following sections.
 
-\subsection{Thermal Hydraulic Theory}
+\section{Thermal Hydraulic Theory}
     The first considered constraint of a valid reactor design was coolability. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
 the mission. To ensure the thermal hydraulic validity of a chosen design, 
@@ -87,7 +87,7 @@ determine the maximum thermal generation for a given core design and temperature
 drop between fuel meat and coolant. An iterative solving scheme was developed to
 converge the heat transfer and fluid flow equations.
 
-\subsubsection{Flow Properties}
+\subsection{Flow Properties}
 All flow properties were axially averaged between their inlet and outlet values.
 The inlet and outlet flow conditions, thermal power, and mass flow rate are
 dictated by the power cycle configuration and requirements. Property tables for
@@ -97,7 +97,7 @@ generated using EES and interpolated using SciPy's 2D interpolation functions
 The interpolated properties included: thermal conductivity [W/m-K], density
 [kg/m$^3$], viscosity [kg/m-s], and specific heat [J/kg-K].
 
-\subsubsection{Core Geometry}
+\subsection{Core Geometry}
 
 Important core geometry parameters were calculated. The coolant flow area,
 average distance of conduction in the fuel, volume fraction of cladding in
@@ -170,7 +170,7 @@ heat transfers from the center of the fuel meat to the coolant channels.
 These are the important equations defining the 1D geometry for a coolable
 reactor. Once the geometry has been defined, the flow conditions are modeled.
 
-\subsubsection{Flow Equations}
+\subsection{Flow Equations}
 
 Once the core geometry has been defined, the flow is characterized using
 bulk-averaged flow conditions and the reactor geometry. The mass flux, coolant
@@ -205,7 +205,7 @@ thermal conductivity of the fluid.
     \bar{h} = \frac{Nu k_{cool}}{D}
 \end{equation}
 
-\subsubsection{1D Thermal Generation Modeling}
+\subsection{1D Thermal Generation Modeling}
 
 With a fully defined geometry and fully characterized flow, the maximum thermal
 output of the core is calculated. The maximum generation (at the center of the
@@ -244,7 +244,7 @@ flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport
     Q_{gen} = Q^{'''}_{max} * 0.275
 \end{equation}
 
-\subsubsection{1D Thermal Hydraulic Calcuations}
+\subsection{1D Thermal Hydraulic Calcuations}
 
     The governing equations above describe a coolable
 reactor design. A Python code was written to solve the system of equations
@@ -286,9 +286,9 @@ The reactor is dependent on flow conditions, and configuration. Further
 complicating the analysis, the flow conditions are coupled by the power cycle
 efficiency.
 
-\subsection{Input Dependence}
+\section{Input Dependence}
 
-\subsubsection{Mass Flow Rate}
+\subsection{Mass Flow Rate}
 The mass flow rate through the core is dictated by the power cycle model. It is
 the free variable used by the power cycle model to meet the required 40 kWe
 output of the system. Increasing the mass flow rate improves the heat transfer
@@ -300,7 +300,7 @@ required thermal output of the reactor. Increasing the output of the core always
 increases the mass. Mass flow rate is a tradeoff between heat transfer
 performance and required thermal power.
 
-\subsubsection{Coolant Temperature}
+\subsection{Coolant Temperature}
 Bulk coolant temperatures were used to calculate coolant properties and the
 temperature drop from the fuel to coolant. Increasing the coolant temperture
 decreases the temperture drop. This decrease in $\delta$T reduces the
@@ -310,8 +310,36 @@ density of the reactor, it also improves the efficiency of the power cycle. A
 more efficient cycle requires a smaller thermal input to generate a fixed amount
 of electrical power.
 
-\subsubsection{Coolant Pressure}
-Bulk coolant pressures were used to calculate coolant properties.
+\subsection{Coolant Pressure}
+Bulk coolant pressures were used to calculate coolant properties. Pressure also
+impacts the thickness of the pressure vessel. Higher pressure systems require a
+thicker pressure vessel for containment.
 
+\subsection{Thermal Power}
+During the mass model development, reactor response to thermal power was the
+metric to analyze changes in the model. The reactor mass is most strongly
+dependent on thermal power. Core power density limits require larger reactor
+masses for higher powers. A fixed coolant flow rate of 1 [kg/s] was used to test
+the mass model. As mentioned previously, this is not a realistic test for the
+reactor response since the mass flow rate of the coolant tends to increase with
+increasing thermal power. Nevertheless, thermal power for fixed flow inputs was
+used to test the mass model outside the context of the power cycle model. Figure
+\ref{fig:mass_vs_q_uo2_co2} shows the reactor mass dependence on the power
+cycle.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/mass_vs_q_uo2_co2.png}
+\caption{Reactor mass power dependence}
+\label{fig:mass_vs_q_uo2_co2}
+\end{figure}
 
+\section{Conclusion}
+A reactor mass model was developed from thermal hydraulic and reactivity
+requirements (discussed in \ref{ch:critical_radius}). The model solved the heat
+transfer equations iteratively to return a reactor model that meets the thermal
+input requirements of the power cycle. The mass model was demonstrated here for
+the \uox-\codiox  reactor configuration. Three other configurations were
+considered using UN-\codiox, \uox-\water, and UN-\water. The results of these
+configurations, as well as their corresponding reactivtiy models can be found in
+Appendix \ref{ch:appendix-a}.
