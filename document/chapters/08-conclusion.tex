@@ -1,25 +1,48 @@
-\section{Conclusion}
+\chapter{Conclusion}
 The goal of this project was to develop a reactor mass model that did not rely
 on traditional reactor physics tools. The model was designed to be integrated
 into an overall power cycle mass model as part of a mass optimization process. A
 framework was developed to model reactor mass as a submodule of an overall
-power system mass model. This framework considered 
+power system mass model. The modeling framework considered both thermal
+hydraulic and neutronic requirements to optimize a minimum-mass reactor for a
+fixed set of flow inputs. The reactor mass submodel was successfully integrated
+into the power cycle model and was used to optimize the overall mass of the
+power cycle. The resultant reactor was verified using traditional reactor
+physics tools to be a valid design that, with significant time, funding, and
+engineering effort, could be developed into a fully-fledged reactor concept.
 
 \section{Future Work}
+While the project was successful in setting up a workflow for modeling a nuclear
+space reactor, there is much more work to be done. The workflow should be
+applied to different designs to search for better mass performance and more
+modeling should be done to improve the technical readiness of the designs.
+Specifically, reactivity control and safety analysis needs to be incorporated
+into the design process.
 
 \subsection{Design Exploration}
 In order to constrain the reactor optimization space, two fuel types were
-chosen. There are many other fuel types that could be considered. For monolithic
-cores, exploration is simple as developing new critical radius curves and
+chosen. While this limitation was useful for developing the model, 
+there are many other fuel types that could be considered. For monolithic
+cores, this exploration is simple as developing new critical radius curves and
 applying different thermal and physical properties. Switching fuel form would be
 more complicated. Different 1D heat transfer modeling would be required to
-account for a different fuel geometry. The module nature of the reactor model
-code would facilitate this work quite well. It would be interesting to explore
+account for a different fuel geometry. It would be interesting to explore
 TRISO fuel as well as high temperature graphite fuel forms. These fuels are
 capable of operating at extremely high temperatures, potentially increasing
 efficiency of the power cycle.
 
+The reactor mass model and the supporting workflow was designed to support this
+work. The geometry-specific calculations are modular and isolated in the thermal
+hydraulic scripts. The core heat transfer functions could be modified to support
+a new geometry. The neutronics modeling workflow was completely scripted in
+Python, easily facilitating the replication of the workflow on a new geometry.
+
 \subsection{Modeling Work}
 Reactor designs from this modeling workflow yield very rough models and limited
 information about a design. The designs were meant to provide estimates of mass
-to help an overall power cycle mass optimization. 
+to help an overall power cycle mass optimization. Reactivity control and safety
+analysis needs to be performed on any chosen design in order to advance the
+design any further. Reactivity control will be essential to ensure the reactor
+remains subcritical until reaching the mission destination. Once the power
+system has been deployed, reactivity control systems will be essential for
+reactor startup and any unexpected shutdowns during the system lifetime.

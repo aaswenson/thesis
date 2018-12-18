@@ -16,6 +16,7 @@ fraction.
 
 \section{UW-\codiox}
 This configuration is uranium nitride fuel dispersed in a tungsten matrix. The
+fuel block is clad with Inconel-718. The
 fuel is cooled by supercritical carbon dioxide. A fixed average reflector
 multiplier of 0.211 was used for this configuration. Fig \ref{fig:core_r_un_co2}
 shows the critical core radii as a function of fuel fraction.
@@ -33,11 +34,33 @@ the data. Equation \ref{eq:un_co2_fit} shows the fit equation. This fit
 relationship is used to constrain the core radius in the reactor mass model.
 
 \begin{equation}
-    R_{core} = -85.897x^3 + 196.378x^2 -161.316x + 62.376
+    R_{core} = -85.897x^3 + 196.378x^2 - 161.316x + 62.376
     \label{eq:un_co2_fit}
 \end{equation}
 
 \section{\uox-\water}
+This configuration is monolithic uranium oxide fuel with Inconel-718 cladding.
+The fuel is cooled by supercritical water. A fixed average reflector multiplier
+of 0.001 was used for this configuration. The reflector thickness was not
+allowed to be zero for modeling convenience in MCNP. The optimization found a
+reflector to not be favorable for this configuration. The critical radius data
+and fitted line is shown in Figure \ref{fig:core_r_uo2_h2o}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/core_r_uo2_h2o.png}
+\caption{Critical core radius for \uox-\water configuration.}
+\label{fig:core_r_uo2_h2o}
+\end{figure}
+
+Equation \ref{eq:uo2_h2o_fit} was used by the reactor mass model to constrain
+the critical core radius as a function of fuel fraction.
+
+\begin{equation}
+    R_{core} = -67.959x^3 + 156.013x^2 - 130.251x + 53.983
+    \label{eq:uo2_h2o_fit}
+\end{equation}
+
 
 \section{UW-\water}
 
