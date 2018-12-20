@@ -1,6 +1,5 @@
 \chapter{Neutronic Constraints} \label{ch:sweeps}
-
-A valid reactor design must meet certain neutronics constraints. The main
+A valid reactor design must meet neutronics constraints. The main
 neutronics constraint is reactivity. The reactor must be able to sustain a chain
 reaction from startup, to the final second of the 10 year lifetime. End of Life
 (EOL) reactivity was the target metric for the neutronic design of the core. It
@@ -53,7 +52,7 @@ hence, neutron leakge is reduced in larger cores.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/keff_vs_core_r.png}
+    \includegraphics[width=3in]{../images/keff_vs_core_r.png}
 \caption{EOL \keff dependence on core radius.}
 \label{fig:eol_keff_vs_r_core}
 \end{figure}
@@ -61,14 +60,14 @@ hence, neutron leakge is reduced in larger cores.
 \subsection{Fuel Enrichment}
 EOL \keff is directly dependent on fuel enrichment. Mass of \uran is the most
 important metric to predict EOL \keff. Figure
-\ref{fig:eol_keff_vs_mass_enrich} shows the result of this sweep in the context of
+\ref{fig:eol_keff_vs_mass_enrich} shows the result of the enrichment sweep in the context of
 fuel mass dependence, reducing core radius and fuel pitch to channel diameter to
 one metric, total fuel mass. The colorbar shows the impact of enrichment. For a fixed core
 mass, increasing enrichment leads to increasing EOL \keff. 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/keff_vs_mass_enrich.png}
+    \includegraphics[width=3in]{../images/keff_vs_mass_enrich.png}
 \caption{EOL \keff dependence on fuel enrichment}
 \label{fig:eol_keff_vs_mass_enrich}
 \end{figure}
@@ -81,13 +80,13 @@ have little importance for high energy reactors. Figure
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/keff_vs_cool_r.png}
+    \includegraphics[width=3in]{../images/keff_vs_cool_r.png}
 \caption{EOL \keff dependence on coolant channel radius}
 \label{fig:eol_keff_vs_r_cool}
 \end{figure}
 
 \subsection{Fuel Pitch to Coolant Channel Diameter}
-Fuel pitch to coolant channel diametre was used inverse of the traditional pitch
+Fuel pitch to coolant channel diameter was used as the inverse of the traditional pitch
 to diameter ratio in power reactors. The inverted fuel configuration with
 coolant flowing through the middle of a fuel block motivated this metric. Like
 core radius, PD impacts EOL \keff by dictating fuel mass. The high-energy
@@ -99,7 +98,7 @@ showing total fuel mass.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/keff_vs_PD_mass.png}
+    \includegraphics[width=3in]{../images/keff_vs_PD_mass.png}
 \caption{EOL \keff dependence on fuel pitch to coolant channel ratio}
 \label{fig:eol_keff_vs_PD_mass}
 \end{figure}
@@ -107,13 +106,13 @@ showing total fuel mass.
 
 \subsection{Thermal Power}
 Initially, the result of greatest interest was the mass dependence on thermal
-power because thermal power was the coupling parameter with the power cycle.
+power because thermal power was the reactor-power cycle coupling parameter.
 Figure \ref{fig:eol_keff_vs_power} shows the relationship between thermal power
 and EOL \keff.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/keff_vs_power.png}
+    \includegraphics[width=3in]{../images/keff_vs_power.png}
 \caption{EOL \keff Power Dependence}
 \label{fig:eol_keff_vs_power}
 \end{figure}
@@ -135,7 +134,7 @@ in the system. Figure \ref{fig:eol_keff_vs_235_mass} shows the dependence of EOL
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=4in]{../images/keff_vs_mass_235.png}
+    \includegraphics[width=3in]{../images/keff_vs_mass_235.png}
 \caption{EOL \keff \uran mass dependence}
 \label{fig:eol_keff_vs_235_mass}
 \end{figure}
