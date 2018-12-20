@@ -75,3 +75,29 @@ approximations}
 \end{table}
 
 \section{Depletion Verification}
+After the reactor and power cycle was optimized with the total system optimizer,
+it was important to verify the resultant reactor design was valid. There was
+confidence in the coolability of the design to the extent that the 1D heat
+transfer equations accurately model the system. There exists more uncertainty
+with the neutronic validity of the reactor. There exist many layers of
+uncertainty in the neutronics workflow.
+
+\onehalfspacing
+\begin{enumerate}
+    \item The core radii are determined by a 3rd degree fit to data
+    \item The data for the fit came from constraining a \keff response described
+        by a trilinear interpolation
+    \item The trilinear interpolation function was generated using stochastically
+        generated \keff data from MCNP
+\end{enumerate}
+\doublespacing
+
+The reality of the neutronics workflow, is that it was too onerous to propogate
+uncertainty in the underlying MCNP results, the trilinear interpolation, and the
+fitting function to quantify some understanding of the error in reactor mass. In
+order to compensate for this defficiency in error propogation, the results of
+the optimization were verified with more traditional reactor physics modeling
+techniques.
+
+The three test cases were analyzed using the depletion capability of MCNP6.1.
+The target metric for this test was EOL \keff > 1.

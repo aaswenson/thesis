@@ -1,11 +1,14 @@
 \chapter{Neutronic Constraints} \label{ch:sweeps}
-A valid reactor design must meet neutronics constraints. The main
+A valid reactor design must meet certain neutronics constraints. The main
 neutronics constraint is reactivity. The reactor must be able to sustain a chain
 reaction from startup, to the final second of the 10 year lifetime. End of Life
-(EOL) reactivity was the target metric for the neutronic design of the core. It
-was important to determine which reactor parameters had the strongest impact on
-EOL \keff. An n-dimensional sampling was performed to explore EOL \keff
-dependence on various reactor parameters.
+(EOL) reactivity was the target metric for the neutronic design of the core.
+Traditional reactor design processes will spend a long time tweaking neutronics
+parameters to meet certain system performances. The total mass optimization
+needed a rapidly excecutable model that could respond to various inputs.
+This need meant it was important to understand how a reactor's neutronic
+performance is impacted by various input and design parametres. An n-dimensional 
+sampling was performed to explore EOL \keff dependence on various reactor parameters.
 
 \section{Parametric Study of Neutronics Parameters}
 Homogeneous MCNP6.1 depletion models were used to analyze the EOL \keff response
@@ -16,7 +19,7 @@ These predictors and their results helped develop an understanding of the
 reactor response to important design and operational parameters. High Throughput
 Computing capabilities at UW were used to perform 3901 depletion calculations
 with MCNP6.1. Each model represents a unique sampling in every dimension using
-the Latin Hypercube Sampling (LHS) technique. The LHS technique ensured even
+the Latin Hypercube Sampling (LHS) technique\citep{LHS}. The LHS technique ensured even
 sampling for every dimension. The sampled and fixed dimensions/parameters are
 shown in Table \ref{tab:lhs_sweep_vars}.
 
