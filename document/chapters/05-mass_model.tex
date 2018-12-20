@@ -179,7 +179,6 @@ flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport
 \end{equation}
 
 \subsection{1D Thermal Hydraulic Calcuations}
-
     The governing equations above describe a coolable
 reactor design. A Python code was written to solve the system of equations
 defining the geometry, flow conditions, and 1D heat transfer in the reactor. The
@@ -207,3 +206,50 @@ vessel.
     \label{eq:pv_thick}
 \end{equation}
 
+\section{Limiting Core Mass}
+The limiting core mass for both reactor constraints was analyzed to ensure the
+reactor mass model was calculating the minimum reactor mass. For each fuel
+fraction (F) there exists two constraining core radii such that:
+
+\begin{align}
+    R_{coolable} = G(F) \\
+    R_{critical} = H(F)
+\end{align}
+
+Each combination of radius and fuel fraction has a corresponding mass:
+
+\begin{equation}
+    M = M(R, F)
+\end{equation}
+
+The goal of the mass optimization was to find the minimum mass that satisfies
+both constraints.
+
+\begin{equation}
+    min( M(R_{coolable}, F), M(R_{critical}, F) )
+\end{equation}
+
+To ensure the model was returning the minimum reactor mass, both limiting mass
+cases were plotted as a function of fuel fraction. This analysis was done for a
+fixed set of flow conditions and a fixed thermal power. Figure
+\ref{fig:limiting_core_mass} shows the limiting core mass constraint as a
+function of fuel fraction.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=5in]{../images/limiting_core_mass.png}
+\caption{Limiting core mass constraints ensure mass-optimized reactor is found.}
+\label{fig:limiting_core_mass}
+\end{figure}
+
+The reactor configuration calculated by the mass model is the intersection of
+the critical core mass and the coolable core mass curves. The critical radius
+constraint forces the reactor to be on the critical radius curve. The shape of
+both curves ensures the intersection is the minimum mass reactor. For the
+critical mass curve, any point below the curve does not meet the target
+reactivity and any point above the curve exceeds the target reactivity. For the
+coolable mass curve, any point below can not reject the required thermal heat
+input and any point above is not reaching its thermal power potential. The
+curves have opposite slopes, which means there exists no valid point on either
+curve except for the intersection. Points above both lines represent valid
+core designs, but are not the mass-optimized result.
