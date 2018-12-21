@@ -74,13 +74,12 @@ approximations}
   \label{tab:homog_validate_results}
 \end{table}
 
-\section{Depletion Verification}
+\section{Reactivity Verification}
 After the reactor and power cycle was optimized with the total system optimizer,
 it was important to verify the resultant reactor design was valid. There was
 confidence in the coolability of the design to the extent that the 1D heat
 transfer equations accurately model the system. There exists more uncertainty
-with the neutronic validity of the reactor. There exist many layers of
-uncertainty in the neutronics workflow.
+with the neutronic validity of the reactor.
 
 \onehalfspacing
 \begin{enumerate}
@@ -89,6 +88,7 @@ uncertainty in the neutronics workflow.
         by a trilinear interpolation
     \item The trilinear interpolation function was generated using stochastically
         generated \keff data from MCNP
+    \item Target excess reactivity was used to model depletion effects
 \end{enumerate}
 \doublespacing
 
@@ -99,5 +99,42 @@ order to compensate for this defficiency in error propogation, the results of
 the optimization were verified with more traditional reactor physics modeling
 techniques.
 
-The three test cases were analyzed using the depletion capability of MCNP6.1.
-The target metric for this test was EOL \keff > 1.
+\subsection{BOL Reactivity Verification}
+Beginning of life reactivity was validated to show the surrogate neutronics
+modeling techniques work for the target reactivity. The next step was to verify
+that target BOL reactivity was chosen appropriately. The optimized mass reactor
+from the power cycle optimization was used to verify BOL \keff. Table
+\ref{tab:bol_validate} shows the inputs from the power cycle, the optimized
+design parameters, and the modeled BOL \keff check. The BOL \keff of the optimized reactor
+is in good agreement with the target value. 
+The reactor has slightly more excess reactivity (~349 pcm) than the
+target reactivity. This gives credibility to the \keff modeling techniques.
+
+\subsection{EOL Reactivity Verification}
+End of life reactivity was modeled to check the excess reactivity threshold. The
+same MCNP model was used with the addition of the depletion features. The core
+was depleted for 10 years at varying time steps to have more time fidelity at
+BOL. Table \ref{tab:bol_validate} shows the results of the EOL reactivity
+validation. Note, the EOL target \keff is 1.
+
+\begin{table}[h]
+  \centering
+  \caption{Results of homogeneous geometry validation}
+  \begin{tabular}{lll}
+    \toprule
+    Flow Cycle Input                        & Value \\
+    \toprule
+    T$_{in}$/T$_{out}$ & 793.8/900 [K]\\
+    P$_{in}$/P$_{out}$ & 1.79E+04/1.74E+04 [Pa]\\
+    Flow Rate & 1.2722 [kg/s]\\
+    Thermal Power & 167.80 [kW]\\
+    \toprule
+    Optimized Design & Result\\
+    \toprule
+    Core Radius & 12.12 [cm]\\
+    Fuel Fraction & 0.74 [-]\\
+    Reactor Mass & 123.53 [kg]\\
+    BOL \keff & 1.01349 ($\pm$0.00051)
+  \end{tabular}
+  \label{tab:bol_validate}
+\end{table}

@@ -1,7 +1,7 @@
 \chapter{Conclusion}
-The goal of this project was to develop a reactor mass model that did not rely
+The goal of this project was to develop a constrained reactor mass model that did not rely
 on traditional reactor physics tools. The model was designed to be integrated
-into an overall power cycle mass model as part of a mass optimization process. A
+into an overall power cycle model as part of a mass optimization process. A
 framework was developed to model reactor mass as a submodule of an overall
 power system mass model. The modeling framework considered both thermal
 hydraulic and neutronic requirements to optimize a minimum-mass reactor for a
@@ -18,6 +18,16 @@ applied to different designs to search for better mass performance and more
 modeling should be done to improve the technical readiness of the designs.
 Specifically, reactivity control and safety analysis needs to be incorporated
 into the design process.
+
+\subsection{Expanded Mass Modeling}
+Some reactor components were not considered for mass modeling. Notably absent
+from the model were control elements and shielding. Shielding was not considered
+important due to the deployment of the reactor on Mars. Martian regolith could
+be used to shield the reactor. The reactor could be deployed in other parts of
+the solar system or as a power system on a spaecraft. Shielding could be
+important depending on the application. The mass of reactivity control systems
+should be added to the reactor mass model. The mass of control systems should be relatively independent
+of power but should be added regardless.
 
 \subsection{Design Exploration}
 In order to constrain the reactor optimization space, two fuel types were
