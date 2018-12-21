@@ -223,3 +223,52 @@ The power cycle and the reactor mass model coupling will be enhanced to include
 flow conditions. In addition to coupling improvements, the entire optimization
 will be performed with super-critical carbon dioxide. Fuel choices for the
 reactor model will be informed from past design experience.
+
+\section{Modeling Methodology}
+This project modeled the miminimum mass of a small fission reactor in support of
+the development of an optimized power cycle. The reactor mass model needed to
+execute rapidly in order to integrate into the overall cycle optimization.
+Traditional reactor physics and thermal hydraulic analysis tools are too slow to
+integrate into a wholistic system optimization. The reactor mass model needed to
+take flow inputs from the power cycle and calculate the minimum mass reactor for
+that set of flow conditions with the flow inputs coupling the reactor to 
+the other cycle components. Simplified analytical heat transfer and
+statistical neutronics functions were developed to support this workflow.
+
+\subsection{Neutronics}
+Neutronics modeling was broken into two steps. Initially, depletion calculations
+were used to explore the reactor parameter space. Many different geometric and
+operational parameters were explored in order to determine the important
+parameters impacting reactor performance. Following depletion calculations,
+thousands of criticality searches were performed to determine critical radius
+relationships. These calculations are discussed in detail in Chapter
+\ref{ch:crit_radius}.
+
+All neutronics modeling was performed using MCNP6.1 \cite{mcnp_citation}. Monte
+Carlo N-Particle (MCNP) code is a continuous-energy monte carlo simulation code
+developed at Los Alamos National Laboratory
+for modeling radiation transport. MCNP uses random number generators and
+probability density functions to model actual physics events like scattering,
+absorption, and fission. MCNP tracks particles through a user-defined geometry
+as they make their way from source locations to regions of interest. MCNP can
+tally particles in space and energy, as well as their interaction rates with
+surronding matter. In addition to tallying capabilities, MCNP is capable of
+performing eigenvalue calculations. The \keff models in MCNP were used
+extensively to predict reactor behavior to input parameters. Finally, MCNP6.1
+can model depletion in nuclear fuel. This capability was used to explore the
+reactor response to burnup over its 10 year lifetime.
+
+Statistical analysis was required to analyze the results of thousands of MCNP
+simulations. Python3 was used to develop scripts to parse data from output
+files, filter and clean it for post processing, and to develop statistical curve
+fits to neutronics results. These statistical models were combined with
+analytical heat transfer models to model reactor response to power cycle flow
+inputs.
+
+\subsection{Thermal Hydraulics}
+Thermal hydraulic calculations were performed with analytical formulas. A 1D
+approximation was applied to simplify the core geometry to facilitate analytic
+analysis. Heat transfer equations were taken from literature and combined with
+best-estimate thermophysical and fluid properties to model allowable volumetric
+power densities limited by fuel melting temperatures. The thermal hydraulic
+model was also developed using Python3.

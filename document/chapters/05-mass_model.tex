@@ -31,8 +31,40 @@ generated using EES and interpolated using SciPy's 2D interpolation functions
 The interpolated properties included: thermal conductivity [W/m-K], density
 [kg/m$^3$], viscosity [kg/m-s], and specific heat [J/kg-K].
 
-\subsection{Core Geometry}
+\subsection{Thermophysical Properties}
+Thermophysical properties were used to model heat transfer in solid reactor
+components. Thermal conductivity was required for conduction, density was
+required for mass calculations, cladding roughness was required for Nusselt
+numbers, and material strength was required for pressure vessel thickness.
+Material densities are shown in Table \ref{tab:densities}.
 
+\begin{table}[h]
+  \centering
+  \caption{Solid Material Densities}
+  \begin{tabular}{lll}
+    \toprule
+     Material        & Density  [$\frac{kg}{m^3}$]     \\ 
+    \midrule                                  
+     Uranium Nitride & 11,300 \\
+     Uranium Oxide   & 10,940 \\
+     Tungsten        & 19,300 \\
+     Inconel-718     & 8,190  \\
+     Graphite        & 1,700  \\
+     SS-304          & 8,050
+  \end{tabular}
+  \label{tab:densities}
+\end{table}
+
+The fuel density of the UW-CERMET cores was calculated assuming 60\% UN fuel and
+40\% tungsten matrix by volume \citep{conduct_cermet}. Thermal conductivity was
+used for conduction in the fuel and cladding. The CERMET conductivity was a
+combination of the conductivity of UN and W \citep{conduct_cermet}, conductivity
+in the CERMET fuel was 51 $[\frac{W}/{m-K}]$. The \uox thermal conductivity used
+was 3.6 $[\frac{W}/{m-K}]$ \citep{todreas_th}. The yield strength for SS-304 was
+used to calculate the required pressure vessel thicknes, the yield strength for
+SS-304 was 275 [MPa] \citep{ss_strength}.
+
+\subsection{Core Geometry}
 Important core geometry parameters were calculated. The coolant flow area,
 average distance of conduction in the fuel, volume fraction of cladding in
 coolant, number of coolant channels, convection surface area, LD, and the cross
@@ -233,7 +265,7 @@ To ensure the model was returning the minimum reactor mass, both limiting mass
 cases were plotted as a function of fuel fraction. This analysis was done for a
 fixed set of flow conditions and a fixed thermal power. Figure
 \ref{fig:limiting_core_mass} shows the limiting core mass constraint as a
-function of fuel fraction.
+function of fuel fraction for multiple thermal powers.
 
 \begin{figure}[h]
     \centering
