@@ -114,8 +114,20 @@ target reactivity. This gives credibility to the \keff modeling techniques.
 End of life reactivity was modeled to check the excess reactivity threshold. The
 same MCNP model was used with the addition of the depletion features. The core
 was depleted for 10 years at varying time steps to have more time fidelity at
-BOL. Table \ref{tab:bol_validate} shows the results of the EOL reactivity
-validation. Note, the EOL target \keff is 1.
+BOL. The core fuel region was divided into 5 annular sections of equal volume to
+account for non-uniform radial burnup. Figure \ref{fig:depl_core_xy} shows the
+xy view of the model used to verify EOL reactivity.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=3in]{../images/depl_core_xy.png}
+\caption{5 annular core regions to model homogeneous depletion.}
+\label{fig:depl_core_xy}
+\end{figure}
+
+Table \ref{tab:bol_validate} shows the results of the EOL reactivity
+validation. Note, the FOM for EOL reactivty is \keff > 1. Both BOL and EOL
+reactivity satisfy neutronics requirements. 
 
 \begin{table}[h]
   \centering
@@ -135,6 +147,18 @@ validation. Note, the EOL target \keff is 1.
     Fuel Fraction & 0.74 [-]\\
     Reactor Mass & 123.53 [kg]\\
     BOL \keff & 1.01349 ($\pm$0.00051)
+    EOL \keff & 1.00345 ($\pm$0.00049)
   \end{tabular}
   \label{tab:bol_validate}
 \end{table}
+
+Figure \ref{fig:dep_curve} shows the reactivity curve over the 10 year mission
+life. The blue line shows \keff = 1. The reactor has sufficient reactivity to
+remain critical throughout the 10 year mission.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=3in]{../images/depletion_results.png}
+\caption{10 year reactivity curve.}
+\label{fig:depl_curve}
+\end{figure}
