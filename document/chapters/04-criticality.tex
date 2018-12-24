@@ -142,7 +142,7 @@ generate a set of mass-optimized reactors constrained to a target BOL \keff of
 1.01. Section \ref{sec:crit_rad_search} discusses the algorithm used to generate
 the minimized, constrained reactor masses.
 
-\section{Constrained Mass Optimization}\label{sec:crit_rad_search}
+\section{Constrained Critical Mass Optimization}\label{sec:crit_rad_search}
 It was desired to generate a relationship between \keff and the three input
 parameters (r, f, m). Such that:
 
@@ -292,8 +292,16 @@ fuel fraction.
 
 \subsubsection{Choosing a fitting function for critical core radius}
 The reactor mass model needed a functional relationship between fuel fraction
-and critical core radius. This was achieved with polynomial curve fitting. The
-choice of order of the polynomial was very important to accurately represent the
+and critical core radius. This was achieved with polynomial curve fitting.
+Equation \ref{eq:polyfit} describes the target polynomial for the critical
+radius fits, where n is the degree of fit.
+
+\begin{equation}
+    R_{critical} = \sum_{i=0}^n A_ix^i
+    \label{eq:polyfit}
+\end{equation}
+
+The choice of order of the polynomial was very important to accurately represent the
 critical core radius. \keff is very sensitive to small mass changes in mass, as
 a result, an underfitted polynomial could return reactor masses that do not
 result in the target BOL \keff. A simple study was conducted to make an informed
@@ -323,4 +331,26 @@ interpolation function.
 \caption{Critical radius dependence on fuel fraction.}
 \label{fig:core_r_co2_uo2}
 \end{figure}
+
+The 7th order fit coefficients are shown below in Table
+\ref{tab:uo2_co2_fit_coeffs}.
+
+\begin{table}[h]
+  \centering
+  \caption{\uox-\codiox 7th order fit coefficients}
+  \begin{tabular}{cc}
+    \toprule
+     Degree & Coef\\ 
+    \midrule                                  
+    A$_0$  &  68.490\\
+    A$_1$  &  -360.546\\
+    A$_2$  &  1238.973\\
+    A$_3$  &  -2675.960\\
+    A$_4$  &  3638.972\\
+    A$_5$  &  -3034.285\\
+    A$_6$  &  1421.180\\
+    A$_7$  &  -287.194\\
+  \end{tabular}
+  \label{tab:uo2_co2_fit_coeffs}
+\end{table}
 

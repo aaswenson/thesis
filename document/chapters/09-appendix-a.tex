@@ -18,7 +18,11 @@ fraction.
 This configuration is uranium nitride fuel dispersed in a tungsten matrix. The
 fuel block is clad with Inconel-718. The
 fuel is cooled by supercritical carbon dioxide. A fixed average reflector
-multiplier of 0.211 was used for this configuration. Fig \ref{fig:core_r_un_co2}
+multiplier of 0.211 was used for this configuration. Table 
+
+
+
+Fig \ref{fig:core_r_un_co2}
 shows the critical core radii as a function of fuel fraction.
 
 \begin{figure}[h]
@@ -29,22 +33,38 @@ shows the critical core radii as a function of fuel fraction.
 \end{figure}
 
 Figure \ref{fig:core_r_un_co2} shows the interpolated core radii and the fitted
-curve to the core radii, fuel fraction data. A 3rd degree polynomial was fit to
-the data. Equation \ref{eq:un_co2_fit} shows the fit equation. This fit
-relationship is used to constrain the core radius in the reactor mass model.
+curve to the core radii, fuel fraction data. Table \ref{tab:un_co2_fit_coeffs}
+contains the 7th order fit coefficients.
 
-\begin{equation}
-    R_{core} = -85.897x^3 + 196.378x^2 - 161.316x + 62.376
-    \label{eq:un_co2_fit}
-\end{equation}
+\begin{table}[h]
+  \centering
+  \caption{\uox-\codiox 7th order fit coefficients}
+  \begin{tabular}{cc}
+    \toprule
+     Degree & Coef\\ 
+    \midrule                                  
+    A$_0$  &  94.223\\
+    A$_1$  &  -545.608\\
+    A$_2$  &  2009.221\\
+    A$_3$  &  -4554.870\\
+    A$_4$  &  6393.359\\
+    A$_5$  &  -5413.548\\
+    A$_6$  &  2530.940\\
+    A$_7$  &  -501.210\\
+  \end{tabular}
+  \label{tab:uo2_co2_fit_coeffs}
+\end{table}
+
 
 \section{\uox-\water}
 This configuration is monolithic uranium oxide fuel with Inconel-718 cladding.
 The fuel is cooled by supercritical water. A fixed average reflector multiplier
 of 0.001 was used for this configuration. The reflector thickness was not
 allowed to be zero for modeling convenience in MCNP. The optimization found a
-reflector to not be favorable for this configuration. The critical radius data
-and fitted line is shown in Figure \ref{fig:core_r_uo2_h2o}.
+reflector to not be favorable for this configuration. Figure
+\ref{fig:core_r_uo2_h2o} shows the critical radius curve, and Table
+\ref{tab:uo2_h2o_fit_coeffs} shows the fit coefficients for the 7th order
+polynomial fit to the data.
 
 \begin{figure}[h]
     \centering
@@ -53,14 +73,57 @@ and fitted line is shown in Figure \ref{fig:core_r_uo2_h2o}.
 \label{fig:core_r_uo2_h2o}
 \end{figure}
 
-Equation \ref{eq:uo2_h2o_fit} was used by the reactor mass model to constrain
-the critical core radius as a function of fuel fraction.
+\begin{table}[h]
+  \centering
+  \caption{\uox-\water 7th order fit coefficients}
+  \begin{tabular}{cc}
+    \toprule
+     Degree & Coef\\ 
+    \midrule                                  
+    A$_0$  &  1\\
+    A$_1$  &  1\\
+    A$_2$  &  1\\
+    A$_3$  &  1\\
+    A$_4$  &  1\\
+    A$_5$  &  1\\
+    A$_6$  &  1\\
+    A$_7$  &  1\\
+  \end{tabular}
+  \label{tab:uo2_h2o_fit_coeffs}
+\end{table}
 
-\begin{equation}
-    R_{core} = -67.959x^3 + 156.013x^2 - 130.251x + 53.983
-    \label{eq:uo2_h2o_fit}
-\end{equation}
 
 
 \section{UW-\water}
+This configuration is uranium nitride dispersed in a tungsten matrix. The core
+is cooled by supercritical \water. A fixed reflector multiplier of 0.0221 was
+used for this configuration. Figure \ref{fig:core_r_un_h2o} shows the critical
+radius curve, and Table \ref{tab:un_h2o_fit_coeffs} shows the fit coefficients
+for the 7th order polynomial fit to the data.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/core_r_un_h2o.png}
+\caption{Critical core radius for UW-\water configuration.}
+\label{fig:core_r_un_h2o}
+\end{figure}
+
+
+\begin{table}[h]
+  \centering
+  \caption{UW-\water 7th order fit coefficients}
+  \begin{tabular}{cc}
+    \toprule
+     Degree & Coef\\ 
+    \midrule                                  
+    A$_0$  &  87.181\\
+    A$_1$  &  -509.057\\
+    A$_2$  &  1971.832\\
+    A$_3$  &  -4736.728\\
+    A$_4$  &  7065.368\\
+    A$_5$  &  -6372.948\\
+    A$_6$  &  3181.888\\
+    A$_7$  &  -674.687\\
+  \end{tabular}
+  \label{tab:un_h2o_fit_coeffs}
+\end{table}

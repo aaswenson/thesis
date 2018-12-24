@@ -1,4 +1,4 @@
-\chapter{Neutronic Constraints} \label{ch:sweeps}
+\chapter{End of Life Reactivity} \label{ch:sweeps}
 A valid reactor design must meet certain neutronics constraints. The main
 neutronics constraint is reactivity. The reactor must be able to sustain a chain
 reaction from startup, to the final second of the 10 year lifetime. End of Life
@@ -41,7 +41,7 @@ shown in Table \ref{tab:lhs_sweep_vars}.
   \label{tab:lhs_sweep_vars}
 \end{table}
 
-\section{Neutronics Sampling Results}
+\section{Parametric Study Results}
 The target metric for the neutronics sampling was an EOL \keff equal to one. In
 order to determine the dependence of EOL \keff on each swept parameter in Table
 \ref{tab:lhs_sweep_vars}, EOL \keff was plotted against the parameters.
@@ -116,7 +116,7 @@ and EOL \keff.
 \begin{figure}[h]
     \centering
     \includegraphics[width=3in]{../images/keff_vs_power.png}
-\caption{EOL \keff Power Dependence}
+\caption{EOL \keff dependence on thermal power}
 \label{fig:eol_keff_vs_power}
 \end{figure}
 
@@ -138,7 +138,7 @@ in the system. Figure \ref{fig:eol_keff_vs_235_mass} shows the dependence of EOL
 \begin{figure}[h]
     \centering
     \includegraphics[width=3in]{../images/keff_vs_mass_235.png}
-\caption{EOL \keff \uran mass dependence}
+\caption{EOL \keff dependence on \uran mass}
 \label{fig:eol_keff_vs_235_mass}
 \end{figure}
 

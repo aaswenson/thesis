@@ -1,7 +1,7 @@
 \chapter{Background and Project Description}
 Electrical power is vital for NASA to achieve its deep space exploration goals.
 Electricity powers life support systems for astronaut habitats, communication
-with Earth, and allows astronauts to perform experiments to help us better
+with Earth, and allows astronauts to perform experiments to help society better
 understand the solar system. Long-life, high-output, compact electrical power
 systems are vital to achieving future space exploration goals. Launch costs 
 often restrict the design of systems launched
@@ -9,37 +9,38 @@ into space, currently NASA is under contract with SpaceX to deliver supplies to
 the International Space Station (ISS) in low-earth orbit (LEO). SpaceX delivers
 supplies to the ISS for more than \$13,000 per kg\citep{spacex}. Launch costs to Mars or the
 Moon will be significantly higher given the required energy to escape Earth's
-orbit. As a consequence, when designing a terrestrial electrical system for
-solar system exploration, it is crucial to minimize the mass of the system. This
-work was a sub-set of a larger
+orbit. As a consequence it is crucial to minimze system mass when designing a terrestrial electrical system for
+solar system exploration. To this end, a surrogate mass model of a small fission
+nuclear reactor was developed. This work was a sub-set of a larger
 project to explore the mass tradeoff between the critical components of the
 electrical power system in order to minimize the mass of the system as a whole.
 This project developed the reactor mass model to support the goal of the overall
 project.
 
 \section{Scope}
-The purpose of this work was not to develop a fully-fledged reactor concept.
+The purpose of this project was not to develop a fully-fledged reactor concept.
 High-fidelity core modeling of neutronics and thermal hydraulics was not
 performed for this work.
 This project focused on exploring the tradeoffs between reactor mass and the
 mass of significant components of the power cycle. Traditional reactor physics
 tools could not be used for depletion calculations because they are to slow to
-integrate into an optmization routine. To support the optimization effort, this project focused on
+integrate into an optmization routine. To support the opwer system mass optimization, this project focused on
 developing a surrogate model for the reactor mass to be integrated into the
-power cycle model. This model needed to take inputs from the power cycle and
+power cycle model. The model needed to take inputs from the power cycle and
 rapidly exceute to return the minimum mass reactor that could meet the thermal
 power requirement of the power cycle. The overall cycle was constrained to the
-target lifetime and power outputs dictated by the project sponsors. The reactor
-was modeled sufficiently such that future work could feasibly develop the
+target lifetime and power output dictated by the project sponsors. The reactor
+was modeled sufficiently so that future work could feasibly develop the
 concept into a deployable reactor within a reasonable amount of time.
 
 \section{Constraints}
-The two main constraints for the system were provided by the project sponsors,
+The two main constraints for the power system were provided by the project sponsors,
 and ultimately dictated by NASA. NASA has identified the following performance
 requirements: a 10 year lifetime and a 40 kWe power level, as sufficient to
-support future terrestrial exploration throughout the solar system. All fuel
+support future terrestrial exploration throughout the solar system. All nuclear fuel
 options were available for the reactor with a preferance for high near-term
-technical readiness. High enriched uranium is acceptable. The reactor will be direct-cooled and coupled to a
+technical readiness. The use of igh enriched uranium was acceptable. 
+The reactor is be direct-cooled, and coupled to a
 supercritical carbon dioxide brayton cycle to produce the desired electrical
 output. The reactor will be used only for terrestrial applications, not in
 transit. This helps shielding mass, because the reactor can be buried prior to
@@ -63,7 +64,7 @@ needs. Since 1961, NASA has deployed 46 RTGs on 27 different space missions
 One of the more common examples of a successful RTG design is the
 General-Purpose Heat Source Radioisotope Thermoelectric Generator (GPHS-RTG).
 GPHS-RTG relied on a \pu alpha source to generate heat. Modules of \pu
-generators were stacked together for a combined thermal power of 4410 Wt. The
+generators were stacked together for a combined thermal power of 4410 Wth. The
 converter used silicon-germanium converter elements to produce 285 W of
 electrical power at the beginning of mission (BOM).
 \citep{bennett_mission_2006}. 
@@ -71,7 +72,7 @@ electrical power at the beginning of mission (BOM).
 The GPHS-RTG design has been used on
 numerous NASA deep space missions including; Galileo, Ulysses, New Horizons,
 Cassini. All of the aforementioned spacecraft have had or continue to have
-satisfactory power performance from their RTGs. \citep{bennett_mission_2006}.
+satisfactory power performance from their RTGs \citep{bennett_mission_2006}.
 In addition to the GPHS-RTG, NASA has used similar RTG designs for other
 missions. The Apollo moon missions, Viking and Curiosity Mars missions, Voyager
 and Pioneer deep space probes have all used RTG technology to power their
@@ -79,18 +80,19 @@ instruments and communication systems. The Voyager probes continue to function,
 sending back data to Earth as they push into interstellar space
 \citep{mmrtg_fact}.
 
-NASA has experienced great success using RTGs to power deep space missions. Many
-RTG systems deployed decades ago are still enabling deep space exploration
+NASA has had great success using RTGs to power deep space missions. Many
+RTG systems deployed decades ago are still powering deep space exploration
 across the solar system. Despite their stellar performance record, RTGs are not
 designed to provide large amounts of electrical power. The efficiency of RTGs is
-too low for consideration at the 40 kWe level. In addition the US supply of \pu
-is dwindling. NASA can't afford to use a \pu system at the 40 kWe level. As a
-result, a fission power system was deemed appropriate for the project.
+too low for consideration at the 40 kWe power level. In addition the US supply of \pu
+is dwindling, NASA can't afford to use \pu for a larger thermal system. As a
+result, a fission power, with more readily available fuel and higher conversiont
+efficiency (when coupled to a fluid cycle) was deemed more promising.
 
 \subsection{Fission Power Systems}
 Since RTGs have limited mass performance at high power levels, this project focused on designing a
 fission power system to meet the mission requirements. Experience from past
-fission designs was sought to help limit the design of the reactor. The choice
+fission designs was sought to help guide the design of the reactor. The choice
 for fuel was based off of past designs. Some designs that were explored include;
 SP-100, Kilopower, NTP and NEP concepts, and other solid-core design concepts.
     
@@ -120,8 +122,8 @@ SP-100, Kilopower, NTP and NEP concepts, and other solid-core design concepts.
     Readiness Level 5 by 2017 \citep{gibson_nasas_2017}. The Kilopower project is a
     stirling engine system driven by a heat-pipe cooled core. The UMo core was
     manufactured at the Y-12 National Security Complex from 93\%, High-Enriched
-    Uranium (HEU). Kilopower is a relevant reference because it fills a similar 
-    mission profile as the current project. NASA's target for Kilopower was a 1-10 kWe unit. 
+    Uranium (HEU). Kilopower was a relevant reference because it filled a similar 
+    mission profile as this project. NASA's target for Kilopower was a 1-10 kWe unit. 
     The core was successfully tested from November 2017 to March 2018 \citep{poston_krusty_2018}. During the
     tests, the UMo core was operated at 800 $\degree$C and 10 kWt power. While the
     cooling and power cycle systems differ from a direct-brayton cycle reactor, the
@@ -193,14 +195,14 @@ SP-100, Kilopower, NTP and NEP concepts, and other solid-core design concepts.
     CERMET fuel. Like the NTP designs, CERMET fuel was explored because of its
     high thermal conductivity. The working fluid and coolant was helium. The
     reactor mass model was a combination of thermal hydraulic equations and
-    critical mass requirements. MCNP5 was used to determine how much fuel mass
+    critical mass requirements. MCNP was used to determine how much fuel mass
     was required for a given coolant channel radius. The result of the thermal
     and neutronic modeling was a analytic fit for the requried reactor mass as a
     function of reactor thermal power. The model was a simple linear fit to
     thermal power and did not account for mass effects driven by changing flow
     conditions (temperature, pressure, etc.) \citep{webb_combined_2011}. 
     
-    The goal of the INL concept was also to minimize the overall mass of the
+    The goal of the INL concept was similar to this project; to minimize the overall mass of the
     power system. In addition to a linear reactor mass model, the project
     developed simplified mass models for the power cycle components.
     The total optimization was performed by coupling the power cycle
@@ -233,7 +235,7 @@ integrate into a wholistic system optimization. The reactor mass model needed to
 take flow inputs from the power cycle and calculate the minimum mass reactor for
 that set of flow conditions with the flow inputs coupling the reactor to 
 the other cycle components. Simplified analytical heat transfer and
-statistical neutronics functions were developed to support this workflow.
+statistical neutronics functions were developed to model a minimum-mass reactor.
 
 \subsection{Neutronics}
 Neutronics modeling was broken into two steps. Initially, depletion calculations
@@ -254,7 +256,7 @@ as they make their way from source locations to regions of interest. MCNP can
 tally particles in space and energy, as well as their interaction rates with
 surronding matter. In addition to tallying capabilities, MCNP is capable of
 performing eigenvalue calculations. The \keff models in MCNP were used
-extensively to predict reactor behavior to input parameters. Finally, MCNP6.1
+extensively to predict reactivity response to input parameters. Finally, MCNP6.1
 can model depletion in nuclear fuel. This capability was used to explore the
 reactor response to burnup over its 10 year lifetime.
 
