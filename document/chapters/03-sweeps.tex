@@ -6,8 +6,8 @@ reaction from startup, to the final second of the 10 year lifetime. End of Life
 Traditional reactor design processes will spend a long time tweaking neutronics
 parameters to meet certain system performances. The total mass optimization
 needed a rapidly excecutable model that could respond to various inputs.
-This need meant it was important to understand how a reactor's neutronic
-performance is impacted by various input and design parametres. An n-dimensional 
+This meant it was important to understand how a reactor's neutronic
+performance is impacted by various input and design parametres. A 5-dimensional 
 sampling was performed to explore EOL \keff dependence on various reactor parameters.
 
 \section{Parametric Study of Neutronics Parameters}
@@ -18,7 +18,7 @@ EOL \keff results was produced to investigate the neutronics parameter space.
 These predictors and their results helped develop an understanding of the
 reactor response to important design and operational parameters. High Throughput
 Computing capabilities at UW were used to perform 3901 depletion calculations
-with MCNP6.1. Each model represents a unique sampling in every dimension using
+with MCNP6.1. Each model represented a unique sampling in every dimension using
 the Latin Hypercube Sampling (LHS) technique\citep{LHS}. The LHS technique ensured even
 sampling for every dimension. The sampled and fixed dimensions/parameters are
 shown in Table \ref{tab:lhs_sweep_vars}.
@@ -78,7 +78,7 @@ mass, increasing enrichment leads to increasing EOL \keff.
 
 \subsection{Coolant Channel Radius}
 EOL \keff is independent of coolant channel radius. Small geometric features
-have little importance for high energy reactors. Figure
+have little importance for high energy neutrons. Figure
 \ref{fig:eol_keff_vs_r_cool} shows the result of this sweep.
 
 \begin{figure}[h]
@@ -109,7 +109,7 @@ showing total fuel mass.
 
 \subsection{Thermal Power}
 Initially, the result of greatest interest was the mass dependence on thermal
-power because thermal power was the reactor-power cycle coupling parameter.
+power, because thermal power was the reactor-power cycle coupling parameter.
 Figure \ref{fig:eol_keff_vs_power} shows the relationship between thermal power
 and EOL \keff.
 
@@ -162,7 +162,7 @@ performed over a 5-dimensional sample space with Latin Hypercube Sampling
 techniques to ensure even sampling. The conclusion of this work is that fissile
 material mass is the most important parameter to predict EOL \keff. Another
 important conclusion was that EOL \keff is relatively independent of thermal power. This
-meant EOL \keff could be estimated as BOL \keff adjusted for minimal depletion.
+meant EOL \keff could be estimated as BOL \keff adjusted for marginal burnup.
 This conclusion was useful to constrain reactor parameters and will be utilized
-in Chapter \ref{ch:crit_radius} to generate a relationship between core fuel fraction
+in Chapter \ref{ch:crit_radius} to justify a relationship between core fuel fraction
 and a required core radius to ensure EOL \keff > 1.
