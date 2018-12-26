@@ -1,7 +1,7 @@
 \chapter{Power Cycle Modeling Results}\label{ch:power_cycle_results}
 
 \section{Reactor Mass Modeling Results}
-The results of the reactor mass model are hard to analyze outside the context of
+The results of the reactor mass model were hard to analyze outside the context of
 the overall power cycle optimization. In the most general sense, the reactor
 mass model can be described as:
 
@@ -9,22 +9,22 @@ mass model can be described as:
     m_{reactor} = f(\dot{m}, T_{in}, T_{out}, P_{in}, P_{out})
 \end{equation}
 
-The reactor is dependent on flow conditions, and configuration. Further
+The reactor was dependent on flow conditions, and configuration. Further
 complicating the analysis, the flow conditions are coupled by the power cycle
 efficiency.
 
 \section{Reactor Response to Flow Inputs}
 
 \subsection{Mass Flow Rate}
-The mass flow rate through the core is dictated by the power cycle model. It is
+The mass flow rate through the core was dictated by the power cycle model. It was
 the free variable used by the power cycle model to meet the required 40 kWe
-output of the system. Increasing the mass flow rate improves the heat transfer
+output of the system. Increasing the mass flow rate improved the heat transfer
 coefficient from the fuel to the coolant. Reactors with higher mass flow rates
 have less resistance to convection and better cooling. While the mass flow rate
-helps heat transfer in the reactor, it is also used to adjust power output. For
-a fixed coolant temperature rise, increasing the mass flow rate increases the
+helps heat transfer in the reactor, it was also used to adjust power output. For
+a fixed coolant temperature rise, increasing the mass flow rate increased the
 required thermal output of the reactor. Increasing the output of the core always
-increases the mass. Mass flow rate is a tradeoff between heat transfer
+increased the mass. Mass flow rate was a tradeoff between heat transfer
 performance and required thermal power.
 
 \subsection{Coolant Temperature}
@@ -43,16 +43,16 @@ impacts the thickness of the pressure vessel. Higher pressure systems require a
 thicker pressure vessel for containment.
 
 \subsection{Thermal Power}
-During the mass model development, reactor response to thermal power was the
-metric to analyze changes in the model. The reactor mass is most strongly
-dependent on thermal power. Core power density limits require larger reactor
-masses for higher powers. A fixed coolant flow rate of 1 [kg/s] was used to test
-the mass model. As mentioned previously, this is not a realistic test for the
-reactor response since the mass flow rate of the coolant tends to increase with
-increasing thermal power. Nevertheless, thermal power for fixed flow inputs was
-used to test the mass model outside the context of the power cycle model. Figure
-\ref{fig:mass_vs_q_uo2_co2} shows the reactor mass dependence on the power
-cycle.
+Reactor mass response to thermal power was tested at a fixed axial coolant temperature
+rise across the core. Coolant mass flow rate was adjusted to match thermal power
+and the fixed temperature drop. The following equationw was used to determine
+coolant mass flow rate.
+\begin{equation}
+    \dot{m} = \frac{P}{C_p \Delta T}
+\end{equation}
+Where C$_p$ is the coolant specific heat capacity [$\frac{kJ}{kg-K}$].
+Figure \ref{fig:mass_vs_q_uo2_co2} shows the reactor mass dependence on thermal
+power.
 
 \begin{figure}[h]
     \centering
@@ -65,7 +65,7 @@ cycle.
 The reactor mass model was developed to support mass modeling for the entire
 electrical power system. Before the reactor model was coupled to the power
 cycle, it was interesting to investigate the reactor response to flow
-parameters.
+parameters. 
 
 \section{Conclusion}
 A reactor mass model was developed from thermal hydraulic and reactivity
@@ -76,5 +76,4 @@ the \uox-\codiox  reactor configuration. Three other configurations were
 considered using UN-\codiox, \uox-\water, and UN-\water. The results of these
 configurations, as well as their corresponding reactivtiy models can be found in
 Appendix \ref{ch:appendix-a}.
-
 

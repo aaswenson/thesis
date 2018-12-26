@@ -3,33 +3,33 @@ The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
 $\dot{m}$) and constrain a reactor concept that is both coolable, and critical
 after 10 years of full power operation. The reactor model was developed in
-Python. The attribute of interest is the mass of
+Python. The attribute of interest was the mass of
 the valid concept, but other useful values such as geometry, fuel fraction,
-and fluid-flow paramters are available from the solver. Before the mass model
+and fluid-flow paramters were available from the solver. Before the mass model
 could be built, some important design decisions needed to be made.
 
 
 \section{Thermal Hydraulic Theory}
-    The first considered constraint of a valid reactor design was coolability. The reactor must
+The second considered constraint of a valid reactor design was coolability. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
 the mission. To ensure the thermal hydraulic validity of a chosen design, 
-    1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
+1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
 heat transfer and fluid equations were coupled with analytical flux shape
 factors from nuclear engineering literature to determine the maximum extractable
-thermal power for each reactor design. A 1D resistance network is used to
-determine the maximum thermal generation for a given core design and temperature
-drop between fuel meat and coolant. An iterative solving scheme was developed to
+thermal power for each reactor design. A 1D resistance network was used to
+determine the maximum thermal generation for a given core design and a temperature
+drop between fuel and coolant. An iterative solving scheme was developed to
 converge the heat transfer and fluid flow equations.
 
 \subsection{Flow Properties}
 All flow properties were axially averaged between their inlet and outlet values.
-The inlet and outlet flow conditions, thermal power, and mass flow rate are
+The inlet and outlet flow conditions, thermal power, and mass flow rate were
 dictated by the power cycle configuration and requirements. Property tables for
 both CO2 and H2O coolants as a function of pressure and temperature were 
 generated using EES and interpolated using SciPy's 2D interpolation functions
 \citep{scipy}, \citep{EES_citation}.
-The interpolated properties included: thermal conductivity [W/m-K], density
-[kg/m$^3$], viscosity [kg/m-s], and specific heat [J/kg-K].
+The interpolated properties included: thermal conductivity [$\frac{W}{m-K}$], density
+[$\frac{kg}{m^3}$], viscosity [$\frac{kg}{m-s}$], and specific heat [$\frac{kJ}{kg-K}$].
 
 \subsection{Thermophysical Properties}
 Thermophysical properties were used to model heat transfer in solid reactor
@@ -64,16 +64,25 @@ was 3.6 $[\frac{W}/{m-K}]$ \citep{todreas_th}. The yield strength for SS-304 was
 used to calculate the required pressure vessel thicknes, the yield strength for
 SS-304 was 275 [MPa] \citep{ss_strength}.
 
+\subsection{Calculation Overview}
+The thermal hydraulic mass calculation was broken down into a series of steps.
+\begin{enumerate}
+    \item Core geometry
+    \item Flow characterization
+    \item 1D heat transfer
+    \item Pressure check and mass calculations
+\end{enumerate}
+
 \subsection{Core Geometry}
 Important core geometry parameters were calculated. The coolant flow area,
 average distance of conduction in the fuel, volume fraction of cladding in
 coolant, number of coolant channels, convection surface area, LD, and the cross
-sectional area for conduction in the fuel. The core radius is set by a critical
-radius constraint dependent on the fuel fraction. This will be discussed in a
-later section.
+sectional area for conduction in the fuel were all defined in this step. The
+core radius is set by the critical
+radius constraint dependent on the fuel fraction.
 
-Fuel area and volume is derived from the core radius and fuel fraction. Where
-$AR$ is the core aspect ratio.
+Fuel area and volume was derived from the core radius and fuel fraction. Where
+$AR$ was the core aspect ratio.
 
 \begin{equation}
     A_{fuel} = frac_{fuel}*r_{core}^2*\pi
@@ -82,14 +91,14 @@ $AR$ is the core aspect ratio.
     V_{fuel} = A_{cool}*AR*r_{core}
 \end{equation}
 
-The fraction of cladding in the coolant is derived from the coolant channel
+The fraction of cladding in the coolant was derived from the coolant channel
 radius and cladding thickness.
 
 \begin{equation}
     frac_{clad} = \frac{(r_{channel} + t_{clad})^2 - r_{channel}^2}{r_{channel}^2} 
 \end{equation}
 
-In a similar vein, coolant flow area is derived from the core radius, cladding
+In a similar vein, coolant flow area was derived from the core radius, cladding
 fraction, and fuel fraction
 
 \begin{equation}
@@ -100,27 +109,27 @@ fraction, and fuel fraction
     V_{cool} = A_{cool}*AR*r_{core}
 \end{equation}
 
-The number of coolant channels is derived from the area of each channel and the
+The number of coolant channels was derived from the area of each channel and the
 core flow area.
 
 \begin{equation}
     N_{channels} = \frac{A_{cool}}{(r_{channel} + t_{clad})^2 * \pi}
 \end{equation}
 
-The convection surface area is dervied from the channel radius, core length, and
+The convection surface area was dervied from the channel radius, core length, and
 number of channels.
 
 \begin{equation}
     A_{conv} = 2*r_{channel}*\pi*r_{core}*AR*N_{channels}    
 \end{equation}
 
-The length over diameter is derived from the channel radius and core length.
+The length over diameter was derived from the channel radius and core length.
 
 \begin{equation}
     LD = \frac{r_{core}*AR}{2*r_{channel}}
 \end{equation}
 
-The average distance to conduction is derived from fuel area and number of
+The average distance to conduction was derived from fuel area and number of
 channels.
 
 \begin{equation}
@@ -132,19 +141,18 @@ The cross sectional area for conduction in the fuel was conservatively estimated
 as the convection surface area. In reality, the cross-sectional area changes as
 heat transfers from the center of the fuel meat to the coolant channels.
 
-
 These are the important equations defining the 1D geometry for a coolable
-reactor. Once the geometry has been defined, the flow conditions are modeled.
+reactor. Once the geometry was defined, the flow conditions were modeled.
 
-\subsection{Flow Equations}
+\subsection{Flow Characterization}
 
-Once the core geometry has been defined, the flow is characterized using
+Once the core geometry was been defined, the flow was characterized using
 bulk-averaged flow conditions and the reactor geometry. The mass flux, coolant
 velocity, Reynold's number, Nusselt number and average heat transfer
-coefficients are calculated.
+coefficients were calculated.
 
-Mass flux is derived from flow area and the mass flow rate dictated by the power
-cycle. Flow velocity can be calculate from mass flux and density.
+Mass flux was derived from flow area and the mass flow rate dictated by the power
+cycle. Flow velocity was calculated from mass flux and density.
 
 \begin{equation}
     \dot{G} = \frac{\dot{m}}{A_{flow}}
@@ -154,17 +162,22 @@ cycle. Flow velocity can be calculate from mass flux and density.
     v = \frac{\dot{G}}{\rho}
 \end{equation}
 
-The Reynold's number is derived from flow velocity, density, viscosity, and the
+The Reynold's number was derived from flow velocity, density, viscosity, and the
 characteristic flow length (channel diameter, D).
 
 \begin{equation}
     Re = \frac{\rho v D}{\mu}
 \end{equation}
 
-The Nusselt number is calculated using the same correlations as EES. Laminar,
-turbulent, and transitional flows are all treated differently.
+The Nusselt number was calculated using the pipeflow correlations from EES. EES
+treats laminar and turbulent flow differently. To model transitional flow, the
+following equation was used to smear the two correlations.
 
-The average heat transfer coefficient is derived from the Nusselt number and
+\begin{equation}
+    Nu = (Nu_{lam}^6 + Nu_{turb}^6)^{\frac{1}{6}}
+\end{equation}
+
+The average heat transfer coefficient was derived from the Nusselt number and
 thermal conductivity of the fluid.
 
 \begin{equation}
@@ -174,9 +187,9 @@ thermal conductivity of the fluid.
 \subsection{1D Thermal Generation Modeling}
 
 With a fully defined geometry and fully characterized flow, the maximum thermal
-output of the core is calculated. The maximum generation (at the center of the
-core) is calculated using a 1D resistance network. The three resistances in the
-network are: conduction in the fuel, conduction in the clad, and convection from
+output of the core was calculated. The maximum generation (at the center of the
+core) was calculated using a 1D resistance network. The three resistances in the
+network were: conduction in the fuel, conduction in the clad, and convection from
 the clad to the coolant. Gap and interface resistances were ignored.
 
 Resistance to conduction in the fuel was approximated as plane wall conduction.
@@ -201,7 +214,7 @@ the fuel) and the bulk coolant temperature.
     Q^{'''}_{max} = \frac{dT}{R_{fuel} + R_{clad} + R_{conv}}
 \end{equation}
 
-Finally, the thermal generation at fuel centerline is scaled by the axial and
+Finally, the thermal generation at fuel centerline was scaled by the axial and
 radial flux profiles to account for the cosine and bessel function shapes of the
 flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport
 \citep{heat_trans_wakil}.
@@ -214,17 +227,34 @@ flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport
     The governing equations above describe a coolable
 reactor design. A Python code was written to solve the system of equations
 defining the geometry, flow conditions, and 1D heat transfer in the reactor. The
-code utilizes Scipy's optimization package. The 'optimize\_scalar' function is
+code utilized Scipy's optimization package. The 'optimize\_scalar' function was
 used to guess fuel fraction values. For each fuel fraction, the above equations
-are used to determine $Q_{gen}$, an error exists between $Q_{gen}$ and the
+were used to determine $Q_{gen}$, an error exists between $Q_{gen}$ and the
 required thermal reactor output dictated by the power cycle requirements. The
-optimization function minimizes the squared difference between $Q_{gen}$ and the
-thermal power requirements. When the solver converges on a fuel fraction, the
+optimization function minimized the squared difference between $Q_{gen}$ and the
+thermal power requirements. When the solver converged on a fuel fraction, the
 code returns a coolable reactor design. Since the core radius was set by a
 critical radius constraint, this reactor is also neutronically valid for the
 duration of the 10 year mission.
 
-    The thermal hydrauilc code also calculates the mass of each reactor. This
+\subsection{Pressure Check and Mass Calculations}
+
+The reactor design needed to be checked for a pressure drop consistent with the
+power cycle. The pressure drop due to friction in the flow channels could not
+exceed the core pressure drop dictated by the power cycle. The following
+equation was used to calculated the flow-induced pressure drop in the coolant
+channels.
+
+\begin{equation}
+    dP = \frac{fL\rho v^2}{2D_e}
+\end{equation}
+
+where f is a friction factor calculated with the Nusselt correlation. If the
+pressure drop exceeded the limit, core channels and fuel mass was added and the
+flow was re-characterized to determine the new pressure drop. Channels were adjusted
+until the pressure drop did not exceed the pressure limit.
+
+The thermal hydrauilc code also calculated the mass of each reactor. This
 mass includes fuel, cladding, coolant, reflector material and the pressure
 vessel. The pressure vessel thickness was calculated as a function of pressure
 and outer core radius (including the reflector) for stainless steel at \~700K
@@ -237,6 +267,9 @@ vessel.
     T_{vessel} = \frac{RP}{S + 0.6P}
     \label{eq:pv_thick}
 \end{equation}
+
+Where S is the strength of the material [Pa], P is the coolant pressure [Pa],
+and R is the innner core radius [m].
 
 \section{Limiting Core Mass}
 The limiting core mass for both reactor constraints was analyzed to ensure the
@@ -257,10 +290,6 @@ Each combination of radius and fuel fraction has a corresponding mass:
 The goal of the mass optimization was to find the minimum mass that satisfies
 both constraints.
 
-\begin{equation}
-    min( M(R_{coolable}, F), M(R_{critical}, F) )
-\end{equation}
-
 To ensure the model was returning the minimum reactor mass, both limiting mass
 cases were plotted as a function of fuel fraction. This analysis was done for a
 fixed set of flow conditions and a fixed thermal power. Figure
@@ -276,12 +305,12 @@ function of fuel fraction for multiple thermal powers.
 
 The reactor configuration calculated by the mass model is the intersection of
 the critical core mass and the coolable core mass curves. The critical radius
-constraint forces the reactor to be on the critical radius curve. The shape of
-both curves ensures the intersection is the minimum mass reactor. For the
-critical mass curve, any point below the curve does not meet the target
-reactivity and any point above the curve exceeds the target reactivity. For the
-coolable mass curve, any point below can not reject the required thermal heat
-input and any point above is not reaching its thermal power potential. The
-curves have opposite slopes, which means there exists no valid point on either
+constraint forced the reactor to be on the critical radius curve. The shape of
+both curves ensured the intersection was the minimum mass reactor. For the
+critical mass curve, any point below the curve did not meet the target
+reactivity and any point above the curve exceeded the target reactivity. For the
+coolable mass curve, any point below could not reject the required thermal heat
+input and any point above was not reaching its thermal power potential. The
+curves have opposite slopes, which means there existed no minimized, valid point on either
 curve except for the intersection. Points above both lines represent valid
 core designs, but are not the mass-optimized result.

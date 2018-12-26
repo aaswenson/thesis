@@ -1,6 +1,8 @@
 \chapter{Conclusion}
 The goal of this project was to develop a constrained reactor mass model that did not rely
-on traditional reactor physics tools. The model was designed to be integrated
+on traditional reactor physics tools. The model needed to incorporate physics
+constraints (cooling, criticality) in order to approximate and optimize reactor
+mass. The model was designed to be integrated
 into an overall power cycle model as part of a mass optimization process. A
 framework was developed to model reactor mass as a submodule of an overall
 power system mass model. The modeling framework considered both thermal
@@ -35,7 +37,7 @@ chosen. While this limitation was useful for developing the model,
 there are many other fuel types that could be considered. For monolithic
 cores, this exploration is simple as developing new critical radius curves and
 applying different thermal and physical properties. Switching fuel form would be
-more complicated. Different 1D heat transfer modeling would be required to
+more complicated. Modified 1D heat transfer modeling would be required to
 account for a different fuel geometry. It would be interesting to explore
 TRISO fuel as well as high temperature graphite fuel forms. These fuels are
 capable of operating at extremely high temperatures, potentially increasing
@@ -45,7 +47,7 @@ The reactor mass model and the supporting workflow was designed to support this
 work. The geometry-specific calculations are modular and isolated in the thermal
 hydraulic scripts. The core heat transfer functions could be modified to support
 a new geometry. The neutronics modeling workflow was completely scripted in
-Python, easily facilitating the replication of the workflow on a new geometry.
+Python, easily facilitating the replication of the modeling with a new geometry.
 
 \subsection{Modeling Work}
 Reactor designs from this modeling workflow yield very rough models and limited

@@ -20,14 +20,14 @@ matter. This increased mean free path reduces the importance of small geometric
 features.
 
 The homogeneous approximation is known to be acceptable from decades of
-experience modeling fast nuclear reactors. Still, it is important to check
-assumptions. The homogeneous approximation was checked by comparing a
+experience modeling fast nuclear reactors. Still, it was important to check
+this assumption. The homogeneous approximation was checked by comparing a
 heterogeneous and a homogeneous \keff result for the same \uran mass and core
 geometry. Coolant channels were added to the heterogeneous model and the fuel
 fraction of the homogenous model was adjusted to match the hetergeneous fuel
 fraction. Table \ref{tab:homog_validate_params} shows the parameters used for
-the validation case. The fuel fraction was chosen to match the fuel fraction
-caused by 54 coolant channels in the heterogeneous model.
+the validation case. The homogeneous fuel fraction was chosen to match the
+heterogeneous fuel fraction with 54 coolant channels in the core.
 
 \begin{table}[h]
   \centering
@@ -50,7 +50,7 @@ caused by 54 coolant channels in the heterogeneous model.
 The heterogeneous geometry is shown in Figure \ref{fig:hetero_xy}. Both models
 were run with 290 active cycles and 100,000 histories per cycle to ensure
 solution convergence. Table \ref{tab:homog_validate_results} shows the results
-of the validation. The results are in good agreement.
+of the validation. The results were in good agreement.
 
 \begin{figure}[h]
     \centering
@@ -79,20 +79,21 @@ After the reactor and power cycle was optimized with the total system optimizer,
 it was important to verify the resultant reactor design was valid. There was
 confidence in the coolability of the design to the extent that the 1D heat
 transfer equations accurately model the system. There exists more uncertainty
-with the neutronic validity of the reactor.
+with the neutronic validity of the reactor. The following are the main sources
+of uncertainty in the neutronics modeling.
 
 \onehalfspacing
 \begin{enumerate}
-    \item The core radii are determined by a 3rd degree fit to data
+    \item The core radii are determined by a 7th degree fit to data
     \item The data for the fit came from constraining a \keff response described
         by a trilinear interpolation
     \item The trilinear interpolation function was generated using stochastically
         generated \keff data from MCNP
-    \item Target excess reactivity was used to model depletion effects
+    \item A target BOL excess reactivity was used to model depletion effects
 \end{enumerate}
 \doublespacing
 
-The reality of the neutronics workflow, is that it was too onerous to propogate
+The reality of the neutronics workflow is that it was too onerous to propogate
 uncertainty in the underlying MCNP results, the trilinear interpolation, and the
 fitting function to quantify some understanding of the error in reactor mass. In
 order to compensate for this defficiency in error propogation, the results of
@@ -146,7 +147,7 @@ reactivity satisfy neutronics requirements.
     Core Radius & 12.12 [cm]\\
     Fuel Fraction & 0.74 [-]\\
     Reactor Mass & 123.53 [kg]\\
-    BOL \keff & 1.01349 ($\pm$0.00051)
+    BOL \keff & 1.01349 ($\pm$0.00051)\\
     EOL \keff & 1.00345 ($\pm$0.00049)
   \end{tabular}
   \label{tab:bol_validate}
