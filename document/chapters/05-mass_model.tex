@@ -81,59 +81,59 @@ sectional area for conduction in the fuel were all defined in this step. The
 core radius is set by the critical
 radius constraint dependent on the fuel fraction.
 
-Fuel area and volume was derived from the core radius and fuel fraction. Where
+Fuel area and volume was derived from the core radius and fuel fraction (f). Where
 $AR$ was the core aspect ratio.
 
 \begin{equation}
-    A_{fuel} = frac_{fuel}*r_{core}^2*\pi
+    A_{fuel} = f_{fuel}\cdot r_{core}^2 \cdot \pi
 \end{equation}
 \begin{equation}
-    V_{fuel} = A_{cool}*AR*r_{core}
+    V_{fuel} = A_{fuel}\cdot AR\cdot r_{core}
 \end{equation}
 
 The fraction of cladding in the coolant was derived from the coolant channel
 radius and cladding thickness.
 
 \begin{equation}
-    frac_{clad} = \frac{(r_{channel} + t_{clad})^2 - r_{channel}^2}{r_{channel}^2} 
+    f_{clad} = \frac{(r_{channel} + t_{clad})^2}{r_{channel}^2} - 1 
 \end{equation}
 
 In a similar vein, coolant flow area was derived from the core radius, cladding
 fraction, and fuel fraction
 
 \begin{equation}
-    A_{cool} = (1-frac_{fuel})*(1-frac_{clad})*r_{core}^2*\pi
+    A_{cool} = (1-frac_{fuel})\cdot (1-frac_{clad}) \cdot r_{core}^2 \cdot \pi
 \end{equation}
 
 \begin{equation}
-    V_{cool} = A_{cool}*AR*r_{core}
+    V_{cool} = A_{cool}\cdot AR\cdot r_{core}
 \end{equation}
 
 The number of coolant channels was derived from the area of each channel and the
 core flow area.
 
 \begin{equation}
-    N_{channels} = \frac{A_{cool}}{(r_{channel} + t_{clad})^2 * \pi}
+    N_{channels} = \frac{A_{cool}}{(r_{channel} + t_{clad})^2 \cdot \pi}
 \end{equation}
 
 The convection surface area was dervied from the channel radius, core length, and
-number of channels.
+number of channels (N).
 
 \begin{equation}
-    A_{conv} = 2*r_{channel}*\pi*r_{core}*AR*N_{channels}    
+    A_{conv} = 2\cdot r_{channel}\cdot \pi\cdot r_{core}\cdot AR\cdot N
 \end{equation}
 
 The length over diameter was derived from the channel radius and core length.
 
 \begin{equation}
-    LD = \frac{r_{core}*AR}{2*r_{channel}}
+    LD = \frac{r_{core}\cdot AR}{2\cdot r_{channel}}
 \end{equation}
 
 The average distance to conduction was derived from fuel area and number of
-channels.
+channels assuming a square unit cell for a coolant channel.
 
 \begin{equation}
-    R_{cond} = \frac{\sqrt{\frac{A_{fuel}}{N_{channels}}}}{2}
+    r_{cond} = \frac{\sqrt{\frac{A_{fuel}}{N}}}{2}
     \label{r_cond}
 \end{equation}
 
@@ -181,7 +181,7 @@ The average heat transfer coefficient was derived from the Nusselt number and
 thermal conductivity of the fluid.
 
 \begin{equation}
-    \bar{h} = \frac{Nu k_{cool}}{D}
+    \bar{h} = Nu \frac{k_{cool}}{D}
 \end{equation}
 
 \subsection{1D Thermal Generation Modeling}
@@ -194,7 +194,7 @@ the clad to the coolant. Gap and interface resistances were ignored.
 
 Resistance to conduction in the fuel was approximated as plane wall conduction.
 \begin{equation}
-    R_{fuel} =  \frac{R_{cond}}{k_{fuel}A_{cond}}
+    R_{fuel} =  \frac{r_{cond}}{k_{fuel}\cdot A_{cond}}
 \end{equation}
 
 \begin{equation}
@@ -202,43 +202,43 @@ Resistance to conduction in the fuel was approximated as plane wall conduction.
 \end{equation}
 
 \begin{equation}
-    R_{conv} = \frac{1}{2\bar{h}r_{channel}L\pi N_{channels}}
+    R_{conv} = \frac{1}{2\cdot r_{channel}\cdot AR\cdot r_{core} \cdot \pi\cdot N}
 \end{equation}
 
 The maximum heat transfer rate at the fuel centerline was derived from the
-resistance network and the temperature drop. The temperature drop was determined
-by the maximum fuel temperature (estimated to be half the melting temperature of
+resistance network and the temperature drop. The temperature drop was set
+by the maximum fuel temperature (chosen to be half the melting temperature of
 the fuel) and the bulk coolant temperature.
 
 \begin{equation}
-    Q^{'''}_{max} = \frac{dT}{R_{fuel} + R_{clad} + R_{conv}}
+    Q^{'''}_{max} = \frac{\Delta T}{R_{fuel} + R_{clad} + R_{conv}}
 \end{equation}
 
 Finally, the thermal generation at fuel centerline was scaled by the axial and
-radial flux profiles to account for the cosine and bessel function shapes of the
-flux. The scaling factor was taken from El-Wakil's Nuclear Heat Transport
-\citep{heat_trans_wakil}.
+radial flux profiles to account for the canonical cosine and Bessel function
+shapes of the neutron flux. The scaling factor was taken from
+El-Wakil's Nuclear Heat Transport \citep{heat_trans_wakil} and assumes a 
+bare reactor core.
 
 \begin{equation}
-    Q_{gen} = Q^{'''}_{max} * 0.275
+    Q_{gen} = Q^{'''}_{max} \cdot 0.275
 \end{equation}
 
 \subsection{1D Thermal Hydraulic Calcuations}
-    The governing equations above describe a coolable
+The governing equations above describe a coolable
 reactor design. A Python code was written to solve the system of equations
 defining the geometry, flow conditions, and 1D heat transfer in the reactor. The
 code utilized Scipy's optimization package. The 'optimize\_scalar' function was
-used to guess fuel fraction values. For each fuel fraction, the above equations
+used to guess fuel fraction values. For each fuel fraction the critical radius
+was set using the relationship modeled in Chapter \ref{ch:crit_radius}, the above equations
 were used to determine $Q_{gen}$, an error exists between $Q_{gen}$ and the
 required thermal reactor output dictated by the power cycle requirements. The
 optimization function minimized the squared difference between $Q_{gen}$ and the
 thermal power requirements. When the solver converged on a fuel fraction, the
-code returns a coolable reactor design. Since the core radius was set by a
-critical radius constraint, this reactor is also neutronically valid for the
+code returned a coolable reactor with enough excess reactivity to run for the
 duration of the 10 year mission.
 
 \subsection{Pressure Check and Mass Calculations}
-
 The reactor design needed to be checked for a pressure drop consistent with the
 power cycle. The pressure drop due to friction in the flow channels could not
 exceed the core pressure drop dictated by the power cycle. The following
@@ -246,10 +246,10 @@ equation was used to calculated the flow-induced pressure drop in the coolant
 channels.
 
 \begin{equation}
-    dP = \frac{fL\rho v^2}{2D_e}
+    \Delta P = f \frac{AR\cdot r_{core}}{D_e} \frac{\rho v^2}{2}
 \end{equation}
 
-where f is a friction factor calculated with the Nusselt correlation. If the
+where f is a friction factor calculated as a part of the Nusselt correlation. If the
 pressure drop exceeded the limit, core channels and fuel mass was added and the
 flow was re-characterized to determine the new pressure drop. Channels were adjusted
 until the pressure drop did not exceed the pressure limit.
@@ -264,27 +264,28 @@ estimate for pressure vessels and is adequate to ensure the integrity of the
 vessel.
 
 \begin{equation}
-    T_{vessel} = \frac{RP}{S + 0.6P}
+    T_{vessel} = \frac{r_{reactor}P}{S + 0.6P}
     \label{eq:pv_thick}
 \end{equation}
 
 Where S is the strength of the material [Pa], P is the coolant pressure [Pa],
-and R is the innner core radius [m].
+and r$_{reactor}$ is radius of the reactor core plus the thickness of the
+reflector [m].
 
 \section{Limiting Core Mass}
 The limiting core mass for both reactor constraints was analyzed to ensure the
 reactor mass model was calculating the minimum reactor mass. For each fuel
-fraction (F) there exists two constraining core radii such that:
+fraction (f) there exists two constraining core radii such that:
 
 \begin{align}
-    R_{coolable} = G(F) \\
-    R_{critical} = H(F)
+    r_{coolable} = G(f) \\
+    r_{critical} = H(f)
 \end{align}
 
 Each combination of radius and fuel fraction has a corresponding mass:
 
 \begin{equation}
-    M = M(R, F)
+    M = M(r, f)
 \end{equation}
 
 The goal of the mass optimization was to find the minimum mass that satisfies
@@ -314,3 +315,5 @@ input and any point above was not reaching its thermal power potential. The
 curves have opposite slopes, which means there existed no minimized, valid point on either
 curve except for the intersection. Points above both lines represent valid
 core designs, but are not the mass-optimized result.
+
+

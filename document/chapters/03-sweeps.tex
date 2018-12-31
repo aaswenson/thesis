@@ -68,13 +68,12 @@ dependent on \uran mass, for a fixed enrichment, EOL \keff can be modeled by
 using the few parameters that affect reactor mass.
 
 \subsection{Core Radius}
-Core radius has a strong impact on EOL \keff. Fuel mass is directly correlated
-to fuel fraction and core volume. For a fixed aspect ratio of 1, core volume is
-a cubic function of core radius. This makes EOL \keff strongly dependent on core
-radius. The volume to surface area ratio is a positive function of core radius
-hence, neutron leakge is reduced in larger cores. Figure
-\ref{fig:eol_keff_vs_r_core} shows the correlation between core radius and EOL
-\keff.
+Core radius has a strong impact on EOL \keff. Fuel mass was directly correlated
+to fuel fraction and core volume. For a fixed aspect ratio of 1, core volume was
+a cubic function of core radius. This made EOL \keff strongly dependent on core
+radius. Figure \ref{fig:eol_keff_vs_r_core} shows the correlation between 
+core radius and EOL \keff. There was a strong relationship between core radius
+and fuel mass, increasing fuel mass increased EOL \keff.
 
 \begin{figure}[h]
     \centering
@@ -83,16 +82,13 @@ hence, neutron leakge is reduced in larger cores. Figure
 \label{fig:eol_keff_vs_r_core}
 \end{figure}
 
-Figure \ref{fig:eol_keff_vs_r_core} displays the strong relationship between
-core radius and fuel mass. Increasing fuel mass increases EOL \keff.
-
 \subsection{Fuel Enrichment}
 Fuel enrichment directly affects \uran mass in nuclear fuel. Higher enrichments
 yield more \uran mass for a fixed mass of fuel. Figure
-\ref{eol_keff_vs_mass_enrich} shows how increasing enrichment increases \uran
-mass and EOL \keff. For fixed \uran masses, increasing fuel mass also impacts
-reactivity. For fixed \uran masses, higher enriched cores have greater \uran
-density. This increased density increases EOL \keff.
+\ref{eol_keff_vs_mass_enrich} shows how increasing enrichment increased \uran
+mass and EOL \keff. For fixed \uran masses, increasing fuel mass also impacted
+reactivity. For fixed \uran masses, higher enriched cores had greater \uran
+density and as a result, higher EOL \keff.
 
 \begin{figure}[h]
     \centering
@@ -106,8 +102,8 @@ The fuel pitch to coolant channel diameter ratio (PD) also directly impacts
 \uran mass in fuel. PD affects volumetric fuel fraction. Figure
 \ref{fig:eol_keff_vs_PD_mass} shows the impact of PD on \uran mass and EOL
 \keff. In addition to increasing \uran mass, PD impacts uranium density.
-Reactors with larger PD ratios have greater \uran density which reduces neutron
-leakage from the core and increases reactivity.
+Reactors with larger PD ratios had greater \uran density which reduced neutron
+leakage from the core and increased EOL \keff.
 
 \begin{figure}[h]
     \centering
@@ -116,12 +112,11 @@ leakage from the core and increases reactivity.
 \label{fig:eol_keff_vs_PD_mass}
 \end{figure}
 
-
 \subsection{Coolant Channel Radius}
 EOL \keff is independent of coolant channel radius. Channel radius had no impact
-on fuel mass and small geometric features
-had little importance for high energy neutrons. Figure
-\ref{fig:eol_keff_vs_r_cool} shows the impact of coolant channel radius.
+on fuel mass and small geometric features had little importance for high 
+energy neutrons. Figure \ref{fig:eol_keff_vs_r_cool} shows the impact of 
+coolant channel radius on EOL \keff.
 
 \begin{figure}[h]
     \centering
@@ -130,10 +125,8 @@ had little importance for high energy neutrons. Figure
 \label{fig:eol_keff_vs_r_cool}
 \end{figure}
 
-
 \subsection{Thermal Power}
-Initially, the result of greatest interest was the mass dependence on thermal
-power, because thermal power was the reactor-power cycle coupling parameter.
+EOL \keff is relatively independent of thermal power.
 Figure \ref{fig:eol_keff_vs_power} shows the relationship between thermal power
 and EOL \keff.
 
@@ -144,15 +137,21 @@ and EOL \keff.
 \label{fig:eol_keff_vs_power}
 \end{figure}
 
-As shown in Figure \ref{fig:eol_keff_vs_power}, EOL \keff is independent of core
-thermal power. This result is not surprising considering the depletion rates in
-the core. Assuming 1 MWd/gU is an achievable burnup, the reactor depletes
-approximately 1000 g of uranium over 10 years of full power operation (at 200
-kW). The depletion mass
-of uranium is negligigle compared to the mass of uranium required for the
-reactor to be critical at BOL. Thermal power is not a strong predictor of EOL
-criticality.
+As shown in Figure \ref{fig:eol_keff_vs_power}, EOL \keff was independent of core
+thermal power. The depletion mass of uranium was negligigle compared to the mass 
+of uranium required for the reactor to be critical at BOL. This was confirmed
+with a quick calculation. Assuming a thermal power of 150 kW for 10 years and
+192 MeV per fission, the depleted mass (dU) of \uran could be calculated.
 
+\begin{equation}
+    dU = \frac{1.5x10^5\:J}{s}\;\frac{3.156x10^8\:s}{1}\;\frac{1\:
+    fiss}{3.076x10^{-11}\:J}\;\frac{1\:mol}{6.022x10^{23}\:fiss}\;\frac{235\:
+    g}{mol}
+\end{equation}
+
+At 150 kW of fission power, the reactor depletes approximately 600 grams of
+\uran. This is a negligible mass compared to the BOL mass of a typical reactor
+core (~100-500 kg). Thermal power was not a strong predictor of EOL criticality.
 
 \section{Parametric Study Conclusion}
 The purpose of this parametric study was to perform a rudimentry feature
@@ -173,4 +172,4 @@ important conclusion was that EOL \keff is relatively independent of thermal pow
 meant EOL \keff could be estimated as BOL \keff adjusted for marginal burnup.
 This conclusion was useful to constrain reactor parameters and will be utilized
 in Chapter \ref{ch:crit_radius} to justify a relationship between core fuel fraction
-and a required core radius to ensure EOL \keff > 1.
+and a required core radius to ensure EOL \keff > 1.0.
