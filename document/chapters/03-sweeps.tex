@@ -155,18 +155,17 @@ core (~100-500 kg). Thermal power was not a strong predictor of EOL criticality.
 
 \section{Parametric Study Conclusion}
 The purpose of this parametric study was to perform a rudimentry feature
-selection. Feature selection is a technique used in machine learning and
-statistics to select relevant variables (features) in a data set to simplify the
-modeling of the data set. The parametric study helped identify key predictors
+selection. The feature selection was used to develop a reduced-order reactivity
+model. The parametric study helped identify key predictors
 for the neutronic performance of a reactor design.
 
 The figure of merit for neutronics performance was EOL \keff. The reactor must
 sustain a fission chain reaction throughout the mission lifetime. In order to
-ensure the reactor mass model generates a neutronically viable core, it was
+ensure the reactor mass model generated a neutronically viable core, it was
 necessary to determine on which input parameters EOL \keff is most strongly
-dependent. To support this analysis, 3901 MCNP6.1 depletion calculations were
-performed over a 5-dimensional sample space with Latin Hypercube Sampling
-techniques to ensure even sampling. The conclusion of this work is that fissile
+dependent. For this analysis, 3901 MCNP6.1 depletion calculations were
+performed over a 5-dimensional sample space using the Latin Hypercube Sampling
+technique to ensure even sampling. The conclusion of this work was that fissile
 material mass is the most important parameter to predict EOL \keff. Another
 important conclusion was that EOL \keff is relatively independent of thermal power. This
 meant EOL \keff could be estimated as BOL \keff adjusted for marginal burnup.

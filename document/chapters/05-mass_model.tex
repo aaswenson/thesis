@@ -1,20 +1,19 @@
-\chapter{Reactor Mass Model} \label{ch:mass_model}
+\chapter{Reactor Model} \label{ch:mass_model}
 The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
-$\dot{m}$) and constrain a reactor concept that is both coolable, and critical
+$\dot{m}$) and constrain a reactor concept that was both coolable, and critical
 after 10 years of full power operation. The reactor model was developed in
 Python. The attribute of interest was the mass of
 the valid concept, but other useful values such as geometry, fuel fraction,
 and fluid-flow paramters were available from the solver. Before the mass model
 could be built, some important design decisions needed to be made.
 
-
-\section{Thermal Hydraulic Theory}
+\section{Thermal Hydraulic Model}
 The second considered constraint of a valid reactor design was coolability. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
 the mission. To ensure the thermal hydraulic validity of a chosen design, 
 1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
-heat transfer and fluid equations were coupled with analytical flux shape
+heat transfer and fluid equations were coupled with analytical peaking factors
 factors from nuclear engineering literature to determine the maximum extractable
 thermal power for each reactor design. A 1D resistance network was used to
 determine the maximum thermal generation for a given core design and a temperature
