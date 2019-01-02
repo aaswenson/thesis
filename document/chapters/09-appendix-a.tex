@@ -12,9 +12,10 @@ optimization for total reactor mass was attempted and an average reflector value
 was picked. This value was used to determine the critical core radius as a
 function of fuel fraction. Finally, this data was fitted and used in the thermal
 hydraulic mass model to constrain the core radius as a function of fuel
-fraction.
+fraction. The optimized reactor mass relationship to thermal power is 
+provided for each configuration as well.
 
-
+\clearpage
 \section{UW-\codiox}
 This configuration is uranium nitride fuel dispersed in a tungsten matrix. The
 fuel block is clad with Inconel-718. The
@@ -51,7 +52,17 @@ contains the 7th order fit coefficients.
   \label{tab:un_co2_fit_coeffs}
 \end{table}
 
-\newpage
+Figure \ref{fig:mass_un_co2} shows the UW-\codiox optimized mass response to thermal
+power.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/mass_vs_q_un_co2.png}
+\caption{UW-\codiox optimized mass as a function of thermal power.}
+\label{fig:mass_un_co2}
+\end{figure}
+
+\clearpage
 \section{\uox-\water}
 This configuration is monolithic uranium oxide fuel with Inconel-718 cladding.
 The fuel is cooled by supercritical water. A fixed average reflector multiplier
@@ -88,8 +99,18 @@ polynomial fit to the data.
   \label{tab:uo2_h2o_fit_coeffs}
 \end{table}
 
+Figure \ref{fig:mass_uo2_h2o} shows the \uox-\water optimized mass response to thermal
+power.
 
-\newpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/mass_vs_q_uo2_h2o.png}
+\caption{\uox-\codiox optimized mass as a function of thermal power.}
+\label{fig:mass_uo2_h2o}
+\end{figure}
+
+
+\clearpage
 \section{UW-\water}
 This configuration is uranium nitride dispersed in a tungsten matrix. The core
 is cooled by supercritical \water. A fixed reflector multiplier of 0.0221 was
@@ -123,3 +144,13 @@ for the 7th order polynomial fit to the data.
   \end{tabular}
   \label{tab:un_h2o_fit_coeffs}
 \end{table}
+
+Figure \ref{fig:mass_un_h2o} shows the UW-\water optimized mass response to thermal
+power.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=4in]{../images/mass_vs_q_un_h2o.png}
+\caption{UW-\codiox optimized mass as a function of thermal power.}
+\label{fig:mass_un_h2o}
+\end{figure}

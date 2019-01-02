@@ -1,4 +1,4 @@
-\chapter{Power System Overview}
+\chapter{Reactor Model Inputs and Constraints}
 As discussed in the introduction, the modeled electrical power system was a 40
 kWe, recuperated Brayton cycle driven by a direct-cooled nuclear fission reactor. The goal
 of the project was to develop a mass model for the major components of the
@@ -9,7 +9,7 @@ more massive. Conversely, a less massive power cycle has lower efficiency,
 requiring a larger thermal input. This section will provide context to the
 development of the reactor mass model.
 
-\section{Cycle Description and Component Mass Modeling}
+\section{Power Cycle Description and Component Mass Modeling}
 
 \begin{figure}[h]
     \centering
@@ -31,7 +31,7 @@ components, their
 negligible mass contribution to the power cycle mass would make optimizing their
 design relatively fruitless.
 
-\subsection{Reactor Coupling}
+\subsection{Reactor Inputs From External Power Cycle Model}
 The interface between the reactor and the rest of the power cycle were flow
 conditions. The reactor thermal output was determined by the required enthalpy
 input to match the power cycle performance and meet the 40 kWe project
@@ -47,7 +47,18 @@ provided by the power cycle model were:
     \item thermal power
 \end{enumerate}
 
-These conditions were taken as inputs to the power cycle model. For the sake of
+Inlet and outlet temperature were used to calculate an axially-averaged bulk
+coolant temperature. This bulk temperature was used to define the temperature
+drop from the maximum fuel temperature to the coolant. The temperature was also
+used to calculate axially-averaged thermophysical properties. The inlet and
+outlet pressure was used to calculate and axially-averaged bulk pressure. This
+bulk pressure was used to calculate the required pressure vessel thickness and
+to calculate axially-averaged thermophysical properties. Mass flow rate was used
+to define mass flux through the core. Thermal power was passed as a convenience
+from the power cycle and matches the required enthalpy change in the reactor
+dictated by the power cycle model.
+
+These conditions were taken as inputs from the power cycle model. For the sake of
 cycle optimization, the model returned a reactor mass that matched the flow
 conditions and thermal power requirements. For future neutronics modeling, the
 model could also return geometric core parameters (radius, fuel fraction,
@@ -55,7 +66,8 @@ reflector thickness, etc.).
 
 \section{Initial Reactor Design Constraints}
     In order to develop a reactor mass model, the concept was constrained with
-some general design decisions. The chosen design needed to be simple and robust. The simplest reactor fuel concept is block fuel with coolant channels. 
+some general design decisions. The chosen design needed to be simple and robust. 
+The simplest reactor fuel concept is block fuel with coolant channels. 
 Block fuel is a common design choice for space reactors that operate at relatively 
 low power and burnup compared to power reactors. Two fuel types were chosen; one for
 near-term and the other for long-term technological readiness options. Uranium
@@ -83,11 +95,11 @@ density than the UW-CERMET fuel.
   \caption{\uox fuel composition}
   \begin{tabular}{cc}
     \toprule
-    Isotope   & Mass Fraction [-] \\
+    Isotope   & Number Density [$\frac{a}{b-c}$] \\
     \midrule
-     8016     & 0.1520 \\
-    92235     & 0.7886 \\
-    92238     & 0.0594 \\
+    8016	&	0.06280	\\
+    92235	&	0.02216	\\
+    92238	&	0.00165	\\
   \end{tabular}
   \label{tab:uox_comp}
 \end{table}
@@ -97,16 +109,16 @@ density than the UW-CERMET fuel.
   \caption{UW-CERMET fuel composition}
   \begin{tabular}{cc}
     \toprule
-    Isotope   & Mass Fraction [-] \\
+    Isotope   & Number Density [$\frac{a}{b-c}$] \\
     \midrule
-     7015     &  0.0260 \\
-     74180    &  0.0006 \\ 
-     74182    &  0.1396 \\
-     74183    &  0.0758 \\
-     74184    &  0.1632 \\
-     74186    &  0.1531 \\
-     92235    &  0.4107 \\
-     92238    &  0.0309 \\
+    7015	&	0.01513	\\
+    74180	&	0.00003	\\
+    74182	&	0.00670	\\
+    74183	&	0.00362	\\
+    74184	&	0.00775	\\
+    74186	&	0.00719	\\
+    92235	&	0.01526	\\
+    92238	&	0.00113	\\
   \end{tabular}
   \label{tab:uw_comp}
 \end{table}
@@ -120,10 +132,9 @@ Different fuel configurations such as pin-type or TRISO particle fuel could be
 explored with a different set of heat transfer equations and criticality models.
 This will be discussed in more detail in following chapters.
 
-
-\section{Model Development}
+\section{Component Mass Model Development}
 The reactor and power cycle models were developed independently and combined
-near the end of the project to model the entire system. While the reactor model
+to model the entire system. While the reactor model
 was under development, a simplified analytic model was used in place of the
 reactor model to return an estimate of reactor mass. While the power cycle model
 was under development (in tandem with the reactor model), a set of assumed flow

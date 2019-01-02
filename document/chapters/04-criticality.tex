@@ -291,7 +291,12 @@ addition to strong fuel absorption, the reactor was buried in the Martian
 regolith, some reflection can be expected from the soil around the reactor.
 The standard deviation of the critical masses across reflector multiplier space
 further suggests that reflector thickness was unimportant for the mass
-optimization.
+optimization. The standard deviation of the mass ($m$) was calculated across $N$
+multipliers for each fuel fraction.
+
+\begin{equation}
+    s = \sqrt{\frac{\sum_{i=0}^{N}(m_i - \bar{m})^2 }{N}}
+\end{equation}
 
 \begin{figure}[h]
     \centering
@@ -374,9 +379,15 @@ The 7th order fit coefficients are shown below in Table
   \label{tab:uo2_co2_fit_coeffs}
 \end{table}
 
+\section{Critical Core Constraint Summary}
 A critical radius constraint was developed to support the thermal hydraulic
 reactor model. Core radius was fixed to reach a target \keff as a function of
-fuel fraction. The total reactor critical mass was minimized by optimizing the
-reflector thickness via a reflector multiplier. These data were fit to a 7th
+fuel fraction. Core radius and fuel fraction were chosen as important neutronic
+variables based on analysis discussed in Chapter \ref{ch:sweeps}. A reflector
+thickness multiplier was used to minimize the total mass of a critical reactor.
+The optimized multipliers were found to be constant as a function of fuel
+fraction and were modeled as such. Data was generated to represent critical core
+radii as a function of fuel fraction. These data were fit to a 7th
 degree polynomial that was used by the thermal hydraulic model to constrain the
-core radius.
+core radius. The implementation of this constrain will be discussed in the next
+chapter.

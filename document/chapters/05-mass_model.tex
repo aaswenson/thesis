@@ -1,15 +1,16 @@
-\chapter{Reactor Model} \label{ch:mass_model}
+\chapter{Reactor Mass Model} \label{ch:mass_model}
 The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
 $\dot{m}$) and constrain a reactor concept that was both coolable, and critical
 after 10 years of full power operation. The reactor model was developed in
-Python. The attribute of interest was the mass of
-the valid concept, but other useful values such as geometry, fuel fraction,
-and fluid-flow paramters were available from the solver. Before the mass model
-could be built, some important design decisions needed to be made.
+Python. The attribute of interest was the reactor mass, but other useful values such as geometry, fuel fraction,
+and fluid-flow parameters were available from the solver. This chapter will
+describe the thermal hydraulic model that became the reactor mass model when
+constrained with the critical radius curve discussed in Chapter
+\ref{ch:crit_radius}.
 
 \section{Thermal Hydraulic Model}
-The second considered constraint of a valid reactor design was coolability. The reactor must
+An important design constraint of a valid reactor design was coolability. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
 the mission. To ensure the thermal hydraulic validity of a chosen design, 
 1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
@@ -18,7 +19,13 @@ factors from nuclear engineering literature to determine the maximum extractable
 thermal power for each reactor design. A 1D resistance network was used to
 determine the maximum thermal generation for a given core design and a temperature
 drop between fuel and coolant. An iterative solving scheme was developed to
-converge the heat transfer and fluid flow equations.
+converge the heat transfer and fluid flow equations. An iterative scheme was
+necessary because of the circular dependency between convective heat transfer and core
+area. For a direct-cooled core with a fixed coolant mass flow rate, 
+the convection limit is dependent on coolant flow velocity and the
+coolant flow velocity is dependent on coolant volume fraction which changes
+depending on the required volumetric power density. A root finding was performed
+to solve the system of equations discussed in this section.
 
 \subsection{Flow Properties}
 All flow properties were axially averaged between their inlet and outlet values.
@@ -58,12 +65,12 @@ The fuel density of the UW-CERMET cores was calculated assuming 60\% UN fuel and
 40\% tungsten matrix by volume \citep{conduct_cermet}. Thermal conductivity was
 used for conduction in the fuel and cladding. The CERMET conductivity was a
 combination of the conductivity of UN and W \citep{conduct_cermet}, conductivity
-in the CERMET fuel was 51 $[\frac{W}/{m-K}]$. The \uox thermal conductivity used
-was 3.6 $[\frac{W}/{m-K}]$ \citep{todreas_th}. The yield strength for SS-304 was
+in the CERMET fuel was 51 $[\frac{W}{m-K}]$. The \uox thermal conductivity used
+was 3.6 $[\frac{W}{m-K}]$ \citep{todreas_th}. The yield strength for SS-304 was
 used to calculate the required pressure vessel thicknes, the yield strength for
 SS-304 was 275 [MPa] \citep{ss_strength}.
 
-\subsection{Calculation Overview}
+\section{1D Heat Transfer Algorithm}
 The thermal hydraulic mass calculation was broken down into a series of steps.
 \begin{enumerate}
     \item Core geometry
@@ -71,6 +78,9 @@ The thermal hydraulic mass calculation was broken down into a series of steps.
     \item 1D heat transfer
     \item Pressure check and mass calculations
 \end{enumerate}
+
+The 1D heat transfer equations were solved iteratively to produce a reactor that
+met a set of flow conditions.
 
 \subsection{Core Geometry}
 Important core geometry parameters were calculated. The coolant flow area,
@@ -143,7 +153,7 @@ heat transfers from the center of the fuel meat to the coolant channels.
 These are the important equations defining the 1D geometry for a coolable
 reactor. Once the geometry was defined, the flow conditions were modeled.
 
-\subsection{Flow Characterization}
+\subsection{Coolant Flow Characterization}
 
 Once the core geometry was been defined, the flow was characterized using
 bulk-averaged flow conditions and the reactor geometry. The mass flux, coolant
@@ -183,7 +193,7 @@ thermal conductivity of the fluid.
     \bar{h} = Nu \frac{k_{cool}}{D}
 \end{equation}
 
-\subsection{1D Thermal Generation Modeling}
+\subsection{1D Thermal Modeling}
 
 With a fully defined geometry and fully characterized flow, the maximum thermal
 output of the core was calculated. The maximum generation (at the center of the
@@ -223,7 +233,7 @@ bare reactor core.
     Q_{gen} = Q^{'''}_{max} \cdot 0.275
 \end{equation}
 
-\subsection{1D Thermal Hydraulic Calcuations}
+\subsection{Matching the Required Core Thermal Power}
 The governing equations above describe a coolable
 reactor design. A Python code was written to solve the system of equations
 defining the geometry, flow conditions, and 1D heat transfer in the reactor. The
@@ -237,7 +247,7 @@ thermal power requirements. When the solver converged on a fuel fraction, the
 code returned a coolable reactor with enough excess reactivity to run for the
 duration of the 10 year mission.
 
-\subsection{Pressure Check and Mass Calculations}
+\subsection{Pressure Limits and Pressure Vessel Thickness}
 The reactor design needed to be checked for a pressure drop consistent with the
 power cycle. The pressure drop due to friction in the flow channels could not
 exceed the core pressure drop dictated by the power cycle. The following
@@ -253,8 +263,6 @@ pressure drop exceeded the limit, core channels and fuel mass was added and the
 flow was re-characterized to determine the new pressure drop. Channels were adjusted
 until the pressure drop did not exceed the pressure limit.
 
-The thermal hydrauilc code also calculated the mass of each reactor. This
-mass includes fuel, cladding, coolant, reflector material and the pressure
 vessel. The pressure vessel thickness was calculated as a function of pressure
 and outer core radius (including the reflector) for stainless steel at \~700K
 using an ASME vessel thickness standard. Equation \ref{eq:pv_thick} was used to
@@ -272,6 +280,11 @@ and r$_{reactor}$ is radius of the reactor core plus the thickness of the
 reflector [m].
 
 \section{Limiting Core Mass}
+The thermal hydraulic model also calculated the mass of each reactor. This
+mass includes fuel, cladding, coolant, reflector material and the pressure
+vessel. The mass returned by the thermal hydraulic model was the minimized mass
+of the reactor for the given set of flow conditions.
+
 The limiting core mass for both reactor constraints was analyzed to ensure the
 reactor mass model was calculating the minimum reactor mass. For each fuel
 fraction (f) there exists two constraining core radii such that:
@@ -315,4 +328,12 @@ curves have opposite slopes, which means there existed no minimized, valid point
 curve except for the intersection. Points above both lines represent valid
 core designs, but are not the mass-optimized result.
 
-
+\section{Reactor Mass Model Summary}
+A reactor mass model was developed to optimize the mass of a coolable,
+neutronically-valid reactor to meet a set of power cycle inputs. The model
+consisted of a 1D thermal hydraulic model to calculate limiting thermal power
+levels as a function of fuel melting temperature and bulk coolant temperature.
+The core radius was constrained in the thermal hydraulic model to ensure
+sufficient reactivity to last 10 years of full power operation. The reactor mass
+model then could be used as a component mass model for an overall power cycle
+mass optimization.
