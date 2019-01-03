@@ -1,4 +1,4 @@
-\chapter{Reactor Model Inputs and Constraints}
+\chapter{Reactor Model Inputs and Constraints}\label{ch:inputs_constraints}
 As discussed in the introduction, the modeled electrical power system was a 40
 kWe, recuperated Brayton cycle driven by a direct-cooled nuclear fission reactor. The goal
 of the project was to develop a mass model for the major components of the
@@ -75,7 +75,8 @@ oxide was chosen as the near-term fuel option for its high melting temperature.
 UMo and UN fuel were not considered because of tempearture limitations, despite
 their thermal conductivity and uranium density advantages. Inconel-718 was
 chosen as cladding for its high temperature strength and corrosion
-compatability with sCO$_2$. With these design choices, the reactor mass model
+compatability with sCO$_2$ and reactor-grade graphite was chosen for a
+reflector material. With these design choices, the reactor mass model
 could be developed from first principle heat transfer and fluid flow equations
 coupled with a critical core radius constraint.
 
@@ -144,3 +145,11 @@ unintentional mismatch in development choices proved interesting when it came
 time to merge the models! Despite this challenge, the reactor model was smoothly
 imported into the MATLAB power cycle model and the two models worked seamlessly
 to model the overall cycle mass.
+
+\section{Inputs and Constraints Summary}
+The reactor mass model was designed to take inputs from an external power cycle
+model. These inputs came in the form of coolant flow conditions that were used
+to define thermophysical properties and the required thermal power of the
+reactor. A monolithic fuel form and two fuel compositions (\uox and UW-CERMET)
+were chosen to optimize. These constraints and inputs would be used to develop a
+component mass model for a minimum-mass reactor.

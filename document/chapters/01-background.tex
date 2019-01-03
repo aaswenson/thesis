@@ -238,24 +238,32 @@ reactor model will be informed from past design experience.
 This project modeled the miminimum mass of a small fission reactor in support of
 the development of an optimized power cycle. The reactor mass model needed to
 execute rapidly in order to integrate into the overall cycle optimization.
-Traditional reactor physics and thermal hydraulic analysis tools are too slow to
+Traditional reactor physics and thermal hydraulic analysis tools were too slow to
 integrate into a wholistic system optimization. The reactor mass model needed to
-take flow inputs from the power cycle and calculate the minimum mass reactor for
-that set of flow conditions with the flow inputs coupling the reactor to 
-the other cycle components. Simplified analytical heat transfer and
-statistical neutronics functions were developed to model a minimum-mass reactor.
+take flow inputs from the power cycle and calculate the minimum mass reactor 
+with the flow inputs coupling the reactor to the other cycle components. 
+Simplified analytical heat transfer and statistical neutronics functions 
+were developed to model a minimum-mass reactor.
+
+\subsection{Inputs and Constraints}
+The reactor mass model was designed to integrate into a power cycle mass model.
+To this end, the coupling inputs between the reactor mass model and the power
+cycle mass model were clearly defined. Initial reactor design choices were made
+to constrain the mass optimization. These inputs and design constraints are
+discussed in Chapter \ref{ch:inputs_constraints}.
 
 \subsection{Neutronics Feature Selection}
 A valid reactor design needed to sustain a fission chain reaction for the entire
-10 years of the mission. Traditionaly, depletion calculations would be performed
-to model reactivity as a function of time. Depletion calculations were computationally expenseive and too slow to be
-integrated into a power cycle mass model. Instead of modeling depletion as a
-part of the optimization, a feature selection study was performed to determine
-the important geometric and operational parameters that affect reactivity. The
-target metric for reactivity was \keff > 1.0 at the end of the mission. Many different geometric and
+10 years of the mission. Traditionally, depletion calculations would be performed
+to model reactivity as a function of time. Depletion calculations were 
+computationally expensive and too slow to be integrated into a power cycle mass model. 
+Instead of modeling depletion as a part of the optimization, a feature selection 
+study was performed to determine the important geometric and operational parameters 
+that affected end of life reactivity. The target metric for reactivity 
+was \keff > 1.0 at the end of the mission. Many different geometric and
 operational parameters were explored in order to determine the important
 parameters impacting reactor performance. The feature selection analysis will be
-discussed in detail in \ref{ch:sweeps}.
+discussed in detail in Chapter \ref{ch:sweeps}.
 
 \subsection{Reactivity Modeling}
 Reactivity models were developed based on the information from the depletion
@@ -263,25 +271,37 @@ studies. These models were used to constrain the core dimensions to ensure the
 reactor would have enough reactivity to operate for 10 years. The reactivity
 models were less computationally expensive than the depletion models, but they
 were still too slow to be used in the power cycle optimization. A surrogate
-reactivity model was created using curve fitting and interpolation.
+reactivity model was created using curve fitting and linear interpolation.
 These calculations are discussed in detail in Chapter \ref{ch:crit_radius}.
 
 \subsection{Thermal Hydraulic Modeling}
-Thermal hydraulic calculations were performed with analytic models. A 1D
+Thermal hydraulic calculations were performed to ensure coolability. A 1D
 approximation was applied to simplify the core geometry in order to facilitate analytic
 analysis. Heat transfer equations were taken from literature and combined with
 best-estimate thermophysical and fluid properties to model allowable volumetric
-power densities limited by fuel melting temperatures. The fluid properties were
-derived from power cycle flow inputs (T, P, $\dot{m}$), and thermal power was
-provided to calculate the necessary core volume. The model also included mass
-calculations for the reactor components. The total reactor mass was returned to
-the power cycle mass model in order to optimize the overall power cycle mass.
-The thermal hydraulic modeling process is discussed in \ref{ch:mass_model}.
+power density limited by fuel melting temperatures. The core radius was
+constrained by the reactivity model to ensure the reactor could sustain operation
+for 10 years. A root-finding method was used to find the volumetric fuel
+fraction that generated the required thermal power dictated by the power cycle.
+Fluid properties were derived from power cycle flow inputs (T, P, $\dot{m}$).
+The model also included mass calculations for the reactor components. 
+The total reactor mass was returned to the power cycle mass model to be used to 
+optimize the overall power cycle mass. The thermal hydraulic modeling process 
+is discussed in Chapter \ref{ch:mass_model}.
+
+\subsection{Reactor Design Verification}
+The neutronic efficacy of the reactor mass model was verified with MCNP6.1. The
+results of a test reactor mass optimization were turned into an MCNP model to
+verify reactivity. Two reactivity verifications were performed; beginning of life
+and end of life reactivity were checked to ensure they met the target
+reactivity. In addition to the reactor design, the validity of the homogeneous
+geometry approximations used to simplify MCNP modeling were verified. These
+verifications are discussed in Chapter \ref{ch:verification}.
 
 \subsection{Software and Data}
-All neutronics modeling was performed using MCNP6.1 \cite{mcnp_citation}. Monte
-Carlo N-Particle (MCNP) code is a continuous-energy monte carlo simulation code
-developed at Los Alamos National Laboratory
+All neutronics modeling was performed using MCNP6.1 and ENDF7.2 nuclear data 
+\cite{mcnp_citation}. Monte Carlo N-Particle (MCNP) code is a continuous-energy 
+monte carlo simulation code developed at Los Alamos National Laboratory
 for modeling radiation transport. MCNP uses random number generators and
 probability density functions to model actual physics events like scattering,
 absorption, and fission. MCNP tracks particles through a user-defined geometry

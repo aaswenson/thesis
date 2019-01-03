@@ -1,4 +1,4 @@
-\chapter{Reactor Design Verification}
+\chapter{Reactor Design Verification}\label{ch:verification}
     As discussed earlier, the scope of this project was not to develop a mature
 reactor concept. Most of this work focused on modeling the mass of the
 reactor as a function of flow inputs and thermal power requirements. It is
@@ -76,10 +76,9 @@ approximations}
 
 \section{Reactivity Verification}
 After the reactor and power cycle was optimized with the total system optimizer,
-it was important to verify the resultant reactor design was valid. There was
-confidence in the coolability of the design to the extent that the 1D heat
-transfer equations accurately model the system. There exists more uncertainty
-with the neutronic validity of the reactor. The following are the main sources
+it was important to verify the resultant reactor design was valid. The
+neutronics modeling scheme presented numerous opportunities for systematic and
+stochaistic uncertainty. The following are the main sources
 of uncertainty in the neutronics modeling.
 
 \onehalfspacing
@@ -107,9 +106,9 @@ that target BOL reactivity was chosen appropriately. The optimized mass reactor
 from the power cycle optimization was used to verify BOL \keff. Table
 \ref{tab:bol_validate} shows the inputs from the power cycle, the optimized
 design parameters, and the modeled BOL \keff check. The BOL \keff of the optimized reactor
-is in good agreement with the target value. 
-The reactor has slightly more excess reactivity (~349 pcm) than the
-target reactivity. This gives credibility to the \keff modeling techniques.
+was in good agreement with the target value. 
+The reactor had slightly more excess reactivity (\~349 pcm) than the
+target reactivity. This gave credibility to the \keff modeling techniques.
 
 \subsection{EOL Reactivity Verification}
 End of life reactivity was modeled to check the excess reactivity threshold. The
@@ -155,7 +154,9 @@ reactivity satisfy neutronics requirements.
 
 Figure \ref{fig:dep_curve} shows the reactivity curve over the 10 year mission
 life. The blue line shows \keff = 1. The reactor has sufficient reactivity to
-remain critical throughout the 10 year mission.
+remain critical throughout the 10 year mission. The depleted reactivity
+(-0.01004 $\pm 0.00007 [\Delta k]$) matched the threshold chosen in 
+Chapter \ref{ch:crit_radius}. 
 
 \begin{figure}[h]
     \centering

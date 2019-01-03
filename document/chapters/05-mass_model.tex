@@ -31,7 +31,7 @@ to solve the system of equations discussed in this section.
 All flow properties were axially averaged between their inlet and outlet values.
 The inlet and outlet flow conditions, thermal power, and mass flow rate were
 dictated by the power cycle configuration and requirements. Property tables for
-both CO2 and H2O coolants as a function of pressure and temperature were 
+both \codiox and \water coolants as a function of pressure and temperature were 
 generated using EES and interpolated using SciPy's 2D interpolation functions
 \citep{scipy}, \citep{EES_citation}.
 The interpolated properties included: thermal conductivity [$\frac{W}{m-K}$], density
@@ -70,7 +70,7 @@ was 3.6 $[\frac{W}{m-K}]$ \citep{todreas_th}. The yield strength for SS-304 was
 used to calculate the required pressure vessel thicknes, the yield strength for
 SS-304 was 275 [MPa] \citep{ss_strength}.
 
-\section{1D Heat Transfer Algorithm}
+\section{1D Heat Transfer Model}
 The thermal hydraulic mass calculation was broken down into a series of steps.
 \begin{enumerate}
     \item Core geometry
@@ -90,8 +90,8 @@ sectional area for conduction in the fuel were all defined in this step. The
 core radius is set by the critical
 radius constraint dependent on the fuel fraction.
 
-Fuel area and volume was derived from the core radius and fuel fraction (f). Where
-$AR$ was the core aspect ratio.
+Fuel area and volume was derived from the core radius ($r_{core}$) and fuel
+fraction ($f_{fuel}$). Where $AR$ was the core aspect ratio.
 
 \begin{equation}
     A_{fuel} = f_{fuel}\cdot r_{core}^2 \cdot \pi
@@ -172,15 +172,24 @@ cycle. Flow velocity was calculated from mass flux and density.
 \end{equation}
 
 The Reynold's number was derived from flow velocity, density, viscosity, and the
-characteristic flow length (channel diameter, D).
+characteristic flow length of the coolant channel.
 
 \begin{equation}
-    Re = \frac{\rho v D}{\mu}
+    Re = \frac{2r_{channel}\cdot \rho v }{\mu}
 \end{equation}
 
-The Nusselt number was calculated using the pipeflow correlations from EES. EES
-treats laminar and turbulent flow differently. To model transitional flow, the
-following equation was used to smear the two correlations.
+The Nusselt number was calculated using the non-dimensional pipeflow
+correlations from EES. The correlation provides a Nusselt number as a function
+of Reynold's number ($Re$), length over diameter ($LD$), and relative roughness
+of the flow channels ($\epsilon$).
+\begin{equation}
+    Nu = f(Re, LD, \epsilon)
+\end{equation}
+
+EES treats laminar and turbulent flow with two different correlations. 
+Both correlations diminish far away from their respective
+range, the following equation was used to smear the two approximations to form a
+continuous Nusselt function.
 
 \begin{equation}
     Nu = (Nu_{lam}^6 + Nu_{turb}^6)^{\frac{1}{6}}
@@ -193,7 +202,7 @@ thermal conductivity of the fluid.
     \bar{h} = Nu \frac{k_{cool}}{D}
 \end{equation}
 
-\subsection{1D Thermal Modeling}
+\subsection{1D Heat Transfer}
 
 With a fully defined geometry and fully characterized flow, the maximum thermal
 output of the core was calculated. The maximum generation (at the center of the
@@ -326,7 +335,7 @@ coolable mass curve, any point below could not reject the required thermal heat
 input and any point above was not reaching its thermal power potential. The
 curves have opposite slopes, which means there existed no minimized, valid point on either
 curve except for the intersection. Points above both lines represent valid
-core designs, but are not the mass-optimized result.
+core designs, but are not the mass-optimized results.
 
 \section{Reactor Mass Model Summary}
 A reactor mass model was developed to optimize the mass of a coolable,

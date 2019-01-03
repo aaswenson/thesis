@@ -1,6 +1,9 @@
-\chapter{Conclusion}
-The goal of this project was to develop a constrained reactor mass model that did not rely
-on traditional reactor physics tools. The model needed to incorporate physics
+\chapter{Conclusion and Future Work}
+
+\section{Conclusion}
+The goal of this project was to develop a constrained reactor mass model that
+could be rapidly executed and integrated into a total power system mass
+optimization scheme. The model needed to incorporate physics
 constraints (cooling, criticality) in order to approximate and optimize reactor
 mass. The model was designed to be integrated
 into an overall power cycle model as part of a mass optimization process. A
@@ -11,7 +14,7 @@ fixed set of flow inputs. The reactor mass submodel was successfully integrated
 into the power cycle model and was used to optimize the overall mass of the
 power cycle. The resultant reactor was verified using traditional reactor
 physics tools to be a valid design that, with significant time, funding, and
-engineering effort, could be developed into a fully-fledged reactor concept.
+engineering effort, could be developed into a full-fledged reactor concept.
 
 \section{Future Work}
 While the project was successful in setting up a workflow for modeling a nuclear
@@ -21,6 +24,14 @@ modeling should be done to improve the technical readiness of the designs.
 Specifically, reactivity control and safety analysis needs to be incorporated
 into the design process.
 
+\subsection{Model Verification}
+Some verification work was done to check the reactivity of an optimized reactor
+design from the reactor mass model, more work should be done to verify the thermal
+model. The thermal model made many simplifying assumptions such as: plane wall
+conduction, 1D heat transfer, and a constant radius of conduction. Detailed
+thermal analysis with Finite Element software would be useful to verify the
+coolability of the optimized reactor designs.
+
 \subsection{Expanded Mass Modeling}
 Some reactor components were not considered for mass modeling. Notably absent
 from the model were control elements and shielding. Shielding was not considered
@@ -28,10 +39,11 @@ important due to the deployment of the reactor on Mars. Martian regolith could
 be used to shield the reactor. The reactor could be deployed in other parts of
 the solar system or as a power system on a spaecraft. Shielding could be
 important depending on the application. The mass of reactivity control systems
-should be added to the reactor mass model. The mass of control systems should be relatively independent
-of power but should be added regardless.
+should be added to the reactor mass model. The mass of control systems should 
+be relatively independent of power but should be added to the reactor mass
+model.
 
-\subsection{Design Exploration}
+\subsection{Expanded Design Exploration}
 In order to constrain the reactor optimization space, two fuel types were
 chosen. While this limitation was useful for developing the model, 
 there are many other fuel types that could be considered. For monolithic

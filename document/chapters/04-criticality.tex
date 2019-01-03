@@ -36,8 +36,8 @@ The \keff response to three modeled parameters was generated on a grid using
 MCNP6.1 models. The modeled parameters were core radius, fuel fraction, and
 reflector thickness as a multiplier of core radius. Core radius and fuel
 fraction were chosen in the feature selection analysis discussed in Chapter
-\ref{ch:sweeps}. Reflector thickness was added after the feature selection was
-conducted in order to minimize the critical reactor mass. 
+\ref{ch:sweeps}. Reflector thickness was added in order to minimize the 
+critical reactor mass. 
 The models were homogeneous geometries consisting of
 a core region (fuel, cladding, and coolant), a reflector region (graphite), a
 pressure vessel (SS-304), and finally the surronding Martian regolith. The top of the
@@ -52,9 +52,9 @@ reflector was buried 1 m below the surface of the Martian regolith. Figure
 \end{figure}
 
 The reactor model and surronding Martian soil was modeled in a sphere. Vaccuum
-boundary conditions were imposed on the edge of the sphere. Physically, neutrons
-that reach the edge of the sphere are extremely unlikely to return to the core
-and induce a fission, this is typical neutronics modeling practice.
+boundary conditions were imposed on the edge of the sphere. The radius of the
+sphere was set sufficiently large so that escaping neutrons would be unlikely to
+return to the reactor.
 
 Every \keff calculation was performed at room temperature. Neutron absorption
 due to doppler broadening in 
@@ -72,8 +72,8 @@ depletion neutronics could be replaced by simple \keff calculations. This
 was important because traditional depletion tools are too computationally
 expensive to explore the desired reactor parameter space. Excess reactivity was
 chosen based on the reactivity change in each of the 3901 depletion calculations. Figure
-\ref{fig:delta_k_eol} shows the reactivity swing $(\delta k$) for every core
-with 100 kg < core mass < 500 kg. These bounds were chosen by initial thermal analysis
+\ref{fig:delta_k_eol} shows the reactivity swing $(\Delta k$) for every core
+with 100 kg < core mass < 500 kg. These mass bounds were chosen by initial thermal analysis
 showing the reactor design would fall in this mass domain.
 
 \begin{figure}[h]
@@ -96,7 +96,7 @@ core radius, fuel fraction and, reflector multiplier. The workflow to
 optimize the mass of the \keff relationship subject to a reactivity constraint
 will be discussed as well. The following method is discussed for the \uox-\codiox
 reactor configuration. The workflow was eventually applied to all four reactor
-designs.
+designs (see Appendix \ref{ch:appendix-a}.
 
 \subsection{BOL Reactivity Modeling}
 Three predictor variables were explored to model BOL \keff: core radius,
@@ -159,10 +159,8 @@ parameters (r, f, m) was developed, such that:
 \end{equation}
 
 Where $r$ was core radius, $f$ was fuel fraction, and $m$ was reflector multiplier. This
-function was used to constrain the models to the required \keff target.
-This function would also be used to optimize the reactor configuration to
-minimize the total critical mass. The BOL \keff target was the constraint for
-this optimization.
+function was used to constrain the models to the required \keff target and
+minimize the total critical reactor mass.
 
 \subsection{Reactivity Interpolation in 3D Space}
 Linear interpolation was used to develop a function for \keff to be used to
@@ -285,7 +283,9 @@ each reactor configuration. The following is the results of the \uox fueled,
 Figure \ref{fig:mass_mult_one} shows the result of this optimization for one
 fuel fraction, 0.64 for the UO2-CO2 reactor configuration. An important takeaway here, is the lack of curvature in
 this plot. The reactor mass for this configuration was relatively insensitive to
-reflector thickness. This was due to the HEU fuel providing a much
+reflector thickness. When compared to the total power cycle mass (on the order
+of 1000 kg), the 2 kg difference in reactor mass was deemed insignificant.
+This relative insensitivity to reflector mass was due to the HEU fuel providing a much
 stronger absorption cross section, resulting in less neutron leakage from the core. In
 addition to strong fuel absorption, the reactor was buried in the Martian
 regolith, some reflection can be expected from the soil around the reactor.
@@ -389,5 +389,5 @@ The optimized multipliers were found to be constant as a function of fuel
 fraction and were modeled as such. Data was generated to represent critical core
 radii as a function of fuel fraction. These data were fit to a 7th
 degree polynomial that was used by the thermal hydraulic model to constrain the
-core radius. The implementation of this constrain will be discussed in the next
+core radius. The implementation of this constraint will be discussed in the next
 chapter.
