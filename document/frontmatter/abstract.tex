@@ -1,20 +1,46 @@
-Long-range space exploration to Mars and other parts of the solar system will
+Long-term space exploration to Mars and other parts of the solar system will
 require significant amounts of electrical power. Nuclear reactors have long been
-considered to deliver these power needs. Minimizing the total system mass of
+considered to meet these power needs. Minimizing the total system mass of
 electrical systems is crucial to minimize launch costs. A surrogate reactor
 model was developed to optimize the mass of a nuclear reactor for space
 applications. The model was designed to be used in conjunction with power cycle
-component mass models to explore the tradeoff between reactor and power cycle
-component mass with the goal of minimizing the total mass of the system. The
+component mass models to explore the tradeoff between component masses of 
+with the goal of minimizing the total mass of the system. The
 reactor mass model needed to rapidly execute in order to be useful in an
 optimization algorithm. To this end, a surrogate mass model was developed that
 did not rely on high-fidelity reactor physics and finite element analysis tools.
-The model included a reactivity constraint to ensure th
+The model included a reactivity constraint to support a 10 year mission life and
+a thermal constraint to ensure fuel integrity.
 
 The reactor mass model was coupled to an external power cycle model through flow
 inputs. Coolant flow conditions at the inlet and outlet of the core define
 thermophysical properties and core thermal power requirements that were used by
-the thermal hydraulic model to estimate achievable volumetric power densities in
+the thermal hydraulic model to estimate required volumetric power densities in
 the reactor core.
 
+The reactivity constraint was modeled as a beginning of life (BOL) excess reactivity
+target. The target was chosen using a large dataset of depletion calculations
+and was deemed sufficient to ensurve the optimized designs had sufficient excess reactivity
+to sustain 10 years of full-power operation. Important neutronics and operational
+parameters were also tested in this dataset to determine which parameters were
+most effective for use in a reduced-order reactivity model.
 
+A reduced-order surrogate reactivity model was developed to constrain a
+minimum-mass reactor to a target BOL reactivity. The reduced-order model was
+created from a large dataset of criticality calculations using MCNP6.1. This
+model was used to constrain the reactor geometry in the thermal hydraulic model.
+Thousands of MCNP \keff calculations were performed to generate a relationship
+between core radius, fuel fraction, reflector thickness, and \keff. This dataset
+was represented with trilinear interpolation in order to develop a
+mass-minimized relationship between core radius and fuel fraction that met the
+target excess reactivity.
+
+The reactor mass model was ultimately a neutronically-constrained thermal
+hydraulic model. The reactivity model was used to constrain the core radius as
+a function of fuel fraction in the thermal hydraulic model. The thermal
+hydraulic model used a root-finding routine to find a fuel fraction that met
+the required thermal input from an external power cycle model. The model used 1D
+heat transfer models to determine the fuel fraction that, combined with a constrained
+core radius, could generate the required thermal input. The result was a
+mass-optimized, fully constrained reactor design that met coolability and reactivity
+requirements for a 10 year mission and the given power cycle inputs.

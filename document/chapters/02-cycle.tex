@@ -41,10 +41,12 @@ heat transfer from the reactor cladding to the coolant. The flow properties
 provided by the power cycle model were:
 
 \begin{enumerate}
-    \item inlet/outlet temperature
-    \item inlet/outlet pressure
-    \item mass flow rate
-    \item thermal power
+    \item inlet/outlet temperature: used to define axially averaged fluid
+        temperature.
+    \item inlet/outlet pressure: used to define axially-averaged fluid pressure
+        and the allowable axial pressure drop.
+    \item mass flow rate: used to define flow conditions.
+    \item thermal power: used to constrain core geometry to a power requirement.
 \end{enumerate}
 
 Inlet and outlet temperature were used to calculate an axially-averaged bulk
@@ -53,10 +55,10 @@ drop from the maximum fuel temperature to the coolant. The temperature was also
 used to calculate axially-averaged thermophysical properties. The inlet and
 outlet pressure was used to calculate and axially-averaged bulk pressure. This
 bulk pressure was used to calculate the required pressure vessel thickness and
-to calculate axially-averaged thermophysical properties. Mass flow rate was used
-to define mass flux through the core. Thermal power was passed as a convenience
-from the power cycle and matches the required enthalpy change in the reactor
-dictated by the power cycle model.
+to calculate axially-averaged thermophysical properties. The i Mass flow rate was used
+to define mass flux through the core. Thermal power was taken as input
+from the power cycle and matched the required enthalpy change in the reactor to
+drive the power cycle.
 
 These conditions were taken as inputs from the power cycle model. For the sake of
 cycle optimization, the model returned a reactor mass that matched the flow
@@ -96,7 +98,7 @@ density than the UW-CERMET fuel.
   \caption{\uox fuel composition}
   \begin{tabular}{cc}
     \toprule
-    Isotope   & Number Density [$\frac{a}{b-c}$] \\
+    Isotope   & Number Density [$\frac{atoms}{b-cm}$] \\
     \midrule
     8016	&	0.06280	\\
     92235	&	0.02216	\\
@@ -110,7 +112,7 @@ density than the UW-CERMET fuel.
   \caption{UW-CERMET fuel composition}
   \begin{tabular}{cc}
     \toprule
-    Isotope   & Number Density [$\frac{a}{b-c}$] \\
+    Isotope   & Number Density [$\frac{atoms}{b-cm}$] \\
     \midrule
     7015	&	0.01513	\\
     74180	&	0.00003	\\
@@ -126,27 +128,12 @@ density than the UW-CERMET fuel.
 
 \newpage
 
-\subsection{Fuel Design Modularity}
-A fuel design was chosen to constrain the reactor model. In order to support
-alternate designs, the reactor model was developed in a modular fashion.
-Different fuel configurations such as pin-type or TRISO particle fuel could be
+To support alternative fuel designs, the reactor model was developed in a modular fashion.
+In the future different fuel configurations such as pin-type or TRISO particle fuel could be
 explored with a different set of heat transfer equations and criticality models.
 This will be discussed in more detail in following chapters.
 
-\section{Component Mass Model Development}
-The reactor and power cycle models were developed independently and combined
-to model the entire system. While the reactor model
-was under development, a simplified analytic model was used in place of the
-reactor model to return an estimate of reactor mass. While the power cycle model
-was under development (in tandem with the reactor model), a set of assumed flow
-inputs were used to simulate a power cycle thermal load. The reactor model was
-developed in Python and the power cycle model was developed in MATLAB. This
-unintentional mismatch in development choices proved interesting when it came
-time to merge the models! Despite this challenge, the reactor model was smoothly
-imported into the MATLAB power cycle model and the two models worked seamlessly
-to model the overall cycle mass.
-
-\section{Inputs and Constraints Summary}
+\section{Summary}
 The reactor mass model was designed to take inputs from an external power cycle
 model. These inputs came in the form of coolant flow conditions that were used
 to define thermophysical properties and the required thermal power of the

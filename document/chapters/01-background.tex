@@ -11,36 +11,31 @@ the International Space Station (ISS) in low-earth orbit (LEO). SpaceX delivers
 supplies to the ISS for more than \$13,000 per kg\citep{spacex}. Launch costs to Mars or the
 Moon will be significantly higher given the required energy to escape Earth's
 orbit. To this end, a surrogate mass model of a small fission
-nuclear reactor was developed. This work was a sub-set of a larger
+nuclear reactor was developed. This work was a part of a larger
 project to explore the mass tradeoff between the critical components of the
 electrical power system in order to minimize the mass of the system as a whole.
 This project developed the reactor mass model to support the goal of the overall
 project.
 
 \section{Scope}
-This project focused on exploring the tradeoffs between reactor mass and the
-mass of significant components of the power cycle. Traditional reactor physics
-tools could not be used for depletion calculations because they are to slow to
-integrate into an optmization routine. To support the power system mass optimization, this project focused on
-developing a surrogate model for the reactor mass to be integrated into the
-power cycle model. The model needed to take inputs from the power cycle and
-rapidly exceute to return the minimum mass reactor that could meet the thermal
-power requirement of the power cycle. The overall cycle was constrained to the
-target lifetime and power output dictated by the project sponsors. The reactor
-was modeled sufficiently so that future work could feasibly develop the
-concept into a deployable reactor within a reasonable amount of time.
+This project supported a larger effort to explore the mass tradeoff between the
+power cycle components and the reactor for a space power system. To this end,
+this project focused on developing a surrogate model for reactor mass that could
+be rapidly executed and easily integrated into an external power cycle model.
+The reactor was modeled sufficiently to estimate its mass for a given set of
+coolant flow conditions.
 The purpose of this work was not to develop a fully-fledged reactor concept.
-High-fidelity core modeling of neutronics and thermal hydraulics was not
+High-fidelity modeling of core neutronics and thermal hydraulics was not
 performed for this work.
 
 \section{Constraints}
 The two main constraints for the power system were provided by the project sponsors,
-and ultimately dictated by NASA. NASA has identified the following performance
-requirements: a 10 year lifetime and a 40 kWe power level, as sufficient to
+and ultimately dictated by NASA. NASA has identified that: a 10 year lifetime 
+and a 40 kWe power level, are sufficient to
 support future terrestrial exploration throughout the solar system. All nuclear fuel
 options were available for the reactor with a preference for high near-term
 technical readiness. The use of high enriched uranium was acceptable. 
-The reactor is be direct-cooled, drivnig a
+The reactor is direct-cooled, driving a
 supercritical carbon dioxide brayton cycle to produce the desired electrical
 output. The reactor will be used only for terrestrial applications, not in
 transit. This helps shielding mass, because the reactor can be buried prior to
@@ -217,7 +212,7 @@ choices.
     (T, P, $\dot{m}$) where the INL reactor mass responded only to thermal
     power.
 
-\section{Background Summary}
+\section{Summary}
 Since humans have pursued space exploration, there has been significant design, 
 testing, and deployment effort of nuclear technology for spaceflight. Traditionally
 RTGs have been used for deep space probes and terrestrial landers. Fission power
@@ -235,59 +230,36 @@ will be performed with super-critical carbon dioxide. Fuel choices for the
 reactor model will be informed from past design experience.
 
 \section{Modeling Methodology}
-This project modeled the miminimum mass of a small fission reactor in support of
-the development of an optimized power cycle. The reactor mass model needed to
-execute rapidly in order to integrate into the overall cycle optimization.
-Traditional reactor physics and thermal hydraulic analysis tools were too slow to
-integrate into a wholistic system optimization. The reactor mass model needed to
-take flow inputs from the power cycle and calculate the minimum mass reactor 
-with the flow inputs coupling the reactor to the other cycle components. 
+This work developed a surrogate reduced-order model for the reactor component of
+a small electrical system. The model rapidly estimates the minimum mass reactor 
+for a given set of flow conditions, ensuring that it remains critical throughout
+its lifetime and that fuel temperatures remain below safety thresholds.
 Simplified analytical heat transfer and statistical neutronics functions 
-were developed to model a minimum-mass reactor.
-
-\subsection{Inputs and Constraints}
-The reactor mass model was designed to integrate into a power cycle mass model.
-To this end, the coupling inputs between the reactor mass model and the power
-cycle mass model were clearly defined. Initial reactor design choices were made
-to constrain the mass optimization. These inputs and design constraints are
-discussed in Chapter \ref{ch:inputs_constraints}.
+were developed to model the minimum-mass reactor. Chapter
+\ref{ch:inputs_constraints} discusses the flow inputs to the reactor model and
+some initial design choices used to constrain the model. There were three main steps to
+developing the reactor mass model: neutronics feature selection, reactivity
+modeling, and thermal hydraulic modeling.
 
 \subsection{Neutronics Feature Selection}
-A valid reactor design needed to sustain a fission chain reaction for the entire
-10 years of the mission. Traditionally, depletion calculations would be performed
-to model reactivity as a function of time. Depletion calculations were 
-computationally expensive and too slow to be integrated into a power cycle mass model. 
-Instead of modeling depletion as a part of the optimization, a feature selection 
-study was performed to determine the important geometric and operational parameters 
-that affected end of life reactivity. The target metric for reactivity 
-was \keff > 1.0 at the end of the mission. Many different geometric and
-operational parameters were explored in order to determine the important
-parameters impacting reactor performance. The feature selection analysis will be
-discussed in detail in Chapter \ref{ch:sweeps}.
+Chapter \ref{ch:sweeps} describes the feature selection process used to identify
+which geometric, material, and operational parameters had the strongest impact
+on reactivity. A large data set of depletion calculations was used to explore
+the parameter space. The results of this work informed the developement of a
+reduced-order reactivity model.
 
 \subsection{Reactivity Modeling}
-Reactivity models were developed based on the information from the depletion
-studies. These models were used to constrain the core dimensions to ensure the
-reactor would have enough reactivity to operate for 10 years. The reactivity
-models were less computationally expensive than the depletion models, but they
-were still too slow to be used in the power cycle optimization. A surrogate
-reactivity model was created using curve fitting and linear interpolation.
-These calculations are discussed in detail in Chapter \ref{ch:crit_radius}.
+Chapter \ref{ch:crit_radius} discusses the development of a reduced-order
+reactivity model that was used to constrain the reactor mass model to a target excess
+reactivity. A combination of tri-linear interpolation and polynomial curve
+fitting was used to model reactivity and constrain the core geometry to a target
+reactivity.
 
 \subsection{Thermal Hydraulic Modeling}
-Thermal hydraulic calculations were performed to ensure coolability. A 1D
-approximation was applied to simplify the core geometry in order to facilitate analytic
-analysis. Heat transfer equations were taken from literature and combined with
-best-estimate thermophysical and fluid properties to model allowable volumetric
-power density limited by fuel melting temperatures. The core radius was
-constrained by the reactivity model to ensure the reactor could sustain operation
-for 10 years. A root-finding method was used to find the volumetric fuel
-fraction that generated the required thermal power dictated by the power cycle.
-Fluid properties were derived from power cycle flow inputs (T, P, $\dot{m}$).
-The model also included mass calculations for the reactor components. 
-The total reactor mass was returned to the power cycle mass model to be used to 
-optimize the overall power cycle mass. The thermal hydraulic modeling process 
-is discussed in Chapter \ref{ch:mass_model}.
+Chapter \ref{ch:mass_model} presents a root-finding algorithm to combine a
+thermal hydraulic model with the reactivity constraint model. This constrained
+thermal hydraulic model was used to identify a minimum-mass reactor that
+satified flow conditions imposed by an external power cycle model.
 
 \subsection{Reactor Design Verification}
 The neutronic efficacy of the reactor mass model was verified with MCNP6.1. The
@@ -319,3 +291,4 @@ files, filter and clean it for post processing, and to develop statistical curve
 fits to neutronics results. These statistical models were combined with
 analytical heat transfer models to model reactor response to power cycle flow
 inputs.
+

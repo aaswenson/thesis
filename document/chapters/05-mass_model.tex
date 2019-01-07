@@ -1,19 +1,21 @@
 \chapter{Reactor Mass Model} \label{ch:mass_model}
 The reactor mass model was created as a submodel of the power cycle mass
 model. The reactor mass model was designed to take flow property inputs (T, P,
-$\dot{m}$) and constrain a reactor concept that was both coolable, and critical
-after 10 years of full power operation. The reactor model was developed in
-Python. The attribute of interest was the reactor mass, but other useful values such as geometry, fuel fraction,
-and fluid-flow parameters were available from the solver. This chapter will
-describe the thermal hydraulic model that became the reactor mass model when
-constrained with the critical radius curve discussed in Chapter
-\ref{ch:crit_radius}.
+$\dot{m}$) and model a reactor concept that was both coolable, and critical
+after 10 years of full power operation. The attribute of interest was the 
+reactor mass, but other useful values such as geometry, fuel fraction,
+and fluid-flow parameters were available from the solver. Most of the reactor
+mass model is a thermal hyraulic model to ensure the reactor does not violate fuel
+temperature limits. The thermal hydraulic model was constrained by the
+neutronics model discussed in Chapter \ref{ch:crit_radius}. The constrained
+model produced minimum-mass reactor designs that met coolability and 
+reactivity requirements for a set of input flow conditions.
 
 \section{Thermal Hydraulic Model}
-An important design constraint of a valid reactor design was coolability. The reactor must
+Coolability was an important design constraint for a valid reactor. The reactor must
 not melt and the integrity of the fuel must be maintained for the duration of
-the mission. To ensure the thermal hydraulic validity of a chosen design, 
-1D heat transfer and bulk-averaged fluid flow calculations were performed. The 1D
+the mission. One-dimensional heat transfer and bulk-averaged fluid flow calculations were
+performed to ensure the coolability of the reactor. The 1D
 heat transfer and fluid equations were coupled with analytical peaking factors
 factors from nuclear engineering literature to determine the maximum extractable
 thermal power for each reactor design. A 1D resistance network was used to
@@ -337,7 +339,7 @@ curves have opposite slopes, which means there existed no minimized, valid point
 curve except for the intersection. Points above both lines represent valid
 core designs, but are not the mass-optimized results.
 
-\section{Reactor Mass Model Summary}
+\section{Summary}
 A reactor mass model was developed to optimize the mass of a coolable,
 neutronically-valid reactor to meet a set of power cycle inputs. The model
 consisted of a 1D thermal hydraulic model to calculate limiting thermal power

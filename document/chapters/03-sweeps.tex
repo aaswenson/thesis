@@ -36,6 +36,7 @@ shown in Table \ref{tab:lhs_sweep_vars}.
      Coolant Channel Radius                & 0.5 - 1 [cm] \\
      Fuel Pitch to Coolant Channel D.      & 1.1-1.6 [-]\\
      Thermal Power						   & 80-200 [kW]\\
+     \hdashline
      Reflector Thickness				   & 15 [cm]\\
      Core Aspect Ratio					   & 1 [-] \\
      Fuel Temperature					   & 300 [K]\\
@@ -73,7 +74,9 @@ to fuel fraction and core volume. For a fixed aspect ratio of 1, core volume was
 a cubic function of core radius. This made EOL \keff strongly dependent on core
 radius. Figure \ref{fig:eol_keff_vs_r_core} shows the correlation between 
 core radius and EOL \keff. There was a strong relationship between core radius
-and fuel mass, increasing fuel mass increased EOL \keff.
+and fuel mass, increasing fuel mass increased EOL \keff. Figure
+\ref{fig:eol_keff_vs_r_core} also demonstrates the impact of fuel density on EOL
+\keff. For a fixed mass of uranium, smaller, denser cores had more reactivity.
 
 \begin{figure}[h]
     \centering
@@ -85,7 +88,7 @@ and fuel mass, increasing fuel mass increased EOL \keff.
 \subsection{Fuel Enrichment}
 Fuel enrichment directly affects \uran mass in nuclear fuel. Higher enrichments
 yield more \uran mass for a fixed mass of fuel. Figure
-\ref{eol_keff_vs_mass_enrich} shows how increasing enrichment increased \uran
+\ref{fig:eol_keff_vs_mass_enrich} shows how increasing enrichment increased \uran
 mass and EOL \keff. For fixed \uran masses, increasing fuel mass also impacted
 reactivity. For fixed \uran masses, higher enriched cores had greater \uran
 density and as a result, higher EOL \keff.
@@ -141,34 +144,27 @@ As shown in Figure \ref{fig:eol_keff_vs_power}, EOL \keff was independent of cor
 thermal power. The depletion mass of uranium was negligigle compared to the mass 
 of uranium required for the reactor to be critical at BOL. This was confirmed
 with a quick calculation. Assuming a thermal power of 150 kW for 10 years and
-192 MeV per fission, the depleted mass (dU) of \uran could be calculated.
+192 MeV per fission, a reactor depletes approximately 600 grams of \uran.
+This negligible compared to the BOL mass of a typical reactor
+core (\~100-500 kg). Thermal power was not a strong predictor of EOL criticality.
 
-\begin{equation}
-    dU = \frac{1.5x10^5\:J}{s}\;\frac{3.156x10^8\:s}{1}\;\frac{1\:
-    fiss}{3.076x10^{-11}\:J}\;\frac{1\:mol}{6.022x10^{23}\:fiss}\;\frac{235\:
-    g}{mol}
-\end{equation}
+\section{Summary}
+The purpose of this work was to perform a rudimentry feature
+selection, to aid the development of a reduced-order reactivity
+model. The study helped identify key predictors for EOL \keff.
 
-At 150 kW of fission power, the reactor depletes approximately 600 grams of
-\uran. This is a negligible mass compared to the BOL mass of a typical reactor
-core (~100-500 kg). Thermal power was not a strong predictor of EOL criticality.
+For this analysis, 3901 MCNP6.1 depletion calculations were
+performed over a 5-dimensional sample space. Since thermal power had a
+negligible impact on EOL \keff, a BOL excess reactivity target was deemed 
+sufficient to ensure the reactor could operate for a 10 year lifetime. 
+The other conclusion of this work was that, fissile
+fuel mass had the greatest impact on reactivity. Core radius,
+fuel fraction, and enrichment all impact fissile fuel mass and as a result, had
+the greatest impact on reactivity.
 
-\section{Parametric Study Conclusion}
-The purpose of this parametric study was to perform a rudimentry feature
-selection. The feature selection was used to develop a reduced-order reactivity
-model. The parametric study helped identify key predictors
-for the neutronic performance of a reactor design.
-
-The figure of merit for neutronics performance was EOL \keff. The reactor must
-sustain a fission chain reaction throughout the mission lifetime. In order to
-ensure the reactor mass model generated a neutronically viable core, it was
-necessary to determine on which input parameters EOL \keff is most strongly
-dependent. For this analysis, 3901 MCNP6.1 depletion calculations were
-performed over a 5-dimensional sample space using the Latin Hypercube Sampling
-technique to ensure even sampling. The conclusion of this work was that fissile
-material mass is the most important parameter to predict EOL \keff. Another
-important conclusion was that EOL \keff is relatively independent of thermal power. This
-meant EOL \keff could be estimated as BOL \keff adjusted for marginal burnup.
-This conclusion was useful to constrain reactor parameters and will be utilized
-in Chapter \ref{ch:crit_radius} to justify a relationship between core fuel fraction
-and a required core radius to ensure EOL \keff > 1.0.
+The conclusions from this study were used to inform the development of the
+surrogate reactivity model discussed in Chapter \ref{ch:crit_radius}. Fuel
+enrichment was fixed at 93\% to maximize fissile fuel content. A constrained relationship
+between core radius and fuel fraction would be used to define a core geometry with
+sufficient excess reactivity. This relationship was used in the
+thermal hydraulic model discussed in Chapter \ref{ch:mass_model}.
