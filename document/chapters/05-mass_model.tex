@@ -134,6 +134,13 @@ number of channels (N).
     A_{conv} = 2\cdot r_{channel}\cdot \pi\cdot r_{core}\cdot AR\cdot N
 \end{equation}
 
+The conduction area was set (conservatively) to be the convection surface area.
+
+\begin{equation}
+    A_{cond} = A_{conv}
+\end{equation}
+
+
 The length over diameter was derived from the channel radius and core length.
 
 \begin{equation}
@@ -218,11 +225,11 @@ Resistance to conduction in the fuel was approximated as plane wall conduction.
 \end{equation}
 
 \begin{equation}
-    R_{clad} = log(1+\frac{t_{clad}}{r_{channel}})
+    R_{clad} = \frac{ln(1+\frac{t_{clad}}{r_{channel}})}{k_{clad}A_{conv}}
 \end{equation}
 
 \begin{equation}
-    R_{conv} = \frac{1}{2\cdot r_{channel}\cdot AR\cdot r_{core} \cdot \pi\cdot N}
+    R_{conv} = \frac{1}{\bar{h}A_{conv}}
 \end{equation}
 
 The maximum heat transfer rate at the fuel centerline was derived from the

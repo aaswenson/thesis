@@ -40,15 +40,19 @@ cr_data = load_data_crit('crit_mass.txt')
 
 
 fig = plt.figure()
-colors = ['r', 'g', 'b', 'c', 'k']
-for i, Q in enumerate(sorted(th_data.keys())):
+colors = ['k', 'g', 'b', 'c', 'r']
+
+y1 = cr_data['mass']
+
+for i, Q in enumerate([sorted(th_data.keys())[-1]]):
     dat = th_data[Q]
     plt.scatter(dat['frac'], dat['mass'], label=str(int(Q)), s=8, c=colors[i])
     plt.plot(dat['frac'], dat['mass'], c=colors[i], linestyle='--')
+    y2 = dat['mass']
 
 plt.scatter(cr_data['frac'], cr_data['mass'], s=8, c='y', label='Critical Mass')
 plt.plot(cr_data['frac'], cr_data['mass'], c='y', linestyle='--')
-plt.ylim((0, 500))
+plt.ylim((0, 2000))
 plt.xlabel('fuel fraction [-]')
 plt.ylabel('core mass [kg]')
 plt.title('Limiting Core Mass')
